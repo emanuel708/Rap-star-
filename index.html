@@ -73,4 +73,311 @@ body { margin: 0; background: radial-gradient(circle at top, #132247, #070d1a 70
 /* Social Feed (Imstagram) */
 .social-header { display: flex; align-items: center; justify-content: space-between; background: var(--grad-social); padding: 15px; border-radius: 12px; margin-bottom: 15px; font-weight: bold; }
 .post-card { background: #091022; border: 1px solid var(--line); border-radius: 12px; padding: 15px; margin-bottom: 10px; }
-.post-user { display: flex; align-items: center; gap: 10px; margin-bottom: 1
+.post-user { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-weight: bold; font-size: 13px; }
+.post-user img { width: 30px; height: 30px; border-radius: 50%; background: var(--p2); }
+.post-content { font-size: 14px; line-height: 1.4; margin-bottom: 10px; }
+.post-actions { display: flex; gap: 15px; color: var(--muted); font-size: 12px; font-weight: bold; }
+.post-actions span { display: flex; align-items: center; gap: 5px; }
+
+/* Event Canonical Overlay */
+.event-box { background: var(--orange); padding: 20px; border-radius: 16px; text-align: center; }
+.event-box h3 { margin: 0 0 10px 0; font-size: 24px; color: #fff; }
+.event-box p { font-size: 15px; line-height: 1.5; margin-bottom: 20px; color: rgba(255,255,255,0.9); }
+.event-box button { background: rgba(0,0,0,0.4); color: #fff; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.2); }
+</style>
+</head>
+<body>
+
+<main class="app">
+  <div class="top-bar">
+    <div id="dateDisplay" style="color:#38bdf8">Semana 1 · Temp 1</div>
+    <div class="stats">
+      <span id="moneyDisplay" style="color:#10b981">$500</span>
+      <span id="energyDisplay">⚡ 100%</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="dashboard">
+      <div class="side-bars">
+        <div class="v-bar-container">FORMA<div class="v-bar"><div class="v-fill" id="barFitness"></div></div></div>
+        <div class="v-bar-container">MORAL<div class="v-bar"><div class="v-fill moral" id="barMorale"></div></div></div>
+      </div>
+      
+      <div class="avatar-box">
+        <div class="avatar-visual" onclick="openCustomizer()">
+          <div class="av-skin" id="avSkin"></div>
+          <div class="av-hair" id="avHair">👦</div>
+          <div class="av-face" id="avFace">😐</div>
+          <div class="av-shirt" id="avShirt">10</div>
+        </div>
+        <div style="margin-top:10px;font-weight:900;font-size:18px" id="playerName">Jugador</div>
+        <div style="font-size:12px;color:var(--muted)" id="playerClub">Libre</div>
+      </div>
+
+      <div class="side-bars">
+        <div class="v-bar-container">HYPE<div class="v-bar"><div class="v-fill hype" id="barHype"></div></div></div>
+        <div class="v-bar-container">OVR<div class="v-bar"><div class="v-fill" id="barOvr"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-grid">
+    <button class="menu-tile highlight" onclick="playMatch()"><span>⚽</span> JUGAR PARTIDO</button>
+    <button class="menu-tile" onclick="openTraining()"><span>🏃</span> ENTRENAR</button>
+    <button class="menu-tile" onclick="openSocial()"><span>📱</span> IMSTAGRAM</button>
+    <button class="menu-tile" onclick="nextWeek()" style="background:var(--p2); border-color:var(--line);"><span>⏳</span> AVANZAR SEMANA</button>
+  </div>
+</main>
+
+<nav class="nav-bar">
+  <button class="nav-item active" onclick="closeModal()"><span>🏠</span><span>Inicio</span></button>
+  <button class="nav-item" onclick="openCompetitions()"><span>🏆</span><span>Torneos</span></button>
+  <button class="nav-item" onclick="openTransfers()"><span>🌍</span><span>Mercado</span></button>
+  <button class="nav-item" onclick="openCustomizer()"><span>🎨</span><span>Estilo</span></button>
+</nav>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modalContent">
+    <h2 id="mTitle">Título</h2>
+    <div id="mBody">Contenido</div>
+    <button class="btn alt" onclick="closeModal()">Cerrar</button>
+  </div>
+</div>
+
+<script>
+// Base State
+const fresh = () => ({
+  name: "Novato", number: 10, week: 1, season: 1, money: 500,
+  energy: 100, fitness: 80, morale: 80, hype: 10, followers: 150,
+  stats: { tech: 50, phys: 50, ment: 50 },
+  club: "Juvenil FC", league: "Divisiones Menores",
+  avatar: { skin: "#fcd5ce", hair: "👦", face: "😐", shirt: "#10b981" },
+  feed: [{user: "GrowMe Sports", handle: "@growme", text: "¡Una nueva promesa entra al mundo del fútbol! Atentos a su carrera.", likes: 45}]
+});
+let s; try { s = JSON.parse(localStorage.getItem("proSoccerSimX")) || fresh(); } catch(e) { s = fresh(); }
+
+const save = () => localStorage.setItem("proSoccerSimX", JSON.stringify(s));
+const $ = id => document.getElementById(id);
+const getOVR = () => Math.round((s.stats.tech * 0.4) + (s.stats.phys * 0.4) + (s.stats.ment * 0.2));
+
+function closeModal() { $("overlay").style.display = "none"; }
+function showModal(title, html) { $("mTitle").innerHTML = title; $("mBody").innerHTML = html; $("overlay").style.display = "flex"; }
+
+// Update UI
+function render() {
+  $("dateDisplay").textContent = `Semana ${s.week} · Temp ${s.season}`;
+  $("moneyDisplay").textContent = `$${s.money}`;
+  $("energyDisplay").textContent = `⚡ ${s.energy}%`;
+  
+  $("barFitness").style.height = `${s.fitness}%`;
+  $("barMorale").style.height = `${s.morale}%`;
+  $("barHype").style.height = `${s.hype}%`;
+  $("barOvr").style.height = `${getOVR()}%`;
+
+  $("playerName").textContent = s.name;
+  $("playerClub").textContent = s.club;
+
+  $("avSkin").style.background = s.avatar.skin;
+  $("avHair").textContent = s.avatar.hair;
+  $("avFace").textContent = s.avatar.face;
+  $("avShirt").style.background = s.avatar.shirt;
+  $("avShirt").textContent = s.number;
+  save();
+}
+
+// Time & Canonical Events
+function nextWeek() {
+  s.week++;
+  if(s.week > 52) { s.week = 1; s.season++; }
+  s.energy = Math.min(100, s.energy + 40);
+  s.fitness = Math.max(10, s.fitness - 5); // Decays if not playing/training
+  s.money -= 50; // Living costs
+  
+  if (Math.random() < 0.25) triggerCanonicalEvent();
+  else { render(); alert("La semana ha avanzado. Recuperaste energía."); }
+}
+
+function triggerCanonicalEvent() {
+  const events = [
+    {
+      title: "🔥 Salida Nocturna", desc: "Tus amigos de la infancia te invitan a una fiesta un día antes del entrenamiento.",
+      btn1: "Ir a la fiesta (-20 Forma, +15 Moral)", a1: () => { s.fitness-=20; s.morale+=15; },
+      btn2: "Quedarse en casa (+10 Forma, -5 Moral)", a2: () => { s.fitness+=10; s.morale-=5; }
+    },
+    {
+      title: "📸 Patrocinio Dudoso", desc: "Una marca de bebidas energéticas quiere patrocinarte, pero el producto es de mala calidad.",
+      btn1: "Aceptar el dinero (+$300, -10 Hype)", a1: () => { s.money+=300; s.hype-=10; },
+      btn2: "Rechazar por principios (+10 Moral)", a2: () => { s.morale+=10; }
+    },
+    {
+      title: "🥊 Roce en el Vestuario", desc: "Un compañero veterano te critica duramente frente a todo el equipo.",
+      btn1: "Enfrentarlo (Sube Hype, Baja Moral)", a1: () => { s.hype+=10; s.morale-=15; },
+      btn2: "Callar y trabajar (Sube Ment, Baja Hype)", a2: () => { s.stats.ment+=2; s.hype-=5; }
+    }
+  ];
+  const ev = events[Math.floor(Math.random() * events.length)];
+  
+  showModal("Evento Canónico", `
+    <div class="event-box">
+      <h3>${ev.title}</h3><p>${ev.desc}</p>
+      <button class="btn" onclick="resolveEvent(${events.indexOf(ev)}, 1)">${ev.btn1}</button>
+      <button class="btn" onclick="resolveEvent(${events.indexOf(ev)}, 2)">${ev.btn2}</button>
+    </div>
+  `);
+}
+
+function resolveEvent(index, choice) {
+  // Logic execution is hardcoded based on index for simplicity in standalone
+  if(index===0){ choice===1 ? (s.fitness-=20, s.morale+=15) : (s.fitness+=10, s.morale-=5); }
+  if(index===1){ choice===1 ? (s.money+=300, s.hype-=10) : (s.morale+=10); }
+  if(index===2){ choice===1 ? (s.hype+=10, s.morale-=15) : (s.stats.ment+=2, s.hype-=5); }
+  closeModal(); render();
+}
+
+// Customizer
+function openCustomizer() {
+  const skins = ["#fcd5ce","#f5b08c","#c68642","#8d5524","#3d2210"];
+  const hairs = ["👦","🧑‍🦱","👱","🧔","🧢","🧑‍🦲","👲","👳"];
+  const faces = ["😐","😎","😠","😏","🤩","🥵","🥶"];
+  const shirts = ["#10b981","#3b82f6","#ef4444","#f59e0b","#ffffff","#000000","#ec4899"];
+
+  showModal("🎨 Taller de Estilo", `
+    <div class="cust-section">
+      <p>Tono de Piel</p>
+      <div class="cust-grid">
+        ${skins.map(c=> `<div class="cust-item color" style="--c:${c}" onclick="setAv('skin','${c}')"></div>`).join("")}
+      </div>
+    </div>
+    <div class="cust-section">
+      <p>Peinado / Accesorios</p>
+      <div class="cust-grid">
+        ${hairs.map(h=> `<div class="cust-item" onclick="setAv('hair','${h}')">${h}</div>`).join("")}
+      </div>
+    </div>
+    <div class="cust-section">
+      <p>Expresión Facial</p>
+      <div class="cust-grid">
+        ${faces.map(f=> `<div class="cust-item" onclick="setAv('face','${f}')">${f}</div>`).join("")}
+      </div>
+    </div>
+    <div class="cust-section">
+      <p>Color de Camiseta</p>
+      <div class="cust-grid">
+        ${shirts.map(c=> `<div class="cust-item color" style="--c:${c}" onclick="setAv('shirt','${c}')"></div>`).join("")}
+      </div>
+    </div>
+  `);
+}
+function setAv(part, val) { s.avatar[part] = val; render(); $("avSkin").style.background = s.avatar.skin; $("avHair").textContent = s.avatar.hair; $("avFace").textContent = s.avatar.face; $("avShirt").style.background = s.avatar.shirt;}
+
+// Imstagram Social
+function openSocial() {
+  const feedHtml = s.feed.map(p => `
+    <div class="post-card">
+      <div class="post-user"><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'></svg>"> <div>${p.user} <span style="color:var(--muted);font-weight:normal">${p.handle}</span></div></div>
+      <div class="post-content">${p.text}</div>
+      <div class="post-actions"><span>❤️ ${p.likes}</span> <span>💬 ${Math.floor(p.likes/4)}</span></div>
+    </div>
+  `).join("");
+
+  showModal("📱 Imstagram", `
+    <div class="social-header">
+      <div>Seguidores: ${s.followers.toLocaleString()}</div>
+      <div>Hype: ${s.hype}%</div>
+    </div>
+    <button class="btn" style="margin-bottom:15px; background:var(--p2); color:#fff; border:1px solid var(--line)" onclick="postContent()">Publicar Foto de Entrenamiento (-10 Energía)</button>
+    ${feedHtml}
+  `);
+}
+
+function postContent() {
+  if (s.energy < 10) return alert("Muy cansado para redes.");
+  s.energy -= 10;
+  let gain = Math.floor(Math.random() * (getOVR() * 10)) + 50;
+  s.followers += gain; s.hype = Math.min(100, s.hype + 5);
+  s.feed.unshift({user: s.name, handle: "@"+s.name.replace(/\s/g,'').toLowerCase(), text: "Trabajando duro para ser el mejor. 💪⚽ #Focus", likes: gain*2});
+  if(s.feed.length > 10) s.feed.pop();
+  openSocial(); render();
+}
+
+// Training
+function openTraining() {
+  showModal("🏃 Centro de Alto Rendimiento", `
+    <button class="btn" style="background:var(--p2); color:#fff; border:1px solid var(--line)" onclick="doTrain('tech')"><b>Control y Definición</b><br><small>-20 Energía | +Técnica</small></button>
+    <button class="btn" style="background:var(--p2); color:#fff; border:1px solid var(--line)" onclick="doTrain('phys')"><b>Gimnasio y Pista</b><br><small>-20 Energía | +Físico, +Forma</small></button>
+    <button class="btn" style="background:var(--p2); color:#fff; border:1px solid var(--line)" onclick="doTrain('ment')"><b>Psicólogo Deportivo</b><br><small>-10 Energía | +Mentalidad, +Moral</small></button>
+  `);
+}
+function doTrain(type) {
+  if (s.energy < 20) return alert("Falta energía.");
+  s.energy -= 20;
+  s.stats[type] += Math.floor(Math.random()*3)+1;
+  if(type === 'phys') s.fitness = Math.min(100, s.fitness + 10);
+  if(type === 'ment') s.morale = Math.min(100, s.morale + 10);
+  render(); closeModal(); alert("Entrenamiento completado.");
+}
+
+// Match Engine Narrative
+function playMatch() {
+  if(s.energy < 30) return alert("No estás en condiciones de jugar (Requiere 30 Energía).");
+  s.energy -= 30;
+  
+  // Simulation calc
+  let matchPerf = (getOVR() * 0.5) + (s.fitness * 0.3) + (s.morale * 0.2) + (Math.random()*20 - 10);
+  let resultText = "";
+  let income = 0;
+
+  if (matchPerf > 85) {
+    resultText = "🔥 ¡Actuación estelar! Marcaste diferencia, fuiste el MVP del partido y la afición coreó tu nombre.";
+    s.hype += 5; s.morale += 10; income = 300;
+  } else if (matchPerf > 60) {
+    resultText = "👍 Buen partido. Cumpliste con tu rol táctico y ayudaste al equipo a asegurar el resultado.";
+    s.hype += 2; s.morale += 5; income = 150;
+  } else {
+    resultText = "📉 Partido para el olvido. Te notaste impreciso y la prensa criticó tu falta de impacto.";
+    s.hype -= 5; s.morale -= 10; income = 50;
+  }
+
+  s.fitness = Math.max(0, s.fitness - 20); // Fatigue
+  s.money += income;
+  
+  // Auto-post to feed on great match
+  if(matchPerf > 85 && Math.random() > 0.5) {
+    s.feed.unshift({user: "Diario Deportivo", handle: "@diariosport", text: `¡Increíble partido de ${s.name}! Nace una nueva estrella. ⭐`, likes: s.followers});
+  }
+
+  showModal("⚽ Reporte del Partido", `
+    <p style="font-size:16px; line-height:1.5">${resultText}</p>
+    <p style="color:var(--green); font-weight:bold">+ $${income} de prima de partido.</p>
+    <button class="btn" onclick="closeModal()">Continuar</button>
+  `);
+  render();
+}
+
+// Database of Competitions
+function openCompetitions() {
+  showModal("🏆 Ecosistema Mundial", `
+    <div style="font-size:13px; color:var(--muted); margin-bottom:15px">Tu reputación y OVR desbloquean ligas.</div>
+    <div style="background:#091022; padding:12px; border-radius:12px; margin-bottom:10px;"><b>🌍 Torneos Internacionales</b><br>UEFA Champions League, Copa Libertadores, Mundial FIFA</div>
+    <div style="background:#091022; padding:12px; border-radius:12px; margin-bottom:10px;"><b>🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</b><br>Man. City, Arsenal, Liverpool, Chelsea</div>
+    <div style="background:#091022; padding:12px; border-radius:12px; margin-bottom:10px;"><b>🇪🇸 LaLiga</b><br>Real Madrid, FC Barcelona, Atl. Madrid</div>
+    <div style="background:#091022; padding:12px; border-radius:12px; margin-bottom:10px;"><b>🇨🇴 Liga Colombiana</b><br>Atl. Nacional, Millonarios, América, DIM</div>
+    <div style="background:#091022; padding:12px; border-radius:12px;"><b>🇦🇷 Liga Argentina</b><br>River Plate, Boca Juniors, Racing</div>
+  `);
+}
+
+function openTransfers() {
+  showModal("📥 Ofertas de Contrato", `
+    <p>Para salir de <b>${s.club}</b> requieres un OVR mayor a 65 y alto Hype.</p>
+    ${getOVR() >= 65 ? `<button class="btn" onclick="transferTeam('Club Europeo Promedio')">Fichar por Club Europeo (Media Tabla)</button>` : `<p style="color:var(--orange)">Tus agentes no han recibido ofertas formales aún. Sigue jugando y entrenando.</p>`}
+  `);
+}
+
+function transferTeam(team) { s.club = team; alert("¡Traspaso completado!"); render(); closeModal(); }
+
+// Init
+render();
+</script>
+</body>
+</html>
