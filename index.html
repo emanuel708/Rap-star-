@@ -3,20 +3,20 @@
 :root{--bg:#071410;--p:#0f261e;--p2:#16382d;--line:#255444;--txt:#f0fdf4;--muted:#94a3b8;--gold:#f59e0b;--green:#10b981}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#11382b,#071410 55%);color:var(--txt);font:16px -apple-system,BlinkMacSystemFont,sans-serif}.app{max-width:720px;margin:auto;padding:15px 13px 35px}.top{display:flex;justify-content:space-between;align-items:center;gap:8px}.logo{font-weight:950;font-size:20px}.logo span{color:var(--green)}.pill{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:7px 10px}h1{font-size:26px;margin:22px 0 5px}h2{font-size:17px;margin:0 0 11px}.muted{color:var(--muted);line-height:1.45}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:16px 0}.stat,.card{background:linear-gradient(145deg,var(--p),#091c14);border:1px solid #1f483a;border-radius:14px;padding:11px}.stat small{font-size:10px;color:var(--muted);display:block}.stat strong{display:block;font-size:17px;margin-top:4px}.section{margin-top:17px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile,.action,.choice{background:var(--p2);color:var(--txt);border:1px solid var(--line);border-radius:13px;padding:12px;text-align:left;font:inherit;cursor:pointer;min-height:66px}.tile b,.action b,.choice b{display:block;margin-bottom:4px}.tile small,.action small,.choice small{font-size:12px;color:var(--muted)}.tile.active{border-color:var(--green);background:#133e30}.hero{border:1px solid #1f5e49;background:linear-gradient(135deg,#11382b,#0a1f18);border-radius:16px;padding:15px}.eyebrow{font-size:10px;color:var(--green);font-weight:900;letter-spacing:1px}.hero h2{margin:8px 0}.hero p{line-height:1.45;color:#d1fae5}.btn{width:100%;border:0;border-radius:12px;padding:13px;background:var(--green);color:#04261c;font-weight:850;font-size:15px;cursor:pointer}.btn.alt{background:#1a4536;color:var(--txt);border:1px solid #2d6e58}.btnrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.bar{height:6px;background:#183d31;border-radius:9px;overflow:hidden;margin-top:6px}.bar span{display:block;height:100%;background:var(--gold);width:50%}.log{font-size:13px;color:var(--muted);line-height:1.65}.overlay{position:fixed;inset:0;background:#030c08cc;display:none;align-items:flex-end;justify-content:center;padding:10px;z-index:5}.modal{width:min(100%,600px);max-height:90vh;overflow:auto;background:#0f2920;border:1px solid #2d6e58;border-radius:20px;padding:19px}.modal h2{font-size:23px;margin:10px 0}.choices{display:grid;gap:8px}.choice{min-height:0}.notice{display:none;border:1px solid #10b981;background:#06261c;border-radius:10px;padding:10px;margin-top:10px;color:#a7f3d0;font-size:12px}footer{text-align:center;color:#64748b;font-size:11px;margin:20px 0}@media(max-width:390px){.stats{grid-template-columns:repeat(2,1fr)}.logo{font-size:18px}}
 </style></head><body><main class="app">
 <div class="top"><div class="logo">FUTBOLISTA <span>ELITE</span></div><div class="pill" id="date">EDAD: 14 AÑOS · MES 1</div></div>
-<h1>Tu sueño en las canchas empieza aquí.</h1><p class="muted">Desarrolla tus cualidades físicas y técnicas, compite en el barrio y llama la atención de los visores profesionales antes de cumplir los 18 años.</p>
-<div class="stats"><div class="stat"><small>💵 DINERO</small><strong id="money">$200</strong></div><div class="stat"><small>⚡ ENERGÍA</small><strong id="energy">90/100</strong><div class="bar"><span id="bar"></span></div></div><div class="stat"><small>⚽ TÉCNICA</small><strong id="tech">15</strong></div><div class="stat"><small>💪 FÍSICO</small><strong id="phys">14</strong></div><div class="stat"><small>🧠 MENTAL</small><strong id="mental">12</strong></div><div class="stat"><small>⭐ REPUTACIÓN</small><strong id="rep">5</strong></div><div class="stat"><small>🏆 PARTIDOS</small><strong id="matches">0</strong></div><div class="stat"><small>👕 CLUB</small><strong id="club">Juvenil Barrio</strong></div></div>
-<div class="section"><h2>📍 Lugares de entrenamiento</h2><div class="grid" id="places"><button class="tile active" data-p="home"><b>🏠 Casa</b><small>Descansar y nutrición</small></button><button class="tile" data-p="pitch"><b>⚽ Cancha Local</b><small>Partidos y retas</small></button><button class="tile" data-p="gym"><b>🏋️ Gimnasio</b><small>Ganar potencia y físico</small></button><button class="tile" data-p="academy"><b>🏫 Centro Formativo</b><small>Mejorar técnica y táctica</small></button><button class="tile" data-p="agent"><b>🤝 Representante</b><small>Contactos y ofertas</small></button><button class="tile" data-p="work"><b>💼 Empleo Parcial</b><small>Ganar sustento</small></button></div></div>
+<h1 id="playerHeader">Tu historia en las canchas</h1><p class="muted" id="playerSubtitle">Desarrolla tus cualidades, personaliza tu estilo y llega a la elite antes de los 18 años.</p>
+<div class="stats"><div class="stat"><small>💵 DINERO</small><strong id="money">$200</strong></div><div class="stat"><small>⚡ ENERGÍA</small><strong id="energy">90/100</strong><div class="bar"><span id="bar"></span></div></div><div class="stat"><small>⚽ TÉCNICA</small><strong id="tech">15</strong></div><div class="stat"><small>💪 FÍSICO</small><strong id="phys">14</strong></div><div class="stat"><small>🧠 MENTAL</small><strong id="mental">12</strong></div><div class="stat"><small>⭐ REPUTACIÓN</small><strong id="rep">5</strong></div><div class="stat"><small>🏆 PARTIDOS</small><strong id="matches">0</strong></div><div class="stat"><small>👕 POS / CLUB</small><strong id="club">Delantero · Barrio</strong></div></div>
+<div class="section"><h2>📍 Lugares de entrenamiento y vida</h2><div class="grid" id="places"><button class="tile active" data-p="home"><b>🏠 Casa</b><small>Descansar y nutrición</small></button><button class="tile" data-p="pitch"><b>⚽ Cancha Local</b><small>Partidos y retas</small></button><button class="tile" data-p="gym"><b>🏋️ Gimnasio</b><small>Ganar potencia y físico</small></button><button class="tile" data-p="academy"><b>🏫 Centro Formativo</b><small>Mejorar técnica y táctica</small></button><button class="tile" data-p="store"><b>🛍️ Tienda Deportiva</b><small>Comprar botines y estilo</small></button><button class="tile" data-p="agent"><b>🤝 Representante</b><small>Contactos y ofertas</small></button><button class="tile" data-p="work"><b>💼 Empleo Parcial</b><small>Ganar sustento</small></button></div></div>
 <div class="section"><h2>🎯 Acciones de Zona</h2><div class="grid" id="actions"></div></div>
 <div class="section hero"><div class="eyebrow">OBJETIVO JUVENIL</div><h2 id="storyTitle">Camino al profesionalismo</h2><p id="storyText">Tienes hasta los 18 años para destacar. Entrena duro, cuida tu condición física y asiste a las visorías de los clubes importantes.</p><button class="btn" id="storyBtn">Ir a Visorías / Ojeadores</button></div>
 <div class="section card"><h2>📌 Estado de Carrera</h2><div id="quests" class="log"></div></div><div class="section card"><h2>🗞️ Bitácora</h2><div id="journal" class="log"></div></div>
-<div class="btnrow"><button class="btn alt" id="next">🌙 Avanzar Mes</button><button class="btn alt" id="save">💾 Guardar Partida</button></div><div class="btnrow"><button class="btn alt" id="summary">📊 Estadísticas</button><button class="btn alt" id="reset">↻ Nueva Carrera</button></div><div id="notice" class="notice">Partida guardada correctamente.</div><footer>Prototipo Web Deportivo · Carrera de Futbolista</footer></main>
+<div class="btnrow"><button class="btn alt" id="next">🌙 Avanzar Mes</button><button class="btn alt" id="save">💾 Guardar Partida</button></div><div class="btnrow"><button class="btn alt" id="summary">📊 Personalizar / Perfil</button><button class="btn alt" id="reset">↻ Nueva Carrera</button></div><div id="notice" class="notice">Partida guardada correctamente.</div><footer>Prototipo Web Deportivo · Carrera de Futbolista</footer></main>
 <div class="overlay" id="overlay"><div class="modal"><div class="eyebrow" id="tag">FÚTBOL</div><h2 id="mtitle"></h2><p class="muted" id="mtext"></p><div class="choices" id="choices"></div><div style="margin-top:10px"><button class="btn alt" id="close">Volver al juego</button></div></div></div>
 <script>
-const fresh=()=>({age:14,month:1,money:200,energy:90,tech:15,phys:14,mental:12,rep:5,matches:0,wins:0,place:"home",club:"Juvenil Barrio",scoutLevel:0,journal:["Inicias tu etapa formativa a los 14 años con ilusión."],trainCount:0});
-let s;try{s=JSON.parse(localStorage.getItem("proSoccerSaveV1"))||fresh()}catch(e){s=fresh()}
+const fresh=()=>({name:"Crack",nickname:"El Mago",pos:"Delantero",bootStyle:"Clásicos negros",hairStyle:"Corto degradado",tattoos:"Sin tatuajes",age:14,month:1,money:200,energy:90,tech:15,phys:14,mental:12,rep:5,matches:0,wins:0,place:"home",club:"Juvenil Barrio",inventory:[],bonusTech:0,bonusPhys:0,journal:["Inicias tu etapa formativa a los 14 años con ilusión."],trainCount:0});
+let s;try{s=JSON.parse(localStorage.getItem("proSoccerSaveV2"))||fresh()}catch(e){s=fresh()}
 const $=x=>document.getElementById(x);
-const placeNames={home:"Casa",pitch:"Cancha Local",gym:"Gimnasio",academy:"Centro Formativo",agent:"Representante",work:"Empleo Parcial"};
-function save(show=false){try{localStorage.setItem("proSoccerSaveV1",JSON.stringify(s))}catch(e){}if(show){$("notice").style.display="block";setTimeout(()=>$("notice").style.display="none",1300)}}
+const placeNames={home:"Casa",pitch:"Cancha Local",gym:"Gimnasio",academy:"Centro Formativo",store:"Tienda Deportiva",agent:"Representante",work:"Empleo Parcial"};
+function save(show=false){try{localStorage.setItem("proSoccerSaveV2",JSON.stringify(s))}catch(e){}if(show){$("notice").style.display="block";setTimeout(()=>$("notice").style.display="none",1300)}}
 function log(t){s.journal.unshift("Edad "+s.age+" (Mes "+s.month+"): "+t);s.journal=s.journal.slice(0,6)}
 function clamp(n,a,b){return Math.max(a,Math.min(b,n))}
 function esc(t){return String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
@@ -27,12 +27,12 @@ function alertBox(t){modal("AVISO","Atención",t,[{label:"Entendido"}])}
 function playMatch(){
   if(s.energy<20)return alertBox("Estás muy fatigado para competir. Ve a casa a descansar.");
   s.energy-=20; s.matches++;
-  let performance = s.tech*0.4 + s.phys*0.4 + s.mental*0.2 + Math.floor(Math.random()*12);
+  let performance = s.tech*0.4 + s.phys*0.4 + s.mental*0.2 + s.bonusTech + Math.floor(Math.random()*12);
   let rivalDifficulty = 18 + (s.age * 2);
   if(performance >= rivalDifficulty){
     s.wins++; s.money+=90; s.rep+=3; s.tech++;
     log("¡Gran partido! Fuiste la figura y ganaste el duelo del barrio.");
-    modal("PARTIDO DESTACADO","¡Victoria y buen rendimiento! ⚽","Deslumbraste en el terreno de juego. Tu técnica mejora y obtuviste $90.",[{label:"Continuar"}]);
+    modal("PARTIDO DESTACADO","¡Victoria y buen rendimiento! ⚽","Deslumbraste con tus botines y habilidad. Tu técnica mejora y obtuviste $90.",[{label:"Continuar"}]);
   } else {
     s.money+=30; s.rep++;
     log("Partido discreto. Te llevas experiencia y algo de dinero.");
@@ -40,11 +40,22 @@ function playMatch(){
   }
 }
 
+function triggerRandomEvent(){
+  let events = [
+    {title: "Invitación nocturna", text: tusAmigos="Tus amigos te invitan a una fiesta la noche antes de entrenar duro.", opt1:{label:"Ir de fiesta", desc:"-20 energía, +1 reputación social", run:()=>{s.energy=clamp(s.energy-20,0,100);s.rep+=2;log("Fuiste de fiesta, divertirte despejó tu mente pero perdiste energía.");}}, opt2:{label:"Quedarse descansando", desc:"+15 energía", run:()=>{s.energy=clamp(s.energy+15,0,100);log("Preferiste descansar y cuidar tu rendimiento físico.");}}},
+    {title: "Oportunidad de marca local", text:"Una pequeña tienda de suplementos quiere que uses su bebida isotónica en tus redes.", opt1:{label: "Aceptar patrocinio", desc:"+ $50", run:()=>{s.money+=50;log("Firmaste un pequeño acuerdo comercial rápido por $50.");}}, opt2:{label: "Rechazar", desc:"Sin cambios", run:()=>{log("Decidiste enfocarte solo en el campo.");}}}
+  ];
+  let ev = events[Math.floor(Math.random()*events.length)];
+  modal("SUCESO INESPERADO", ev.title, ev.text, [ev.opt1, ev.opt2]);
+}
+
 function act(title,desc,run){return {title,desc,run}}
 
 function render(){
+  $("playerHeader").textContent=`${s.name} "${s.nickname}"`;
+  $("playerSubtitle").textContent=`Posición: ${s.pos} · Estilo: ${s.bootStyle} · Cabello: ${s.hairStyle}`;
   $("date").textContent=`EDAD: ${s.age} AÑOS · MES ${s.month}`;
-  ["money","energy","tech","phys","mental","rep","matches","club"].forEach(id=>$(id).textContent=({money:"$"+s.money,energy:s.energy+"/100",tech:s.tech,phys:s.phys,mental:s.mental,rep:s.rep,matches:s.matches,club:s.club})[id]);
+  ["money","energy","tech","phys","mental","rep","matches","club"].forEach(id=>$(id).textContent=({money:"$"+s.money,energy:s.energy+"/100",tech:s.tech,phys:s.phys,mental:s.mental,rep:s.rep,matches:s.matches,club:s.pos+" · "+s.club})[id]);
   $("bar").style.width=s.energy+"%";
   document.querySelectorAll("[data-p]").forEach(b=>b.classList.toggle("active",b.dataset.p===s.place));
 
@@ -55,69 +66,84 @@ function render(){
     ],
     pitch:[
       act("⚽ Partido de barrio","−20 energía · Compite y gana fama",playMatch),
-      act("🎯 Práctica de definición","−12 energía · +2 Técnica",()=>{if(s.energy<12)return alertBox("Falta energía.");s.energy-=12;s.tech+=2;s.trainCount++;log("Entrenaste disparos y control de balón.")})
+      act("🎯 Práctica de definición","−12 energía · +2 Técnica",()=>{if(s.energy<12)return alertBox("Falta energía.");s.energy-=12;s.tech+=2 + s.bonusTech;s.trainCount++;log("Entrenaste disparos y control de balón.")})
     ],
     gym:[
-      act("🏋️ Rutina de pesas","−15 energía · +3 Físico",()=>{if(s.energy<15)return alertBox("Estás cansado para el gimnasio.");s.energy-=15;s.phys+=3;s.trainCount++;log("Fortaleciste masa muscular y resistencia física.");}),
+      act("🏋️ Rutina de pesas","−15 energía · +3 Físico",()=>{if(s.energy<15)return alertBox("Estás cansado para el gimnasio.");s.energy-=15;s.phys+=3 + s.bonusPhys;s.trainCount++;log("Fortaleciste masa muscular y resistencia física.");}),
       act("⚡ Ejercicios de agilidad","−12 energía · +2 Técnica",()=>{if(s.energy<12)return alertBox("Falta energía.");s.energy-=12;s.tech+=2;s.trainCount++;log("Mejoraste tu velocidad de reacción y gambeta.");})
     ],
     academy:[
       act("🏫 Clínica táctica","−15 energía · +2 Mental",()=>{if(s.energy<15)return alertBox("Necesitas descanso.");s.energy-=15;s.mental+=2;s.trainCount++;log("Estudiaste posicionamiento táctico en el campo.");}),
       act("🧠 Lectura de juego","−10 energía · +1 Mental y +1 Técnica",()=>{if(s.energy<10)return alertBox("Falta energía.");s.energy-=10;s.mental++;s.tech++;log("Analizaste videos de partidos profesionales.")})
     ],
+    store:[
+      act("👟 Comprar Botines Pro","$120 · Mejora permanente en Técnica",()=>{
+        if(s.money<120)return alertBox("No tienes suficiente dinero.");
+        if(s.inventory.includes("Botines Pro"))return alertBox("Ya tienes estos botines.");
+        s.money-=120; s.inventory.push("Botines Pro"); s.bonusTech+=1;
+        s.bootStyle="Botines Pro Edición Oro";
+        log("Compraste unos botines profesionales que mejoran tu rendimiento técnico.");
+        modal("TIENDA","¡Gran compra!","Tus nuevos botines te otorgan un bonus constante en tus entrenamientos de técnica.",[{label:"Continuar"}]);
+      }),
+      act("🧪 Bebidas Energéticas Top","$50 · Recupera energía máxima",()=>{
+        if(s.money<50)return alertBox("No tienes dinero suficiente.");
+        s.money-=50; s.energy=clamp(s.energy+45,0,100);
+        log("Consumiste suplementos y recuperaste energía de inmediato.");
+        modal("TIENDA","Vitalidad al 100","Te sientes con una energía tremenda para entrenar duro.",[{label:"Continuar"}]);
+      })
+    ],
     agent:[
       act("🤝 Consultar al representante","Ver consejos para dar el salto",()=>{
-        let text = s.age<16 ? "Eres muy joven (menor de 16). Sigue entrenando y acumulando reputación; los grandes clubes buscan jugadores maduros físicamente." : "Tienes la edad perfecta para ser visado por clubes importantes. ¡Prueba suerte en las visorías oficiales!";
+        let text = s.age<16 ? "Eres muy joven (menor de 16). Sigue entrenando y acumulando reputación." : "Tienes la edad perfecta para ser visado por clubes importantes. ¡Prueba suerte en las visorías!";
         modal("AGENTE DEPORTIVO","Estado del mercado",text,[{label:"Entendido"}]);
       }),
       act("💰 Buscar patrocinio local","−$10 · Gana pequeños fondos",()=>{if(s.rep<8)return alertBox("Tu reputación es muy baja para conseguir patrocinios.");s.money+=70;log("Conseguiste un pequeño auspicio deportivo local por $70.");})
     ],
     work:[
-      act("📦 Medio tiempo deportivo","+ $80 · −18 energía",()=>{if(s.energy<18)return alertBox("Demasiado cansancio.");s.energy-=18;s.money+=80;log("Trabajaste medio tiempo para financiar tus botines y pasajes.")})
+      act("📦 Medio tiempo deportivo","+ $80 · −18 energía",()=>{if(s.energy<18)return alertBox("Demasiado cansancio.");s.energy-=18;s.money+=80;log("Trabajaste medio tiempo para financiar tus implementos.")})
     ]
   };
 
   $("actions").innerHTML=A[s.place].map((a,i)=>`<button class="action" data-a="${i}"><b>${a.title}</b><small>${a.desc}</small></button>`).join("");
   document.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{A[s.place][+b.dataset.a].run();save();render()});
 
-  // Dinámica de objetivos según edad
   if(s.age < 16){
     $("storyTitle").textContent=`Etapa Formativa (${s.age} años)`;
-    $("storyText").textContent="Estás en divisiones menores del barrio. Desarrolla tus atributos físicos y técnicos antes de cumplir los 16 años para llamar la atención.";
+    $("storyText").textContent="Estás en divisiones menores del barrio. Desarrolla tus atributos y adquiere equipo antes de cumplir los 16 años.";
     $("storyBtn").textContent="Evaluar Proyección";
   } else if(s.age >= 16 && s.age <= 18){
     $("storyTitle").textContent=`¡Edad Clave para Visorías! (${s.age} años)`;
-    $("storyText").textContent="Los ojeadores de equipos de primera división están asistiendo a los partidos. Presenta tus credenciales y busca tu fichaje profesional.";
+    $("storyText").textContent="Los ojeadores de equipos profesionales están asistiendo a los partidos. Presenta tus credenciales y busca tu fichaje.";
     $("storyBtn").textContent="Asistir a Visorías de Clubes";
   } else {
     $("storyTitle").textContent="Consolidación Profesional";
-    $("storyText").textContent="Ya eres parte del fútbol profesional. Mantén tu nivel y busca ser convocado a la selección nacional.";
+    $("storyText").textContent="Ya eres parte del fútbol profesional. Mantén tu nivel y busca la gloria internacional.";
     $("storyBtn").textContent="Ver Estado Profesional";
   }
 
-  $("quests").innerHTML=`• Edad actual: ${s.age} años (Mes ${s.month}/12)<br>• Atributo General: ${Math.round((s.tech+s.phys+s.mental)/3)}<br>• Club actual: ${s.club}<br>• Partidos jugados: ${s.matches} (${s.wins} victorias)`;
+  $("quests").innerHTML=`• Edad: ${s.age} años (Mes ${s.month}/12)<br>• Posición: ${s.pos} | Apodo: ${s.nickname}<br>• Estilo / Botines: ${s.bootStyle}<br>• Club actual: ${s.club}<br>• Inventario: ${s.inventory.length>0 ? s.inventory.join(", ") : "Vacío"}`;
   $("journal").innerHTML=s.journal.map(t=>"• "+esc(t)).join("<br>");
 }
 
 $("storyBtn").onclick=()=>{
   if(s.age < 16){
-    modal("PROYECCIÓN JUVENIL","Fase de Crecimiento","Tienes "+s.age+" años. Los clubes profesionales casi nunca fichan antes de los 16. Concéntrate en entrenar duro la técnica y el físico.",[{label:"Seguir formándome"}]);
+    modal("PROYECCIÓN JUVENIL","Fase de Crecimiento","Tienes "+s.age+" años. Los clubes profesionales casi nunca fichan antes de los 16. Concéntrate en entrenar.",[{label:"Seguir formándome"}]);
   } else if(s.age >= 16 && s.age <= 18){
-    let evalScore = s.tech + s.phys + s.rep + Math.floor(Math.random()*10);
+    let evalScore = s.tech + s.phys + s.rep + s.bonusTech + Math.floor(Math.random()*10);
     if(evalScore >= 42){
       s.club = "Atlético de la Llave (Sub-18)";
       log("¡Fichaste por las divisiones inferiores del Atlético de la Llave!");
-      modal("¡OJEADORES CLAVE! 🏆","¡Contrato Juvenil Profesional!","Un cazatalentos quedó impresionado con tus capacidades técnicas y físicas. Has firmado con un club importante.",[{label:"Continuar mi carrera"}]);
+      modal("¡OJEADORES CLAVE! 🏆","¡Contrato Juvenil Profesional!","Un cazatalentos quedó impresionado con tus capacidades técnicas y tu estilo en la cancha.",[{label:"Continuar mi carrera"}]);
     } else {
       log("Asististe a la visoría pero faltó convencer a los scouts.");
-      modal("PRUEBA DE OJEADORES","Sin contrato esta vez","Los scouts notaron tu esfuerzo, pero te faltó un poco más de nivel técnico o físico. Entrena más duro este año y vuelve a intentarlo.",[{label:"Entendido, a mejorar"}]);
+      modal("PRUEBA DE OJEADORES","Sin contrato esta vez","Los scouts notaron tu esfuerzo, pero te faltó un poco más de nivel. Entrena más duro este año.",[{label:"Entendido, a mejorar"}]);
     }
   } else {
-    modal("CARRERA PROFESIONAL","Estrella en Ascenso","Estás consolidado en el circuito profesional. Sigue ganando partidos y aumentando tu valor en el mercado.",[{label:"Continuar"}]);
+    modal("CARRERA PROFESIONAL","Estrella en Ascenso","Estás consolidado en el circuito profesional. Sigue ganando partidos.",[{label:"Continuar"}]);
   }
 };
 
-document.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{s.place=b.dataset.p;log("Te desplazaste hacia "+placeNames[s.place]+".");save();render()});
+document.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{s.place=b.dataset.p;log("Te desplazaste hacia "+placeNames[s.place]+"+.");save();render()});
 
 $("next").onclick=()=>{
   s.month++;
@@ -131,12 +157,27 @@ $("next").onclick=()=>{
     s.money=Math.max(0,s.money-15);
     log("Gastos de mantenimiento y equipamiento deportivo (-$15).");
   }
-  log("Inició un nuevo mes. Tu condición física se actualiza.");
+  // Evento aleatorio con probabilidad al avanzar el mes
+  if(Math.random() < 0.4) {
+    triggerRandomEvent();
+  } else {
+    log("Inició un nuevo mes. Tu condición física se actualiza.");
+  }
   save(); render();
 };
 
 $("save").onclick=()=>{save(true)};
-$("summary").onclick=()=>modal("ESTADÍSTICAS DE CARRERA","Resumen General",`Edad: ${s.age} años. Técnica: ${s.tech} | Físico: ${s.phys} | Mental: ${s.mental}. Reputación: ${s.rep}. Partidos: ${s.matches} (Ganados: ${s.wins}). Club: ${s.club}.`,[{label:"Volver"}]);
+$("summary").onclick=()=>{
+  modal("PERSONALIZACIÓN Y PERFIL", "Modifica tu identidad", 
+    `Configura tu apariencia y datos en la cancha. Actualmente eres: ${s.name} (${s.nickname}), ${s.pos}.`, 
+    [
+      {label:"Cambiar Apodo", run:()=>{let n=prompt("Nuevo apodo:", s.nickname);if(n){s.nickname=n;log("Actualizaste tu apodo a "+n);save();render();}}},
+      {label:"Cambiar Posición", run:()=>{let p=prompt("Elige posición (Delantero / Mediocampista / Defensa):", s.pos);if(p){s.pos=p;log("Cambiaste tu posición a "+p);save();render();}}},
+      {label:"Estilo de Cabello/Look", run:()=>{let h=prompt("Describe tu corte o peinado:", s.hairStyle);if(h){s.hairStyle=h;log("Actualizaste tu look.");save();render();}}},
+      {label:"Volver"}
+    ]
+  );
+};
 $("reset").onclick=()=>modal("NUEVA CARRERA","¿Reiniciar el camino al profesionalismo?","Se borrará el progreso actual y volverás a tener 14 años.",[{label:"Sí, reiniciar",run:()=>{s=fresh();save();render()}},{label:"Cancelar"}]);
 
 render();
