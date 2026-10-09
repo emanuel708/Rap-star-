@@ -50,4 +50,36 @@ body { margin: 0; background: radial-gradient(circle at top, #132247, #070d1a 70
 .overlay { position: fixed; inset: 0; background: rgba(3,7,18,0.9); display: none; align-items: flex-end; justify-content: center; padding: 10px; z-index: 200; backdrop-filter: blur(5px); }
 .modal { width: 100%; max-width: 480px; background: #111c38; border: 1px solid var(--line); border-radius: 24px; padding: 20px; max-height: 85vh; overflow-y: auto; box-shadow: 0 -10px 40px rgba(0,0,0,0.5); animation: slideUp 0.3s ease-out; }
 @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-.modal h2 { margin-top: 0; font-size: 22px; margin-bottom: 15px; display: flex; align-items: center; gap: 
+.modal h2 { margin-top: 0; font-size: 22px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+.btn { width: 100%; background: var(--green); color: #03130d; border: 0; border-radius: 12px; padding: 14px; font-weight: 800; cursor: pointer; margin-top: 10px; font-size: 15px; }
+.btn.alt { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+.edit-btn { background: transparent; border: 1px solid var(--line); color: var(--muted); border-radius: 6px; font-size: 11px; padding: 4px 8px; cursor: pointer; margin-top: 5px; }
+
+/* Customizer Grid */
+.cust-section { margin-bottom: 15px; }
+.cust-section p { font-size: 12px; color: var(--muted); margin: 0 0 8px 0; font-weight: bold; text-transform: uppercase; }
+.cust-grid { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
+.cust-item { width: 60px; height: 60px; flex-shrink: 0; background: var(--p2); border: 2px solid var(--line); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; cursor: pointer; text-align: center; }
+.cust-item.color { color: transparent; }
+
+/* Social Feed */
+.social-header { display: flex; align-items: center; justify-content: space-between; background: var(--grad-social); padding: 15px; border-radius: 12px; margin-bottom: 15px; font-weight: bold; }
+.post-card { background: #091022; border: 1px solid var(--line); border-radius: 12px; padding: 15px; margin-bottom: 10px; }
+.post-user { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-weight: bold; font-size: 13px; }
+.post-user div.avatar { width: 30px; height: 30px; border-radius: 50%; background: #3b82f6; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+.post-content { font-size: 14px; line-height: 1.4; margin-bottom: 10px; }
+.post-actions { display: flex; gap: 15px; color: var(--muted); font-size: 12px; font-weight: bold; }
+
+/* Event Canonical Overlay */
+.event-box { background: var(--orange); padding: 20px; border-radius: 16px; text-align: center; }
+.event-box h3 { margin: 0 0 10px 0; font-size: 24px; color: #fff; }
+.event-box p { font-size: 15px; line-height: 1.5; margin-bottom: 20px; color: rgba(255,255,255,0.9); }
+.event-box button { background: rgba(0,0,0,0.4); color: #fff; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.2); }
+</style>
+</head>
+<body>
+
+<main class="app">
+  <div class="top-bar">
+    <div id="dateDisplay" style="color:#38bdf8">Semana 1 · Temp 1</div>
+    <div class
