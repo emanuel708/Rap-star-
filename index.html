@@ -1,184 +1,289 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#091c14"><title>Futbolista: Camino a la Elite</title>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b132b"><title>Football Star Career</title>
 <style>
-:root{--bg:#071410;--p:#0f261e;--p2:#16382d;--line:#255444;--txt:#f0fdf4;--muted:#94a3b8;--gold:#f59e0b;--green:#10b981}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#11382b,#071410 55%);color:var(--txt);font:16px -apple-system,BlinkMacSystemFont,sans-serif}.app{max-width:720px;margin:auto;padding:15px 13px 35px}.top{display:flex;justify-content:space-between;align-items:center;gap:8px}.logo{font-weight:950;font-size:20px}.logo span{color:var(--green)}.pill{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:7px 10px}h1{font-size:26px;margin:22px 0 5px}h2{font-size:17px;margin:0 0 11px}.muted{color:var(--muted);line-height:1.45}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:16px 0}.stat,.card{background:linear-gradient(145deg,var(--p),#091c14);border:1px solid #1f483a;border-radius:14px;padding:11px}.stat small{font-size:10px;color:var(--muted);display:block}.stat strong{display:block;font-size:17px;margin-top:4px}.section{margin-top:17px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tile,.action,.choice{background:var(--p2);color:var(--txt);border:1px solid var(--line);border-radius:13px;padding:12px;text-align:left;font:inherit;cursor:pointer;min-height:66px}.tile b,.action b,.choice b{display:block;margin-bottom:4px}.tile small,.action small,.choice small{font-size:12px;color:var(--muted)}.tile.active{border-color:var(--green);background:#133e30}.hero{border:1px solid #1f5e49;background:linear-gradient(135deg,#11382b,#0a1f18);border-radius:16px;padding:15px}.eyebrow{font-size:10px;color:var(--green);font-weight:900;letter-spacing:1px}.hero h2{margin:8px 0}.hero p{line-height:1.45;color:#d1fae5}.btn{width:100%;border:0;border-radius:12px;padding:13px;background:var(--green);color:#04261c;font-weight:850;font-size:15px;cursor:pointer}.btn.alt{background:#1a4536;color:var(--txt);border:1px solid #2d6e58}.btnrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.bar{height:6px;background:#183d31;border-radius:9px;overflow:hidden;margin-top:6px}.bar span{display:block;height:100%;background:var(--gold);width:50%}.log{font-size:13px;color:var(--muted);line-height:1.65}.overlay{position:fixed;inset:0;background:#030c08cc;display:none;align-items:flex-end;justify-content:center;padding:10px;z-index:5}.modal{width:min(100%,600px);max-height:90vh;overflow:auto;background:#0f2920;border:1px solid #2d6e58;border-radius:20px;padding:19px}.modal h2{font-size:23px;margin:10px 0}.choices{display:grid;gap:8px}.choice{min-height:0}.notice{display:none;border:1px solid #10b981;background:#06261c;border-radius:10px;padding:10px;margin-top:10px;color:#a7f3d0;font-size:12px}footer{text-align:center;color:#64748b;font-size:11px;margin:20px 0}@media(max-width:390px){.stats{grid-template-columns:repeat(2,1fr)}.logo{font-size:18px}}
-</style></head><body><main class="app">
-<div class="top"><div class="logo">FUTBOLISTA <span>ELITE</span></div><div class="pill" id="date">EDAD: 14 AÑOS · MES 1</div></div>
-<h1 id="playerHeader">Tu historia en las canchas</h1><p class="muted" id="playerSubtitle">Desarrolla tus cualidades, personaliza tu estilo y llega a la elite antes de los 18 años.</p>
-<div class="stats"><div class="stat"><small>💵 DINERO</small><strong id="money">$200</strong></div><div class="stat"><small>⚡ ENERGÍA</small><strong id="energy">90/100</strong><div class="bar"><span id="bar"></span></div></div><div class="stat"><small>⚽ TÉCNICA</small><strong id="tech">15</strong></div><div class="stat"><small>💪 FÍSICO</small><strong id="phys">14</strong></div><div class="stat"><small>🧠 MENTAL</small><strong id="mental">12</strong></div><div class="stat"><small>⭐ REPUTACIÓN</small><strong id="rep">5</strong></div><div class="stat"><small>🏆 PARTIDOS</small><strong id="matches">0</strong></div><div class="stat"><small>👕 POS / CLUB</small><strong id="club">Delantero · Barrio</strong></div></div>
-<div class="section"><h2>📍 Lugares de entrenamiento y vida</h2><div class="grid" id="places"><button class="tile active" data-p="home"><b>🏠 Casa</b><small>Descansar y nutrición</small></button><button class="tile" data-p="pitch"><b>⚽ Cancha Local</b><small>Partidos y retas</small></button><button class="tile" data-p="gym"><b>🏋️ Gimnasio</b><small>Ganar potencia y físico</small></button><button class="tile" data-p="academy"><b>🏫 Centro Formativo</b><small>Mejorar técnica y táctica</small></button><button class="tile" data-p="store"><b>🛍️ Tienda Deportiva</b><small>Comprar botines y estilo</small></button><button class="tile" data-p="agent"><b>🤝 Representante</b><small>Contactos y ofertas</small></button><button class="tile" data-p="work"><b>💼 Empleo Parcial</b><small>Ganar sustento</small></button></div></div>
-<div class="section"><h2>🎯 Acciones de Zona</h2><div class="grid" id="actions"></div></div>
-<div class="section hero"><div class="eyebrow">OBJETIVO JUVENIL</div><h2 id="storyTitle">Camino al profesionalismo</h2><p id="storyText">Tienes hasta los 18 años para destacar. Entrena duro, cuida tu condición física y asiste a las visorías de los clubes importantes.</p><button class="btn" id="storyBtn">Ir a Visorías / Ojeadores</button></div>
-<div class="section card"><h2>📌 Estado de Carrera</h2><div id="quests" class="log"></div></div><div class="section card"><h2>🗞️ Bitácora</h2><div id="journal" class="log"></div></div>
-<div class="btnrow"><button class="btn alt" id="next">🌙 Avanzar Mes</button><button class="btn alt" id="save">💾 Guardar Partida</button></div><div class="btnrow"><button class="btn alt" id="summary">📊 Personalizar / Perfil</button><button class="btn alt" id="reset">↻ Nueva Carrera</button></div><div id="notice" class="notice">Partida guardada correctamente.</div><footer>Prototipo Web Deportivo · Carrera de Futbolista</footer></main>
-<div class="overlay" id="overlay"><div class="modal"><div class="eyebrow" id="tag">FÚTBOL</div><h2 id="mtitle"></h2><p class="muted" id="mtext"></p><div class="choices" id="choices"></div><div style="margin-top:10px"><button class="btn alt" id="close">Volver al juego</button></div></div></div>
+:root{--bg:#070d1a;--p:#111c38;--p2:#1a284f;--line:#2a3d70;--txt:#f4f6fb;--muted:#94a3b8;--green:#10b981;--blue:#3b82f6;--grad:linear-gradient(135deg,#3b82f6,#10b981);--orange:linear-gradient(135deg,#f59e0b,#ef4444)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#132247,#070d1a 60%);color:var(--txt);font:15px -apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:70px}
+.app{max-width:480px;margin:auto;padding:12px}
+.top-bar{display:flex;justify-content:space-between;align-items:center;background:var(--p);border:1px solid var(--line);border-radius:14px;padding:10px 15px;margin-bottom:12px;font-weight:700}
+.top-bar span{color:#38bdf8}
+.top-btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.top-action{background:var(--grad);border:0;border-radius:12px;color:#fff;padding:12px;font-weight:800;font-size:15px;cursor:pointer;text-align:center;box-shadow:0 4px 12px rgba(16,185,129,0.3)}
+.card{background:var(--p);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.dashboard{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative}
+.side-bars{display:flex;flex-direction:column;gap:15px;width:35px}
+.v-bar-container{display:flex;flex-direction:column;align-items:center;font-size:10px;color:var(--muted)}
+.v-bar{width:10px;height:110px;background:#050a14;border-radius:6px;overflow:hidden;display:flex;align-items:flex-end;border:1px solid var(--line);margin-top:4px}
+.v-fill{width:100%;background:var(--blue);height:50%}
+.avatar-box{flex:1;text-align:center}
+.avatar-img{width:140px;height:140px;background:#050a14;border:2px solid var(--line);border-radius:50%;margin:auto;display:flex;align-items:center;justify-content:center;font-size:50px;box-shadow:0 8px 24px rgba(0,0,0,0.5)}
+.right-actions{display:flex;flex-direction:column;gap:8px}
+.icon-btn{width:46px;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--p2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;position:relative}
+.icon-btn.badge::after{content:'!';position:absolute;top:-4px;right:-4px;background:#ef4444;color:#fff;font-size:10px;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.menu-tile{background:var(--grad);border:0;border-radius:14px;padding:15px;color:#fff;text-align:left;font-weight:800;cursor:pointer;font-size:15px;box-shadow:0 4px 15px rgba(59,130,246,0.3)}
+.menu-tile.alt{background:var(--orange)}
+.nav-bar{position:fixed;bottom:0;left:0;right:0;background:#050914;border-top:1px solid var(--line);display:flex;justify-content:around;padding:10px 0;z-index:100}
+.nav-item{flex:1;background:0;border:0;color:var(--muted);font-size:20px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
+.nav-item span{font-size:10px}
+.nav-item.active{color:#38bdf8}
+.overlay{position:fixed;inset:0;background:rgba(3,7,18,0.85);display:none;align-items:flex-end;justify-content:center;padding:10px;z-index:200}
+.modal{width:100%;max-width:480px;background:#111c38;border:1px solid var(--line);border-radius:20px;padding:20px;max-height:85vh;overflow:auto}
+.modal h2{margin-top:0;font-size:20px}
+.btn{width:100%;background:var(--green);color:#03130d;border:0;border-radius:12px;padding:13px;font-weight:800;cursor:pointer;margin-top:10px}
+.btn.alt{background:var(--p2);color:#fff;border:1px solid var(--line)}
+.choice-list{display:grid;gap:8px;margin-top:10px}
+.choice-btn{background:var(--p2);border:1px solid var(--line);color:#fff;padding:12px;border-radius:10px;text-align:left;cursor:pointer;font:inherit}
+.choice-btn b{display:block;color:#38bdf8}
+.feed-item{background:#091022;border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px;font-size:13px}
+</style></head><body>
+<main class="app">
+  <div class="top-bar">
+    <div id="dateDisplay">01.01.2026 · Jueves</div>
+    <div style="display:flex;gap:12px"><span id="moneyDisplay">$500</span> <span id="energyDisplay">⚡ 100</span></div>
+  </div>
+
+  <div class="top-btn-row">
+    <button class="top-action" onclick="openBio()">BIOGRAFÍA & AVATAR</button>
+    <button class="top-action" onclick="openStore()" style="background:var(--orange)">TIENDA GLOBAL</button>
+  </div>
+
+  <div class="card">
+    <div class="dashboard">
+      <div class="side-bars">
+        <div class="v-bar-container"><span>HYPE</span><div class="v-bar"><div class="v-fill" id="hypeBar" style="height:10%"></div></div></div>
+        <div class="v-bar-container"><span>REP</span><div class="v-bar"><div class="v-fill" id="repBar" style="height:20%"></div></div></div>
+      </div>
+      <div class="avatar-box">
+        <div class="avatar-img" id="avatarEmoji">⚽</div>
+        <div style="margin-top:8px;font-weight:900;font-size:17px" id="playerName">Crack Jr</div>
+        <div style="font-size:12px;color:var(--muted)" id="playerClub">Juvenil · Sin Club Pro</div>
+      </div>
+      <div class="right-actions">
+        <button class="icon-btn" onclick="openEnergyModal()" title="Energía">⚡</button>
+        <button class="icon-btn badge" onclick="openSocial()" title="Redes Sociales">🌐</button>
+        <button class="icon-btn" onclick="openSkills()" title="Atributos">📊</button>
+        <button class="icon-btn" onclick="nextDay()" id="sleepBtn" title="Avanzar Día" style="background:#f59e0b;color:#000">🌙</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="menu-grid">
+      <button class="menu-tile" onclick="openTraining()">🏃 ENTRENAMIENTO</button>
+      <button class="menu-tile" onclick="openMatches()">⚽ PARTIDOS & LIGAS</button>
+      <button class="menu-tile alt" onclick="openScouts()">👁️ OJEADORES</button>
+      <button class="menu-tile alt" onclick="openTransferMarket()">🌍MERCADO MUNDIAL</button>
+    </div>
+  </div>
+</main>
+
+<nav class="nav-bar">
+  <button class="nav-item active" onclick="switchTab('home')">🏠<span>Inicio</span></button>
+  <button class="nav-item" onclick="openTraining()">⚡<span>Acciones</span></button>
+  <button class="nav-item" onclick="openMatches()">🏆<span>Ligas</span></button>
+  <button class="nav-item" onclick="openSocial()">🌐<span>Social</span></button>
+  <button class="nav-item" onclick="openStore()">💼<span>Billetera</span></button>
+  <button class="nav-item" onclick="openSettings()">⚙️<span>Ajustes</span></button>
+</nav>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modalContent">
+    <h2 id="mTitle">Título</h2>
+    <div id="mBody">Contenido</div>
+    <button class="btn alt" onclick="closeModal()">Cerrar</button>
+  </div>
+</div>
+
 <script>
-const fresh=()=>({name:"Crack",nickname:"El Mago",pos:"Delantero",bootStyle:"Clásicos negros",hairStyle:"Corto degradado",tattoos:"Sin tatuajes",age:14,month:1,money:200,energy:90,tech:15,phys:14,mental:12,rep:5,matches:0,wins:0,place:"home",club:"Juvenil Barrio",inventory:[],bonusTech:0,bonusPhys:0,journal:["Inicias tu etapa formativa a los 14 años con ilusión."],trainCount:0});
-let s;try{s=JSON.parse(localStorage.getItem("proSoccerSaveV2"))||fresh()}catch(e){s=fresh()}
-const $=x=>document.getElementById(x);
-const placeNames={home:"Casa",pitch:"Cancha Local",gym:"Gimnasio",academy:"Centro Formativo",store:"Tienda Deportiva",agent:"Representante",work:"Empleo Parcial"};
-function save(show=false){try{localStorage.setItem("proSoccerSaveV2",JSON.stringify(s))}catch(e){}if(show){$("notice").style.display="block";setTimeout(()=>$("notice").style.display="none",1300)}}
-function log(t){s.journal.unshift("Edad "+s.age+" (Mes "+s.month+"): "+t);s.journal=s.journal.slice(0,6)}
-function clamp(n,a,b){return Math.max(a,Math.min(b,n))}
-function esc(t){return String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function close(){ $("overlay").style.display="none"}$("close").onclick=close;$("overlay").onclick=e=>{if(e.target===$("overlay"))close()}
-function modal(tag,title,text,opts){$("tag").textContent=tag;$("mtitle").textContent=title;$("mtext").textContent=text;$("choices").innerHTML="";opts.forEach(o=>{let b=document.createElement("button");b.className="choice";b.innerHTML="<b>"+esc(o.label)+"</b><small>"+esc(o.desc||"")+"</small>";b.onclick=()=>{close();if(o.run)o.run();save();render()};$("choices").appendChild(b)});$("overlay").style.display="flex"}
-function alertBox(t){modal("AVISO","Atención",t,[{label:"Entendido"}])}
+const fresh=()=>({
+  name:"Lucas", nickname:"El Rayo", age:16, year:2026, money:750, energy:100,
+  hype:10, rep:20, tech:18, phys:16, mental:15,
+  club:"Juvenil Barrio", league:"Liga Local Colombia", country:"Colombia",
+  followers:120, inventory:[], posts:[], journal:["Inicias tu carrera en las divisiones menores."],
+  currentTeamIndex:0
+});
+let s; try{s=JSON.parse(localStorage.getItem("proSoccerSimGlobal"))||fresh()}catch(e){s=fresh()}
 
-function playMatch(){
-  if(s.energy<20)return alertBox("Estás muy fatigado para competir. Ve a casa a descansar.");
-  s.energy-=20; s.matches++;
-  let performance = s.tech*0.4 + s.phys*0.4 + s.mental*0.2 + s.bonusTech + Math.floor(Math.random()*12);
-  let rivalDifficulty = 18 + (s.age * 2);
-  if(performance >= rivalDifficulty){
-    s.wins++; s.money+=90; s.rep+=3; s.tech++;
-    log("¡Gran partido! Fuiste la figura y ganaste el duelo del barrio.");
-    modal("PARTIDO DESTACADO","¡Victoria y buen rendimiento! ⚽","Deslumbraste con tus botines y habilidad. Tu técnica mejora y obtuviste $90.",[{label:"Continuar"}]);
-  } else {
-    s.money+=30; s.rep++;
-    log("Partido discreto. Te llevas experiencia y algo de dinero.");
-    modal("PARTIDO LOCAL","Encuentro disputado","El equipo rival fue duro, pero sumaste roce competitivo y $30.",[{label:"Continuar"}]);
-  }
-}
+const save=()=>localStorage.setItem("proSoccerSimGlobal",JSON.stringify(s));
+const $=id=>document.getElementById(id);
+function closeModal(){$("overlay").style.display="none"}
+function showModal(title, html){$("mTitle").textContent=title; $("mBody").innerHTML=html; $("overlay").style.display="flex"}
 
-function triggerRandomEvent(){
-  let events = [
-    {title: "Invitación nocturna", text: tusAmigos="Tus amigos te invitan a una fiesta la noche antes de entrenar duro.", opt1:{label:"Ir de fiesta", desc:"-20 energía, +1 reputación social", run:()=>{s.energy=clamp(s.energy-20,0,100);s.rep+=2;log("Fuiste de fiesta, divertirte despejó tu mente pero perdiste energía.");}}, opt2:{label:"Quedarse descansando", desc:"+15 energía", run:()=>{s.energy=clamp(s.energy+15,0,100);log("Preferiste descansar y cuidar tu rendimiento físico.");}}},
-    {title: "Oportunidad de marca local", text:"Una pequeña tienda de suplementos quiere que uses su bebida isotónica en tus redes.", opt1:{label: "Aceptar patrocinio", desc:"+ $50", run:()=>{s.money+=50;log("Firmaste un pequeño acuerdo comercial rápido por $50.");}}, opt2:{label: "Rechazar", desc:"Sin cambios", run:()=>{log("Decidiste enfocarte solo en el campo.");}}}
-  ];
-  let ev = events[Math.floor(Math.random()*events.length)];
-  modal("SUCESO INESPERADO", ev.title, ev.text, [ev.opt1, ev.opt2]);
-}
-
-function act(title,desc,run){return {title,desc,run}}
+// Listado mundial ampliado de ejemplo para ligas y clubes
+const worldLeagues = [
+  {country: "🇨🇴 Colombia", league: "Categoría Primera A", teams: ["Atlético Nacional", "Millonarios", "Independiente Medellín", "América de Cali", "Junior"]},
+  {country: "🇦🇷 Argentina", league: "Liga Profesional de Fútbol", teams: ["River Plate", "Boca Juniors", "Racing Club", "Independiente", "San Lorenzo"]},
+  {country: "🇪🇸 España", league: "LaLiga EA Sports", teams: ["Real Madrid", "FC Barcelona", "Atlético de Madrid", "Sevilla", "Valencia"]},
+  {country: "🇬🇧 Inglaterra", league: "Premier League", teams: ["Manchester City", "Arsenal", "Liverpool", "Manchester United", "Chelsea"]},
+  {country: "🇮🇹 Italia", league: "Serie A", teams: ["Inter de Milán", "AC Milan", "Juventus", "Napoli", "Roma"]}
+];
 
 function render(){
-  $("playerHeader").textContent=`${s.name} "${s.nickname}"`;
-  $("playerSubtitle").textContent=`Posición: ${s.pos} · Estilo: ${s.bootStyle} · Cabello: ${s.hairStyle}`;
-  $("date").textContent=`EDAD: ${s.age} AÑOS · MES ${s.month}`;
-  ["money","energy","tech","phys","mental","rep","matches","club"].forEach(id=>$(id).textContent=({money:"$"+s.money,energy:s.energy+"/100",tech:s.tech,phys:s.phys,mental:s.mental,rep:s.rep,matches:s.matches,club:s.pos+" · "+s.club})[id]);
-  $("bar").style.width=s.energy+"%";
-  document.querySelectorAll("[data-p]").forEach(b=>b.classList.toggle("active",b.dataset.p===s.place));
-
-  const A={
-    home:[
-      act("🛌 Descansar y Recuperar","+40 energía · Recupérate al 100",()=>{s.energy=clamp(s.energy+40,0,100);log("Descansaste en casa y recuperaste energías.");}),
-      act("🥗 Dieta estricta","−$25 · +2 Físico y Mental",()=>{if(s.money<25)return alertBox("No tienes suficiente dinero para comida óptima.");s.money-=25;s.phys+=2;s.mental++;log("Mantuviste una dieta profesional para tu desarrollo.");})
-    ],
-    pitch:[
-      act("⚽ Partido de barrio","−20 energía · Compite y gana fama",playMatch),
-      act("🎯 Práctica de definición","−12 energía · +2 Técnica",()=>{if(s.energy<12)return alertBox("Falta energía.");s.energy-=12;s.tech+=2 + s.bonusTech;s.trainCount++;log("Entrenaste disparos y control de balón.")})
-    ],
-    gym:[
-      act("🏋️ Rutina de pesas","−15 energía · +3 Físico",()=>{if(s.energy<15)return alertBox("Estás cansado para el gimnasio.");s.energy-=15;s.phys+=3 + s.bonusPhys;s.trainCount++;log("Fortaleciste masa muscular y resistencia física.");}),
-      act("⚡ Ejercicios de agilidad","−12 energía · +2 Técnica",()=>{if(s.energy<12)return alertBox("Falta energía.");s.energy-=12;s.tech+=2;s.trainCount++;log("Mejoraste tu velocidad de reacción y gambeta.");})
-    ],
-    academy:[
-      act("🏫 Clínica táctica","−15 energía · +2 Mental",()=>{if(s.energy<15)return alertBox("Necesitas descanso.");s.energy-=15;s.mental+=2;s.trainCount++;log("Estudiaste posicionamiento táctico en el campo.");}),
-      act("🧠 Lectura de juego","−10 energía · +1 Mental y +1 Técnica",()=>{if(s.energy<10)return alertBox("Falta energía.");s.energy-=10;s.mental++;s.tech++;log("Analizaste videos de partidos profesionales.")})
-    ],
-    store:[
-      act("👟 Comprar Botines Pro","$120 · Mejora permanente en Técnica",()=>{
-        if(s.money<120)return alertBox("No tienes suficiente dinero.");
-        if(s.inventory.includes("Botines Pro"))return alertBox("Ya tienes estos botines.");
-        s.money-=120; s.inventory.push("Botines Pro"); s.bonusTech+=1;
-        s.bootStyle="Botines Pro Edición Oro";
-        log("Compraste unos botines profesionales que mejoran tu rendimiento técnico.");
-        modal("TIENDA","¡Gran compra!","Tus nuevos botines te otorgan un bonus constante en tus entrenamientos de técnica.",[{label:"Continuar"}]);
-      }),
-      act("🧪 Bebidas Energéticas Top","$50 · Recupera energía máxima",()=>{
-        if(s.money<50)return alertBox("No tienes dinero suficiente.");
-        s.money-=50; s.energy=clamp(s.energy+45,0,100);
-        log("Consumiste suplementos y recuperaste energía de inmediato.");
-        modal("TIENDA","Vitalidad al 100","Te sientes con una energía tremenda para entrenar duro.",[{label:"Continuar"}]);
-      })
-    ],
-    agent:[
-      act("🤝 Consultar al representante","Ver consejos para dar el salto",()=>{
-        let text = s.age<16 ? "Eres muy joven (menor de 16). Sigue entrenando y acumulando reputación." : "Tienes la edad perfecta para ser visado por clubes importantes. ¡Prueba suerte en las visorías!";
-        modal("AGENTE DEPORTIVO","Estado del mercado",text,[{label:"Entendido"}]);
-      }),
-      act("💰 Buscar patrocinio local","−$10 · Gana pequeños fondos",()=>{if(s.rep<8)return alertBox("Tu reputación es muy baja para conseguir patrocinios.");s.money+=70;log("Conseguiste un pequeño auspicio deportivo local por $70.");})
-    ],
-    work:[
-      act("📦 Medio tiempo deportivo","+ $80 · −18 energía",()=>{if(s.energy<18)return alertBox("Demasiado cansancio.");s.energy-=18;s.money+=80;log("Trabajaste medio tiempo para financiar tus implementos.")})
-    ]
-  };
-
-  $("actions").innerHTML=A[s.place].map((a,i)=>`<button class="action" data-a="${i}"><b>${a.title}</b><small>${a.desc}</small></button>`).join("");
-  document.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{A[s.place][+b.dataset.a].run();save();render()});
-
-  if(s.age < 16){
-    $("storyTitle").textContent=`Etapa Formativa (${s.age} años)`;
-    $("storyText").textContent="Estás en divisiones menores del barrio. Desarrolla tus atributos y adquiere equipo antes de cumplir los 16 años.";
-    $("storyBtn").textContent="Evaluar Proyección";
-  } else if(s.age >= 16 && s.age <= 18){
-    $("storyTitle").textContent=`¡Edad Clave para Visorías! (${s.age} años)`;
-    $("storyText").textContent="Los ojeadores de equipos profesionales están asistiendo a los partidos. Presenta tus credenciales y busca tu fichaje.";
-    $("storyBtn").textContent="Asistir a Visorías de Clubes";
-  } else {
-    $("storyTitle").textContent="Consolidación Profesional";
-    $("storyText").textContent="Ya eres parte del fútbol profesional. Mantén tu nivel y busca la gloria internacional.";
-    $("storyBtn").textContent="Ver Estado Profesional";
-  }
-
-  $("quests").innerHTML=`• Edad: ${s.age} años (Mes ${s.month}/12)<br>• Posición: ${s.pos} | Apodo: ${s.nickname}<br>• Estilo / Botines: ${s.bootStyle}<br>• Club actual: ${s.club}<br>• Inventario: ${s.inventory.length>0 ? s.inventory.join(", ") : "Vacío"}`;
-  $("journal").innerHTML=s.journal.map(t=>"• "+esc(t)).join("<br>");
+  $("dateDisplay").textContent=`Día ${s.age*365 + s.money%365} · ${s.year}`;
+  $("moneyDisplay").textContent="$"+s.money;
+  $("energyDisplay").textContent="⚡ "+s.energy;
+  $("playerName").textContent=`${s.name} "${s.nickname}"`;
+  $("playerClub").textContent=`${s.age} años · ${s.club}`;
+  $("hypeBar").style.height=s.hype+"%";
+  $("repBar").style.height=s.rep+"%";
+  save();
 }
 
-$("storyBtn").onclick=()=>{
-  if(s.age < 16){
-    modal("PROYECCIÓN JUVENIL","Fase de Crecimiento","Tienes "+s.age+" años. Los clubes profesionales casi nunca fichan antes de los 16. Concéntrate en entrenar.",[{label:"Seguir formándome"}]);
-  } else if(s.age >= 16 && s.age <= 18){
-    let evalScore = s.tech + s.phys + s.rep + s.bonusTech + Math.floor(Math.random()*10);
-    if(evalScore >= 42){
-      s.club = "Atlético de la Llave (Sub-18)";
-      log("¡Fichaste por las divisiones inferiores del Atlético de la Llave!");
-      modal("¡OJEADORES CLAVE! 🏆","¡Contrato Juvenil Profesional!","Un cazatalentos quedó impresionado con tus capacidades técnicas y tu estilo en la cancha.",[{label:"Continuar mi carrera"}]);
-    } else {
-      log("Asististe a la visoría pero faltó convencer a los scouts.");
-      modal("PRUEBA DE OJEADORES","Sin contrato esta vez","Los scouts notaron tu esfuerzo, pero te faltó un poco más de nivel. Entrena más duro este año.",[{label:"Entendido, a mejorar"}]);
-    }
+function nextDay(){
+  s.energy = Math.min(100, s.energy + 25);
+  s.money -= 10; // Gastos diarios básicos
+  if(Math.random()<0.3) {
+    s.followers += Math.floor(Math.random()*15);
+    s.posts.unshift(`Un fan comentó en tu perfil sobre tu último entrenamiento.`);
+  }
+  render();
+}
+
+function openBio(){
+  showModal("Biografía y Ajustes de Avatar", `
+    <p><b>Nombre:</b> ${s.name} (${s.nickname})</p>
+    <p><b>País Base:</b> ${s.country}</p>
+    <p><b>Club Actual:</b> ${s.club}</p>
+    <hr style="border-color:var(--line)">
+    <button class="btn" onclick="editAvatar()">Modificar Apodo y Estilo</button>
+  `);
+}
+
+function editAvatar(){
+  let nick = prompt("Nuevo apodo en cancha:", s.nickname);
+  if(nick) s.nickname = nick;
+  render(); closeModal();
+}
+
+function openSocial(){
+  let feedHtml = s.posts.length > 0 ? s.posts.map(p=>`<div class="feed-item">${p}</div>`).join("") : "<p>No hay publicaciones recientes.</p>";
+  showModal("Redes Sociales & Hype", `
+    <p>👥 <b>Seguidores:</b> ${s.followers}</p>
+    <p>🔥 <b>Nivel de Hype:</b> ${s.hype}%</p>
+    <hr style="border-color:var(--line)">
+    <h3>Feed de la Comunidad</h3>
+    ${feedHtml}
+    <button class="btn" onclick="postSocial()">Hacer Publicación Viral (-10 Energía)</button>
+  `);
+}
+
+function postSocial(){
+  if(s.energy < 10) return alert("No tienes energía suficiente.");
+  s.energy -= 10;
+  let gain = Math.floor(Math.random()*50) + 20;
+  s.followers += gain;
+  s.hype = Math.min(100, s.hype + 5);
+  s.posts.unshift(`Subiste un video entrenando regates. ¡Ganaste ${gain} seguidores!`);
+  openSocial();
+  render();
+}
+
+function openTraining(){
+  showModal("Centro de Entrenamiento", `
+    <div class="choice-list">
+      <button class="choice-btn" onclick="trainStat('tech')"><b>⚽ Entrenar Técnica</b><small>-15 Energía · Mejora control y definición</small></button>
+      <button class="choice-btn" onclick="trainStat('phys')"><b>🏋️ Preparación Física</b><small>-15 Energía · Mejora resistencia y velocidad</small></button>
+      <button class="choice-btn" onclick="trainStat('mental')"><b>🧠 Análisis Táctico</b><small>-12 Energía · Mejora visión de juego</small></button>
+    </div>
+  `);
+}
+
+function trainStat(type){
+  if(s.energy < 15) return alert("Estás fatigado. Duerme para recuperar energía.");
+  s.energy -= 15;
+  if(type==='tech') s.tech += 2;
+  if(type==='phys') s.phys += 2;
+  if(type==='mental') s.mental += 2;
+  s.rep += 1;
+  render(); closeModal();
+  alert("¡Entrenamiento completado con éxito!");
+}
+
+function openMatches(){
+  showModal("Partidos y Ligas del Mundo", `
+    <p>Actualmente compites en: <b>${s.league}</b></p>
+    <div class="choice-list">
+      <button class="choice-btn" onclick="playMatchSimulation()"><b>⚽ Jugar Partido de Liga</b><small>Pon a prueba tus habilidades (-20 Energía)</small></button>
+      <button class="choice-btn" onclick="openLeagueTable()"><b>📋 Ver Tabla de Posiciones y Clubes</b></button>
+    </div>
+  `);
+}
+
+function playMatchSimulation(){
+  if(s.energy < 20) return alert("Demasiado cansancio para jugar.");
+  s.energy -= 20;
+  let performance = (s.tech + s.phys + s.mental) / 3 + Math.random()*15;
+  if(performance > 25){
+    s.rep += 3; s.money += 150;
+    showModal("¡Resultado del Partido!", `<h3>¡Victoria Destacada! 🏆</h3><p>Fuiste la figura del encuentro. Marcaste diferencia en la cancha y obtienes $150.</p>`);
   } else {
-    modal("CARRERA PROFESIONAL","Estrella en Ascenso","Estás consolidado en el circuito profesional. Sigue ganando partidos.",[{label:"Continuar"}]);
+    s.rep += 1; s.money += 50;
+    showModal("¡Resultado del Partido!", `<h3>Empate o Partido Duro ⚽</h3><p>El encuentro fue parejo. Sumas experiencia competitiva y $50.</p>`);
   }
-};
+  render();
+}
 
-document.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{s.place=b.dataset.p;log("Te desplazaste hacia "+placeNames[s.place]+"+.");save();render()});
+function openLeagueTable(){
+  let html = worldLeagues.map(l=>`<div><b>${l.country} - ${l.league}</b><ul>${l.teams.map(t=>`<li>${t}</li>`).join("")}</ul></div>`).join("<hr>");
+  showModal("Estructura de Clubes y Ligas Mundiales", html);
+}
 
-$("next").onclick=()=>{
-  s.month++;
-  s.energy=clamp(s.energy+30,0,100);
-  if(s.month>12){
-    s.month=1;
-    s.age++;
-    log("¡Has cumplido un año más! Ahora tienes "+s.age+" años.");
-  }
-  if(s.month%3===0){
-    s.money=Math.max(0,s.money-15);
-    log("Gastos de mantenimiento y equipamiento deportivo (-$15).");
-  }
-  // Evento aleatorio con probabilidad al avanzar el mes
-  if(Math.random() < 0.4) {
-    triggerRandomEvent();
-  } else {
-    log("Inició un nuevo mes. Tu condición física se actualiza.");
-  }
-  save(); render();
-};
+function openTransferMarket(){
+  showModal("Mercado de Fichajes y Ojeadores", `
+    <p>Los clubes de distintas ligas siguen tu evolución. Sube tu reputación y técnica para recibir ofertas oficiales.</p>
+    <div class="choice-list">
+      <button class="choice-btn" onclick="checkOffers()"><b>📥 Ver Ofertas de Clubes</b></button>
+    </div>
+  `);
+}
 
-$("save").onclick=()=>{save(true)};
-$("summary").onclick=()=>{
-  modal("PERSONALIZACIÓN Y PERFIL", "Modifica tu identidad", 
-    `Configura tu apariencia y datos en la cancha. Actualmente eres: ${s.name} (${s.nickname}), ${s.pos}.`, 
-    [
-      {label:"Cambiar Apodo", run:()=>{let n=prompt("Nuevo apodo:", s.nickname);if(n){s.nickname=n;log("Actualizaste tu apodo a "+n);save();render();}}},
-      {label:"Cambiar Posición", run:()=>{let p=prompt("Elige posición (Delantero / Mediocampista / Defensa):", s.pos);if(p){s.pos=p;log("Cambiaste tu posición a "+p);save();render();}}},
-      {label:"Estilo de Cabello/Look", run:()=>{let h=prompt("Describe tu corte o peinado:", s.hairStyle);if(h){s.hairStyle=h;log("Actualizaste tu look.");save();render();}}},
-      {label:"Volver"}
-    ]
-  );
-};
-$("reset").onclick=()=>modal("NUEVA CARRERA","¿Reiniciar el camino al profesionalismo?","Se borrará el progreso actual y volverás a tener 14 años.",[{label:"Sí, reiniciar",run:()=>{s=fresh();save();render()}},{label:"Cancelar"}]);
+function checkOffers(){
+  if(s.rep < 30) return alert("Ningún club profesional importante se fija en ti todavía. Sube tu reputación y juega partidos.");
+  showModal("Ofertas de Fichaje", `
+    <p>¡Atención! Tienes una propuesta formal sobre la mesa:</p>
+    <button class="choice-btn" onclick="signContract('Atlético Nacional (Colombia)')"><b>Fichar por Atlético Nacional</b><small>Sueldo alto · Liga Colombiana</small></button>
+    <button class="choice-btn" onclick="signContract('River Plate (Argentina)')"><b>Fichar por River Plate</b><small>Exposición internacional · Liga Argentina</small></button>
+  `);
+}
+
+function signContract(teamName){
+  s.club = teamName;
+  showModal("¡Fichaje Oficial! ✍️", `Has firmado contrato con el <b>${teamName}</b>. ¡Tu carrera da el salto al profesionalismo!`);
+  render();
+}
+
+function openStore(){
+  showModal("Tienda Global", `
+    <p>Dinero disponible: <b>$${s.money}</b></p>
+    <div class="choice-list">
+      <button class="choice-btn" onclick="buyItem('Botines de Oro', 250)"><b>👟 Botines de Oro ($250)</b><small>Aumenta rendimiento técnico</small></button>
+      <button class="choice-btn" onclick="buyItem('Bebidas Energéticas (Pack)', 80)"><b>⚡ Bebidas Energéticas ($80)</b><small>Recupera energía al instante</small></button>
+    </div>
+  `);
+}
+
+function buyItem(name, cost){
+  if(s.money < cost) return alert("No tienes suficiente dinero.");
+  s.money -= cost;
+  s.inventory.push(name);
+  if(name.includes("Energéticas")) s.energy = 100;
+  alert(`¡Compraste ${name} con éxito!`);
+  closeModal(); render();
+}
+
+function openSkills(){
+  showModal("Atributos del Futbolista", `
+    <p>⚽ <b>Técnica:</b> ${s.tech}</p>
+    <p>💪 <b>Físico:</b> ${s.phys}</p>
+    <p>🧠 <b>Mentalidad:</b> ${s.mental}</p>
+    <p>⭐ <b>Reputación:</b> ${s.rep}</p>
+  `);
+}
+
+function openSettings(){
+  showModal("Configuración", `
+    <button class="btn alt" onclick="if(confirm('¿Reiniciar partida?')){localStorage.removeItem('proSoccerSimGlobal');location.reload();}">Reiniciar Carrera</button>
+  `);
+}
 
 render();
 </script></body></html>
