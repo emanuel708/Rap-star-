@@ -4,487 +4,74 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b132b">
-<title>Pro Football Star: Evolution</title>
+<title>Pro Football Star: Evolution V7</title>
 <style>
 :root {
   --bg: #070d1a; --p: #111c38; --p2: #1a284f; --line: #2a3d70; --txt: #f4f6fb; 
   --muted: #94a3b8; --green: #10b981; --blue: #3b82f6; --pink: #ec4899;
+  --red: #ef4444; --gold: #f59e0b;
   --grad: linear-gradient(135deg, #3b82f6, #10b981);
-  --grad-social: linear-gradient(135deg, #ec4899, #f59e0b);
-  --orange: linear-gradient(135deg, #f59e0b, #ef4444);
+  --grad-match: linear-gradient(135deg, #f59e0b, #ef4444);
 }
-* { box-sizing: border-box; }
-body { margin: 0; background: radial-gradient(circle at top, #132247, #070d1a 70%); color: var(--txt); font: 15px -apple-system, BlinkMacSystemFont, sans-serif; padding-bottom: 80px; user-select: none; }
+* { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+body { margin: 0; background: var(--bg); color: var(--txt); padding-bottom: 80px; user-select: none; font-size: 14px; }
 .app { max-width: 480px; margin: auto; padding: 12px; }
 
-/* Top Bar */
-.top-bar { display: flex; justify-content: space-between; align-items: center; background: var(--p); border: 1px solid var(--line); border-radius: 14px; padding: 10px 15px; margin-bottom: 12px; font-weight: 700; font-size: 13px; }
-.top-bar .stats { display: flex; gap: 10px; }
+/* Header */
+.header { background: var(--p); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+.header-col { display: flex; flex-direction: column; gap: 4px; }
+.val-pill { background: #050a14; padding: 4px 8px; border-radius: 6px; font-weight: bold; border: 1px solid var(--line); font-size: 12px; display: flex; align-items: center; gap: 5px; }
 
-/* Dashboard & Avatar */
-.card { background: var(--p); border: 1px solid var(--line); border-radius: 16px; padding: 15px; margin-bottom: 12px; }
-.dashboard { display: flex; align-items: center; justify-content: space-between; gap: 5px; }
-.side-bars { display: flex; flex-direction: column; gap: 10px; width: 40px; }
-.v-bar-container { display: flex; flex-direction: column; align-items: center; font-size: 9px; color: var(--muted); font-weight: bold; }
-.v-bar { width: 14px; height: 100px; background: #050a14; border-radius: 8px; overflow: hidden; display: flex; align-items: flex-end; border: 1px solid var(--line); margin-top: 4px; }
-.v-fill { width: 100%; background: var(--blue); height: 50%; transition: height 0.3s; }
-.v-fill.hype { background: #f59e0b; } .v-fill.moral { background: #ec4899; }
+/* Dashboard */
+.card { background: var(--p); border: 1px solid var(--line); border-radius: 16px; padding: 15px; margin-bottom: 12px; position: relative; }
+.dashboard-grid { display: grid; grid-template-columns: 50px 1fr 50px; gap: 10px; align-items: center; }
+.bars-col { display: flex; flex-direction: column; gap: 10px; }
+.v-bar-wrap { text-align: center; font-size: 9px; color: var(--muted); font-weight: bold; }
+.v-bar { width: 12px; height: 90px; background: #050a14; border-radius: 6px; margin: 4px auto 0; border: 1px solid var(--line); display: flex; align-items: flex-end; overflow: hidden; }
+.v-fill { width: 100%; transition: height 0.3s; }
 
-/* Vector Avatar Box */
-.avatar-box { flex: 1; display: flex; flex-direction: column; align-items: center; }
-.avatar-visual { width: 140px; height: 160px; background: radial-gradient(circle, #2a3d70, #050a14); border: 2px solid var(--line); border-radius: 20px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.5); cursor: pointer; display: flex; align-items: flex-end; justify-content: center; position: relative; }
-.season-stats-badge { position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.7); font-size: 10px; padding: 3px 6px; border-radius: 8px; border: 1px solid var(--line); color: var(--green); font-weight: bold; }
+/* Avatar Box */
+.avatar-container { display: flex; flex-direction: column; align-items: center; position: relative; }
+.avatar-box { width: 130px; height: 150px; background: radial-gradient(circle, #2a3d70, #050a14); border: 2px solid var(--line); border-radius: 16px; overflow: hidden; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+.injury-overlay { position: absolute; inset: 0; background: rgba(239, 68, 68, 0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; text-align: center; z-index: 10; backdrop-filter: blur(2px); color: white; }
+.badges { position: absolute; top: 5px; right: 5px; display: flex; flex-direction: column; gap: 4px; }
+.badge { background: rgba(0,0,0,0.8); font-size: 10px; padding: 2px 5px; border-radius: 4px; border: 1px solid var(--gold); color: var(--gold); font-weight: bold; }
+.badge.assist { border-color: var(--blue); color: var(--blue); }
 
-/* Navigation */
-.nav-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(5, 9, 20, 0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--line); display: flex; justify-content: space-around; padding: 12px 0; z-index: 100; }
-.nav-item { background: 0; border: 0; color: var(--muted); font-size: 22px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.nav-item span { font-size: 10px; font-weight: 700; text-transform: uppercase; }
-.nav-item.active { color: #38bdf8; }
+/* Actions */
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+.btn-action { background: var(--p2); border: 1px solid var(--line); border-radius: 12px; padding: 15px; color: #fff; font-weight: 800; text-align: left; font-size: 13px; display: flex; flex-direction: column; gap: 5px; cursor: pointer; transition: 0.2s; }
+.btn-action span { font-size: 20px; }
+.btn-action:active { transform: scale(0.96); }
+.btn-action:disabled { opacity: 0.4; pointer-events: none; filter: grayscale(1); }
+.btn-primary { background: var(--grad); border: none; }
+.btn-match { background: var(--grad-match); border: none; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3); }
 
-/* Menus & Grids */
-.menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-.menu-tile { background: var(--p2); border: 1px solid var(--line); border-radius: 14px; padding: 15px; color: #fff; text-align: left; font-weight: 800; cursor: pointer; font-size: 14px; display: flex; flex-direction: column; gap: 5px; }
-.menu-tile span { font-size: 20px; }
-.menu-tile.highlight { background: var(--grad); border: 0; box-shadow: 0 4px 15px rgba(59,130,246,0.3); }
+/* Nav */
+.nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(5, 9, 20, 0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--line); display: flex; justify-content: space-around; padding: 10px 0 20px 0; z-index: 100; }
+.nav-item { background: none; border: none; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 20px; cursor: pointer; }
+.nav-item span { font-size: 10px; font-weight: bold; text-transform: uppercase; }
 
 /* Modals */
-.overlay { position: fixed; inset: 0; background: rgba(3,7,18,0.9); display: none; align-items: flex-end; justify-content: center; padding: 10px; z-index: 200; backdrop-filter: blur(5px); }
-.modal { width: 100%; max-width: 480px; background: #111c38; border: 1px solid var(--line); border-radius: 24px; padding: 20px; max-height: 85vh; overflow-y: auto; box-shadow: 0 -10px 40px rgba(0,0,0,0.5); animation: slideUp 0.3s ease-out; }
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; display: none; align-items: flex-end; justify-content: center; backdrop-filter: blur(5px); }
+.modal { background: var(--bg); border: 1px solid var(--line); border-radius: 24px 24px 0 0; width: 100%; max-width: 480px; max-height: 85vh; padding: 20px; overflow-y: auto; animation: slideUp 0.3s ease-out; display: flex; flex-direction: column; gap: 15px; }
 @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-.modal h2 { margin-top: 0; font-size: 22px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-.btn { width: 100%; background: var(--green); color: #03130d; border: 0; border-radius: 12px; padding: 14px; font-weight: 800; cursor: pointer; margin-top: 10px; font-size: 15px; }
-.btn.alt { background: transparent; color: var(--muted); border: 1px solid var(--line); }
-.edit-btn { background: transparent; border: 1px solid var(--line); color: var(--muted); border-radius: 6px; font-size: 11px; padding: 4px 8px; cursor: pointer; margin-top: 5px; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; font-size: 20px; font-weight: bold; border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 10px; }
+.close-btn { background: var(--p2); color: white; border: none; border-radius: 50%; width: 30px; height: 30px; font-weight: bold; cursor: pointer; }
+.list-item { background: var(--p); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; }
+.btn-sm { background: var(--blue); color: white; border: none; padding: 8px 12px; border-radius: 8px; font-weight: bold; font-size: 12px; cursor: pointer; }
+.btn-sm:disabled { background: var(--line); color: var(--muted); }
 
-/* Customizer Grid */
-.cust-section { margin-bottom: 15px; }
-.cust-section p { font-size: 12px; color: var(--muted); margin: 0 0 8px 0; font-weight: bold; text-transform: uppercase; }
-.cust-grid { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
-.cust-item { width: 60px; height: 60px; flex-shrink: 0; background: var(--p2); border: 2px solid var(--line); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; cursor: pointer; text-align: center; }
-.cust-item.color { color: transparent; }
-
-/* Event Canonical Overlay */
-.event-box { background: var(--orange); padding: 20px; border-radius: 16px; text-align: center; }
-.event-box.match { background: linear-gradient(135deg, #1e3a8a, #0f172a); border: 1px solid var(--line); }
-.event-box h3 { margin: 0 0 10px 0; font-size: 22px; color: #fff; }
-.event-box p { font-size: 15px; line-height: 1.5; margin-bottom: 20px; color: rgba(255,255,255,0.9); }
-.event-box button { background: rgba(0,0,0,0.4); color: #fff; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.2); }
-
-/* Transfer List */
-.transfer-item { background: #091022; padding: 12px; border: 1px solid var(--line); border-radius: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
-.transfer-item.locked { opacity: 0.5; filter: grayscale(1); }
+/* Style Customizer */
+.cust-grid { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+.cust-item { width: 50px; height: 50px; flex-shrink: 0; border-radius: 10px; border: 2px solid var(--line); background: var(--p2); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; cursor: pointer; }
 </style>
 </head>
 <body>
 
 <main class="app">
-  <div class="top-bar">
-    <div id="dateDisplay" style="color:#38bdf8">Semana 1 · Temp 1</div>
-    <div class="stats">
-      <span id="moneyDisplay" style="color:#10b981">$500</span>
-      <span id="energyDisplay">⚡ 100%</span>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="dashboard">
-      <div class="side-bars">
-        <div class="v-bar-container">FORMA<div class="v-bar"><div class="v-fill" id="barFitness"></div></div></div>
-        <div class="v-bar-container">MORAL<div class="v-bar"><div class="v-fill moral" id="barMorale"></div></div></div>
-      </div>
-      
-      <div class="avatar-box">
-        <div class="avatar-visual" id="avatarPreviewBox" onclick="openCustomizer()"></div>
-        <div style="margin-top:10px;font-weight:900;font-size:18px;text-align:center;" id="playerName">Jugador</div>
-        <div style="font-size:12px;color:var(--muted);text-align:center;" id="playerClub">Libre</div>
-        <div id="awardsContainer" style="font-size:16px; margin-top:5px; text-align:center;"></div>
-        <button class="edit-btn" onclick="editarDatos()">✏️ Editar Datos</button>
-      </div>
-
-      <div class="side-bars">
-        <div class="v-bar-container">HYPE<div class="v-bar"><div class="v-fill hype" id="barHype"></div></div></div>
-        <div class="v-bar-container">OVR<div class="v-bar"><div class="v-fill" id="barOvr"></div></div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="menu-grid">
-    <button class="menu-tile highlight" onclick="startMatch()"><span>⚽</span> JUGAR PARTIDO</button>
-    <button class="menu-tile" onclick="openTraining()"><span>🏃</span> ENTRENAR</button>
-    <button class="menu-tile" onclick="alert('Redes sociales cerradas por actualización. ¡Concéntrate en el balón!')" style="opacity:0.5"><span>📱</span> IMSTAGRAM</button>
-    <button class="menu-tile" onclick="nextWeek()" style="background:var(--p2); border-color:var(--line);"><span>⏳</span> AVANZAR SEMANA</button>
-  </div>
-</main>
-
-<nav class="nav-bar">
-  <button class="nav-item active" onclick="closeModal()"><span>🏠</span><span>Inicio</span></button>
-  <button class="nav-item" onclick="openStats()"><span>📊</span><span>Récord</span></button>
-  <button class="nav-item" onclick="openTransfers()"><span>🌍</span><span>Mercado</span></button>
-  <button class="nav-item" onclick="openCustomizer()"><span>🎨</span><span>Estilo</span></button>
-</nav>
-
-<div class="overlay" id="overlay">
-  <div class="modal" id="modalContent">
-    <h2 id="mTitle">Título</h2>
-    <div id="mBody">Contenido</div>
-    <button class="btn alt" id="closeBtn" onclick="closeModal()">Cerrar</button>
-  </div>
-</div>
-
-<script>
-// BASE DE DATOS DE CLUBES Y LIGAS
-const DB_CLUBS = {
-  "Juvenil FC": {color: "#10b981", reqOvr: 0, league: "Divisiones Menores"},
-  "Atl. Nacional": {color: "#22c55e", reqOvr: 60, league: "Liga Colombiana"},
-  "Millonarios": {color: "#3b82f6", reqOvr: 60, league: "Liga Colombiana"},
-  "América de Cali": {color: "#ef4444", reqOvr: 60, league: "Liga Colombiana"},
-  "Atl. Madrid": {color: "#ef4444", reqOvr: 70, league: "LaLiga"},
-  "FC Barcelona": {color: "#1e3a8a", reqOvr: 75, league: "LaLiga"},
-  "Real Madrid": {color: "#ffffff", reqOvr: 78, league: "LaLiga"},
-  "Chelsea": {color: "#2563eb", reqOvr: 75, league: "Premier League"},
-  "Liverpool": {color: "#b91c1c", reqOvr: 80, league: "Premier League"},
-  "Arsenal": {color: "#dc2626", reqOvr: 80, league: "Premier League"},
-  "Man. City": {color: "#38bdf8", reqOvr: 85, league: "Premier League"}
-};
-
-function generarAvatarSVG(skin, hair, shirt, number, goals) {
-  const shadowSkin = "rgba(0,0,0,0.15)";
-  const bodySVG = `
-    <path d="M30,150 Q100,120 170,150 L180,260 L20,260 Z" fill="${skin}" />
-    <rect x="80" y="100" width="40" height="40" rx="10" fill="${skin}" />
-    <ellipse cx="100" cy="115" rx="20" ry="10" fill="${shadowSkin}" />
-    <ellipse cx="100" cy="65" rx="42" ry="52" fill="${skin}" />
-  `;
-  const faceSVG = `
-    <path d="M72,50 Q80,47 88,52 M112,52 Q120,47 128,50" stroke="#1a1a1a" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <circle cx="78" cy="62" r="4.5" fill="#1a1a1a" />
-    <circle cx="122" cy="62" r="4.5" fill="#1a1a1a" />
-    <path d="M100,68 L100,80 L105,82" stroke="${shadowSkin}" stroke-width="2" fill="none" stroke-linecap="round"/>
-    <path d="M88,95 Q100,100 112,95" stroke="#1a1a1a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  `;
-  let hairSVG = "";
-  if(hair === "corto") hairSVG = `<path d="M54,65 C54,10 146,10 146,65 C146,30 54,30 54,65 Z" fill="#111827"/>`;
-  else if(hair === "rubio") hairSVG = `<path d="M54,65 C54,5 146,5 146,65 Q140,20 100,15 Q60,20 54,65 Z" fill="#eab308"/><path d="M70,15 Q100,-10 130,15 Z" fill="#ca8a04"/>`;
-  else if(hair === "afro") hairSVG = `<circle cx="100" cy="20" r="35" fill="#1f2937"/><circle cx="65" cy="45" r="25" fill="#1f2937"/><circle cx="135" cy="45" r="25" fill="#1f2937"/>`;
-  else if(hair === "gorra") hairSVG = `<path d="M50,45 C50,0 150,0 150,45 Z" fill="#ef4444"/><rect x="40" y="40" width="130" height="10" rx="5" fill="#b91c1c"/>`;
-  else if(hair === "rapado") hairSVG = `<ellipse cx="100" cy="50" rx="40" ry="30" fill="#111827" opacity="0.3"/>`;
-
-  // Color de número dinámico según camiseta (si la camiseta es blanca, número negro)
-  let numColor = (shirt === "#ffffff") ? "rgba(0,0,0,0.85)" : "rgba(255,255,255,0.85)";
-
-  const shirtSVG = `
-    <path d="M40,150 Q100,135 160,150 L170,260 L30,260 Z" fill="${shirt}" />
-    <path d="M75,148 L100,175 L125,148 Z" fill="${shadowSkin}" />
-    <path d="M40,150 L30,260 L45,260 L50,150 Z" fill="rgba(0,0,0,0.2)" />
-    <path d="M160,150 L170,260 L155,260 L150,150 Z" fill="rgba(0,0,0,0.2)" />
-    <text x="100" y="235" font-family="'Impact', sans-serif" font-size="55" font-weight="900" fill="${numColor}" text-anchor="middle" letter-spacing="-2">${number}</text>
-  `;
-
-  return `
-    <div class="season-stats-badge">⚽ ${goals} Goles</div>
-    <svg viewBox="0 0 200 250" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-      ${bodySVG} ${faceSVG} ${hairSVG} ${shirtSVG}
-    </svg>
-  `;
-}
-
-const fresh = () => ({
-  name: "Novato", number: 10, week: 1, season: 1, money: 500,
-  energy: 100, fitness: 80, morale: 80, hype: 10, 
-  stats: { tech: 50, phys: 50, ment: 50 },
-  club: "Juvenil FC",
-  avatar: { skin: "#fcd5ce", hair: "corto" }, // Camiseta ya no se guarda, la da el club
-  seasonStats: { goals: 0, matches: 0 },
-  awards: [] // Arreglo de emojis de trofeos
-});
-
-let s; 
-try { 
-  s = JSON.parse(localStorage.getItem("proSoccerSim_v4"));
-  if (!s || !s.seasonStats) s = fresh(); 
-} catch(e) { s = fresh(); }
-
-const save = () => localStorage.setItem("proSoccerSim_v4", JSON.stringify(s));
-const $ = id => document.getElementById(id);
-const getOVR = () => Math.round((s.stats.tech * 0.4) + (s.stats.phys * 0.4) + (s.stats.ment * 0.2));
-
-function closeModal() { $("overlay").style.display = "none"; $("closeBtn").style.display = "block"; }
-function showModal(title, html, hideClose = false) { 
-  $("mTitle").innerHTML = title; 
-  $("mBody").innerHTML = html; 
-  $("closeBtn").style.display = hideClose ? "none" : "block";
-  $("overlay").style.display = "flex"; 
-}
-
-function render() {
-  $("dateDisplay").textContent = `Semana ${s.week} · Temp ${s.season}`;
-  $("moneyDisplay").textContent = `$${s.money}`;
-  $("energyDisplay").textContent = `⚡ ${s.energy}%`;
-  
-  $("barFitness").style.height = `${s.fitness}%`;
-  $("barMorale").style.height = `${s.morale}%`;
-  $("barHype").style.height = `${s.hype}%`;
-  $("barOvr").style.height = `${getOVR()}%`;
-
-  $("playerName").textContent = s.name;
-  
-  let clubInfo = DB_CLUBS[s.club] || DB_CLUBS["Juvenil FC"];
-  $("playerClub").textContent = `${s.club} | ${clubInfo.league}`;
-  
-  $("awardsContainer").innerHTML = s.awards.length > 0 ? s.awards.join(" ") : "";
-
-  let shirtColor = clubInfo.color;
-  $("avatarPreviewBox").innerHTML = generarAvatarSVG(s.avatar.skin, s.avatar.hair, shirtColor, s.number, s.seasonStats.goals);
-  save();
-}
-
-function editarDatos() {
-  let nuevoNombre = prompt("Ingresa tu apodo en la cancha:", s.name);
-  if(nuevoNombre && nuevoNombre.trim() !== "") s.name = nuevoNombre.trim();
-  let nuevoDorsal = prompt("Elige tu número de dorsal (1-99):", s.number);
-  if(nuevoDorsal && !isNaN(nuevoDorsal)) s.number = Math.min(99, Math.max(1, parseInt(nuevoDorsal)));
-  render();
-}
-
-// === LÓGICA DE PARTIDOS CON DECISIONES ===
-let currentScenario = null;
-
-function startMatch() {
-  if(s.energy < 30) return alert("No tienes energía suficiente.");
-  
-  const scenarios = [
-    {
-      txt: "Minuto 89'. El árbitro pita un penal decisivo a tu favor.",
-      op1: "Tiro potente y al medio (Físico)", st1: "phys",
-      op2: "Colocar al ángulo engañando al portero (Técnica)", st2: "tech"
-    },
-    {
-      txt: "Contragolpe letal. Quedas mano a mano contra el último defensa.",
-      op1: "Hacer un regate explosivo (Físico)", st1: "phys",
-      op2: "Filtrar un pase sin mirar a tu compañero (Mentalidad)", st2: "ment"
-    },
-    {
-      txt: "Tiro libre peligroso al borde del área rival.",
-      op1: "Cobrar con efecto por encima de la barrera (Técnica)", st1: "tech",
-      op2: "Pase corto sorpresivo en jugada preparada (Mentalidad)", st2: "ment"
-    }
-  ];
-  
-  currentScenario = scenarios[Math.floor(Math.random() * scenarios.length)];
-  
-  showModal("⚽ Día de Partido", `
-    <div class="event-box match">
-      <h3>${currentScenario.txt}</h3>
-      <p style="color:var(--muted)">¿Qué decides hacer?</p>
-      <button class="btn" onclick="resolveMatch(1)">${currentScenario.op1}</button>
-      <button class="btn" onclick="resolveMatch(2)">${currentScenario.op2}</button>
-    </div>
-  `, true); // hide normal close btn
-}
-
-function resolveMatch(choice) {
-  s.energy -= 30;
-  s.seasonStats.matches++;
-  
-  let requiredStat = choice === 1 ? currentScenario.st1 : currentScenario.st2;
-  let playerStatValue = s.stats[requiredStat];
-  
-  // Fórmula de éxito: si tu stat es 80, tienes aprox 80% de éxito.
-  let successChance = playerStatValue / 100; 
-  let isSuccess = Math.random() < successChance; 
-  
-  let basePerf = (getOVR() * 0.5) + (s.fitness * 0.3) + (s.morale * 0.2) + (Math.random()*20 - 10);
-  let income = 0;
-  let goalsScored = 0;
-  let resultHtml = "";
-
-  if(isSuccess) {
-     resultHtml += `<h3 style="color:var(--green)">¡Jugada Maestra!</h3><p>Tomaste la decisión correcta y ejecutaste a la perfección.</p>`;
-     basePerf += 20;
-     goalsScored += Math.floor(Math.random() * 2) + 1; // 1 o 2 goles asegurados por la jugada
-  } else {
-     resultHtml += `<h3 style="color:var(--orange)">¡Fallaste!</h3><p>La jugada no salió como esperabas y la afición suspira.</p>`;
-     basePerf -= 15;
-  }
-
-  if (basePerf > 85) {
-    s.hype += 5; s.morale += 10; income = 300;
-    goalsScored += Math.floor(Math.random() * 2); // posible gol extra si jugo brutal
-    resultHtml += `<div style="margin-top:10px; border-top:1px solid var(--line); padding-top:10px;">Fuiste el <b>MVP</b> del partido. (+$300)</div>`;
-  } else if (basePerf > 55) {
-    s.hype += 2; s.morale += 5; income = 150;
-    resultHtml += `<div style="margin-top:10px; border-top:1px solid var(--line); padding-top:10px;">Buen partido, cumpliste con tu rol en el equipo. (+$150)</div>`;
-  } else {
-    s.hype -= 5; s.morale -= 10; income = 50;
-    resultHtml += `<div style="margin-top:10px; border-top:1px solid var(--line); padding-top:10px;">Partido flojo. La prensa criticó tu rendimiento. (+$50)</div>`;
-  }
-  
-  if(goalsScored > 0) resultHtml += `<p style="font-size:18px">⚽ Anotaste <b>${goalsScored}</b> gol(es).</p>`;
-  
-  s.seasonStats.goals += goalsScored;
-  s.fitness = Math.max(0, s.fitness - 15); 
-  s.money += income;
-  
-  showModal("Pitazo Final", resultHtml + `<button class="btn" onclick="closeModal(); render()">Regresar al Menú</button>`, true);
-}
-
-// === LÓGICA DE TEMPORADA Y PREMIOS ===
-function nextWeek() {
-  s.week++;
-  if(s.week > 52) { endSeason(); return; }
-  
-  s.energy = Math.min(100, s.energy + 40);
-  s.fitness = Math.max(10, s.fitness - 5); 
-  s.money -= 50; // gastos de vida
-  
-  if (Math.random() < 0.2) triggerCanonicalEvent();
-  else { render(); alert("La semana ha avanzado."); }
-}
-
-function endSeason() {
-  let newAwards = [];
-  let isYoung = s.season <= 3; // Considerando joven las primeras 3 temporadas
-  let ovr = getOVR();
-  let goals = s.seasonStats.goals;
-
-  if(goals >= 40 && ovr >= 85 && s.club !== "Juvenil FC") newAwards.push({icon: "🏆", name: "Balón de Oro"});
-  if(goals >= 35 && ovr >= 85 && s.club !== "Juvenil FC") newAwards.push({icon: "🥇", name: "The Best"});
-  if(goals >= 30) newAwards.push({icon: "👟", name: "Bota de Oro"});
-  if(isYoung && ovr >= 75 && goals >= 20) newAwards.push({icon: "🌟", name: "Joven del Mundo"});
-  if(isYoung && goals >= 15) newAwards.push({icon: "✨", name: "Joven de la Liga"});
-
-  let summary = `<p>Has disputado <b>${s.seasonStats.matches}</b> partidos y anotado <b>${goals}</b> goles en la Temporada ${s.season}.</p>`;
-  
-  if(newAwards.length > 0) {
-     summary += `<div style="background:var(--p2); padding:15px; border-radius:12px; text-align:center; margin-bottom:15px;">
-       <h4 style="margin:0 0 10px 0; color:var(--orange)">¡Premios Ganados!</h4>`;
-     newAwards.forEach(aw => {
-       summary += `<div style="margin-bottom:5px;">${aw.icon} <b>${aw.name}</b></div>`;
-       s.awards.push(aw.icon);
-     });
-     summary += `</div>`;
-  } else {
-     summary += `<p style="color:var(--muted)">No lograste ningún premio individual esta temporada. ¡Sigue entrenando!</p>`;
-  }
-
-  // Reset para nueva temporada
-  s.week = 1; 
-  s.season++;
-  s.seasonStats = { goals: 0, matches: 0 };
-  s.energy = 100;
-  s.fitness = 80;
-  
-  showModal("🏁 Fin de Temporada", summary + `<button class="btn" onclick="closeModal(); render()">Iniciar Nueva Temporada</button>`, true);
-}
-
-// === MERCADO DE FICHAJES ===
-function openTransfers() {
-  let ovr = getOVR();
-  let html = `<p>Tu Nivel General (OVR) actual es <b>${ovr}</b>. Para ser fichado, debes cumplir los requisitos del club.</p><div style="display:flex; flex-direction:column; gap:8px;">`;
-  
-  for(let clubName in DB_CLUBS) {
-     if(clubName === "Juvenil FC" || clubName === s.club) continue;
-     let club = DB_CLUBS[clubName];
-     
-     if(ovr >= club.reqOvr) {
-        html += `<div class="transfer-item">
-          <div><b>${clubName}</b><br><small style="color:var(--muted)">${club.league}</small></div>
-          <button class="btn" style="width:auto; padding:8px 15px; margin:0; background:var(--blue)" onclick="transferTeam('${clubName}')">Fichar</button>
-        </div>`;
-     } else {
-        html += `<div class="transfer-item locked">
-          <div><b>${clubName}</b><br><small style="color:var(--muted)">Req. OVR: ${club.reqOvr}</small></div>
-          <button class="btn alt" style="width:auto; padding:8px 15px; margin:0;" disabled>Bloqueado</button>
-        </div>`;
-     }
-  }
-  html += `</div>`;
-  showModal("🌍 Mercado de Traspasos", html);
-}
-
-function transferTeam(teamName) { 
-  s.club = teamName; 
-  s.morale = 100; 
-  alert(`¡Traspaso bomba! Has firmado con ${teamName}. El color de tu camiseta ha cambiado.`); 
-  render(); closeModal(); 
-}
-
-// === RESTO DE SISTEMAS (Entrenamiento, Personalización, Eventos) ===
-function openCustomizer() {
-  const skins = ["#fcd5ce","#f5b08c","#c68642","#8d5524","#3d2210"];
-  const hairs = [{id:"corto",n:"Corto"}, {id:"rubio",n:"Rubio"}, {id:"afro",n:"Afro"}, {id:"gorra",n:"Gorra"}, {id:"rapado",n:"Rapado"}];
-  let clubCol = DB_CLUBS[s.club] ? DB_CLUBS[s.club].color : "#10b981";
-
-  showModal("🎨 Taller de Estilo", `
-    <div style="text-align:center; height:120px; margin-bottom:15px;" id="livePreviewSVG"></div>
-    <div class="cust-section">
-      <p>Tono de Piel</p>
-      <div class="cust-grid">
-        ${skins.map(c=> `<div class="cust-item color" style="background:${c}" onclick="setAv('skin','${c}')"></div>`).join("")}
-      </div>
-    </div>
-    <div class="cust-section">
-      <p>Corte de Cabello</p>
-      <div class="cust-grid">
-        ${hairs.map(h=> `<div class="cust-item" onclick="setAv('hair','${h.id}')">${h.n}</div>`).join("")}
-      </div>
-    </div>
-    <p style="font-size:11px; color:var(--muted); text-align:center;">El color de tu camiseta es administrado por tu club actual (${s.club}).</p>
-  `);
-  updateLivePreview(clubCol);
-}
-
-function updateLivePreview(shirtColor){ 
-  if($("livePreviewSVG")) $("livePreviewSVG").innerHTML = generarAvatarSVG(s.avatar.skin, s.avatar.hair, shirtColor, s.number, 0); 
-}
-function setAv(part, val) { s.avatar[part] = val; render(); updateLivePreview(DB_CLUBS[s.club].color); }
-
-function openTraining() {
-  showModal("🏃 Entrenamiento", `
-    <button class="btn" style="background:var(--p2); color:#fff; border:1px solid var(--line)" onclick="doTrain('tech')"><b>Control y Regate</b><br><small>-20 Energía | Mejora Técnica</small></button>
-    <button class="btn" style="background:var(--p2); color:#fff; border:1px solid var(--line)" onclick="doTrain('phys')"><b>Gimnasio y Velocidad</b><br><small>-20 Energía | Mejora Físico</small></button>
-    <button class="btn" style="background:var(--p2); color:#fff; border:1px solid var(--line)" onclick="doTrain('ment')"><b>Análisis Táctico</b><br><small>-10 Energía | Mejora Mentalidad</small></button>
-  `);
-}
-
-function doTrain(type) {
-  if (s.energy < 20) return alert("Falta energía para entrenar.");
-  s.energy -= 20;
-  s.stats[type] += Math.floor(Math.random()*3)+1;
-  if(type === 'phys') s.fitness = Math.min(100, s.fitness + 10);
-  if(type === 'ment') s.morale = Math.min(100, s.morale + 10);
-  render(); closeModal(); alert("Entrenamiento completado. Subiste tus atributos.");
-}
-
-function openStats() {
-  showModal("📊 Récord de Temporada", `
-    <div style="background:var(--p2); padding:15px; border-radius:12px; margin-bottom:10px;">
-      <h3 style="margin:0 0 10px 0; color:var(--blue)">Estadísticas Temp. ${s.season}</h3>
-      <p>Goles Anotados: <b>${s.seasonStats.goals}</b></p>
-      <p>Partidos Jugados: <b>${s.seasonStats.matches}</b></p>
-      <p>Promedio: <b>${s.seasonStats.matches > 0 ? (s.seasonStats.goals/s.seasonStats.matches).toFixed(2) : 0}</b> goles/partido</p>
-    </div>
-    <div style="background:var(--p2); padding:15px; border-radius:12px;">
-      <h3 style="margin:0 0 10px 0; color:var(--orange)">Atributos Detallados</h3>
-      <p>Técnica: ${s.stats.tech}</p>
-      <p>Físico: ${s.stats.phys}</p>
-      <p>Mentalidad: ${s.stats.ment}</p>
-    </div>
-  `);
-}
-
-function triggerCanonicalEvent() {
-  const ev = { title: "🎙️ Rueda de Prensa", desc: "Un periodista te pregunta sobre tu futuro.", btn1: "Jurar amor al club (+15 Moral, -5 Hype)", btn2: "Dejar puertas abiertas (+15 Hype, -10 Moral)" };
-  showModal("Evento de la Semana", `
-    <div class="event-box">
-      <h3>${ev.title}</h3><p>${ev.desc}</p>
-      <button class="btn" onclick="s.morale+=15; s.hype-=5; closeModal(); render();">${ev.btn1}</button>
-      <button class="btn" onclick="s.hype+=15; s.morale-=10; closeModal(); render();">${ev.btn2}</button>
-    </div>
-  `, true);
-}
-
-render();
-</script>
-</body>
-</html>
+  <div class="header">
+    <div class="header-col">
+      <div style="color:var(--gold); font-weight:900; font-size:15px;" id="calendarTxt">Día 1 · Semana 1</div>
+      <div style="color:var(--muted); font-size:11px;" id="seasonTxt">Temporada 1</div>
+    
