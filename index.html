@@ -1,485 +1,53 @@
 <!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b132b">
-<title>Pro Football Star: Evolution V6</title>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07101f"><title>Pro Football Star V7</title>
 <style>
-:root {
-  --bg: #070d1a; --p: #111c38; --p2: #1a284f; --line: #2a3d70; --txt: #f4f6fb; 
-  --muted: #94a3b8; --green: #10b981; --blue: #3b82f6; --pink: #ec4899;
-  --red: #ef4444; --gold: #f59e0b;
-  --grad: linear-gradient(135deg, #3b82f6, #10b981);
-  --grad-match: linear-gradient(135deg, #f59e0b, #ef4444);
-}
-* { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-body { margin: 0; background: var(--bg); color: var(--txt); padding-bottom: 80px; user-select: none; font-size: 14px; }
-.app { max-width: 480px; margin: auto; padding: 12px; }
-
-/* Top Header */
-.header { background: var(--p); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-.header-col { display: flex; flex-direction: column; gap: 4px; }
-.val-pill { background: #050a14; padding: 4px 8px; border-radius: 6px; font-weight: bold; border: 1px solid var(--line); font-size: 12px; display: flex; align-items: center; gap: 5px; }
-
-/* Dashboard */
-.card { background: var(--p); border: 1px solid var(--line); border-radius: 16px; padding: 15px; margin-bottom: 12px; position: relative; }
-.dashboard-grid { display: grid; grid-template-columns: 50px 1fr 50px; gap: 10px; align-items: center; }
-.bars-col { display: flex; flex-direction: column; gap: 10px; }
-.v-bar-wrap { text-align: center; font-size: 9px; color: var(--muted); font-weight: bold; }
-.v-bar { width: 12px; height: 90px; background: #050a14; border-radius: 6px; margin: 4px auto 0; border: 1px solid var(--line); display: flex; align-items: flex-end; overflow: hidden; }
-.v-fill { width: 100%; transition: height 0.3s; }
-
-/* Avatar */
-.avatar-container { display: flex; flex-direction: column; align-items: center; position: relative; }
-.avatar-box { width: 130px; height: 150px; background: radial-gradient(circle, #2a3d70, #050a14); border: 2px solid var(--line); border-radius: 16px; overflow: hidden; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-.injury-overlay { position: absolute; inset: 0; background: rgba(239, 68, 68, 0.8); display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; text-align: center; z-index: 10; backdrop-filter: blur(2px); }
-.badges { position: absolute; top: 5px; right: 5px; display: flex; flex-direction: column; gap: 4px; }
-.badge { background: rgba(0,0,0,0.8); font-size: 10px; padding: 2px 5px; border-radius: 4px; border: 1px solid var(--gold); color: var(--gold); font-weight: bold; }
-.badge.assist { border-color: var(--blue); color: var(--blue); }
-
-/* Action Grid */
-.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-.btn-action { background: var(--p2); border: 1px solid var(--line); border-radius: 12px; padding: 15px; color: #fff; font-weight: 800; text-align: left; font-size: 13px; display: flex; flex-direction: column; gap: 5px; cursor: pointer; transition: 0.2s; }
-.btn-action span { font-size: 20px; }
-.btn-action:active { transform: scale(0.96); }
-.btn-action:disabled { opacity: 0.4; pointer-events: none; filter: grayscale(1); }
-.btn-primary { background: var(--grad); border: none; }
-.btn-match { background: var(--grad-match); border: none; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3); }
-
-/* Bottom Nav */
-.nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(5, 9, 20, 0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--line); display: flex; justify-content: space-around; padding: 10px 0 20px 0; z-index: 100; }
-.nav-item { background: none; border: none; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 20px; cursor: pointer; }
-.nav-item span { font-size: 10px; font-weight: bold; text-transform: uppercase; }
-
-/* Modals */
-.overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; display: none; align-items: flex-end; justify-content: center; backdrop-filter: blur(5px); }
-.modal { background: var(--bg); border: 1px solid var(--line); border-radius: 24px 24px 0 0; width: 100%; max-width: 480px; max-height: 85vh; padding: 20px; overflow-y: auto; animation: slideUp 0.3s ease-out; display: flex; flex-direction: column; gap: 15px; }
-@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-.modal-header { display: flex; justify-content: space-between; align-items: center; font-size: 20px; font-weight: bold; border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 10px; }
-.close-btn { background: var(--p2); color: white; border: none; border-radius: 50%; width: 30px; height: 30px; font-weight: bold; cursor: pointer; }
-.list-item { background: var(--p); border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; }
-.btn-sm { background: var(--blue); color: white; border: none; padding: 8px 12px; border-radius: 8px; font-weight: bold; font-size: 12px; cursor: pointer; }
-.btn-sm:disabled { background: var(--line); color: var(--muted); }
-
-/* Customizer */
-.cust-grid { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
-.cust-item { width: 50px; height: 50px; flex-shrink: 0; border-radius: 10px; border: 2px solid var(--line); background: var(--p2); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; cursor: pointer; }
-</style>
-</head>
-<body>
-
-<main class="app">
-  <div class="header">
-    <div class="header-col">
-      <div style="color:var(--gold); font-weight:900; font-size:15px;" id="calendarTxt">Día 1 · Semana 1</div>
-      <div style="color:var(--muted); font-size:11px;" id="seasonTxt">Temporada 1</div>
-    </div>
-    <div class="header-col" style="align-items:flex-end;">
-      <div class="val-pill">💰 $<span id="moneyTxt">0</span></div>
-      <div class="val-pill">⚡ <span id="energyTxt">100</span>%</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="dashboard-grid">
-      <div class="bars-col">
-        <div class="v-bar-wrap">FORMA<div class="v-bar"><div class="v-fill" style="background:var(--green)" id="b-fit"></div></div></div>
-        <div class="v-bar-wrap">MORAL<div class="v-bar"><div class="v-fill" style="background:var(--pink)" id="b-mor"></div></div></div>
-      </div>
-      
-      <div class="avatar-container">
-        <div class="avatar-box" id="avatarBox"></div>
-        <div style="margin-top:10px; font-weight:900; font-size:18px; text-align:center;" id="playerName">Jugador</div>
-        <div style="font-size:12px; color:var(--muted); text-align:center;" id="playerClub">Libre</div>
-        <div style="font-size:11px; color:var(--gold); margin-top:3px; text-align:center; font-weight:bold;" id="playerPlaystyles"></div>
-      </div>
-
-      <div class="bars-col">
-        <div class="v-bar-wrap">AFICIÓN<div class="v-bar"><div class="v-fill" style="background:var(--gold)" id="b-hyp"></div></div></div>
-        <div class="v-bar-wrap">OVR<div class="v-bar"><div class="v-fill" style="background:var(--blue)" id="b-ovr"></div></div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="actions">
-    <button class="btn-action btn-match" id="btnMatch" onclick="playMatch()"><span>⚽</span> JUGAR PARTIDO<br><small id="matchTypeTxt">Liga (Fin de Sem)</small></button>
-    <button class="btn-action btn-primary" id="btnTrain" onclick="openTraining()"><span>🏃</span> ENTRENAR<br><small>Mejora Atributos</small></button>
-    <button class="btn-action" id="btnSocial" onclick="openLife()"><span>📱</span> VIDA ÍNTIMA<br><small>Redes y Familia</small></button>
-    <button class="btn-action" style="background:var(--p)" onclick="advanceDay()"><span>⏳</span> AVANZAR DÍA<br><small>Descansar</small></button>
-  </div>
-</main>
-
-<nav class="nav">
-  <button class="nav-item" onclick="closeModal()"><span>🏠</span><span>Inicio</span></button>
-  <button class="nav-item" onclick="openCareer()"><span>🌍</span><span>Carrera</span></button>
-  <button class="nav-item" onclick="openShop()"><span>🛒</span><span>Tienda</span></button>
-  <button class="nav-item" onclick="openStyle()"><span>🎨</span><span>Estilo</span></button>
-</nav>
-
-<div class="overlay" id="modalOverlay">
-  <div class="modal">
-    <div class="modal-header"><span id="mTitle">Modal</span> <button class="close-btn" onclick="closeModal()">✕</button></div>
-    <div id="mBody" style="display:flex; flex-direction:column; gap:10px;"></div>
-  </div>
-</div>
-
+:root{--bg:#07101f;--p:#101d35;--p2:#172847;--line:#2a416b;--t:#f3f7ff;--m:#9eafc9;--g:#23d18b;--gold:#ffc857;--red:#ff647c;--blue:#66a8ff}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#102448,#07101f 58%);color:var(--t);font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 0 calc(85px + env(safe-area-inset-bottom))}.app{max-width:520px;margin:auto;padding:12px}button,input{font:inherit}button{cursor:pointer;touch-action:manipulation}.top,.card{background:var(--p);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}.top{display:flex;justify-content:space-between;gap:8px;align-items:center}.eyebrow,.tiny,.sub{color:var(--m);font-size:11px;line-height:1.5}.money{color:var(--gold);font-weight:900}.hero{display:grid;grid-template-columns:90px 1fr;gap:13px;align-items:center}.avatar{width:90px;height:108px;border-radius:14px;display:grid;place-items:center;font-size:58px;background:#1b3156;border:1px solid #45608e}.name{font-size:21px;font-weight:900}.badge,.pill{display:inline-block;background:#091426;border:1px solid var(--line);border-radius:99px;padding:5px 8px;font-size:10px;margin:3px 3px 0 0}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:12px}.stat{background:#091426;border:1px solid #243959;border-radius:10px;padding:8px 4px;text-align:center}.stat b{display:block;font-size:18px}.stat span{font-size:9px;color:var(--m)}.meter{height:6px;background:#091426;border-radius:9px;overflow:hidden;margin-top:6px}.meter i{display:block;height:100%;background:var(--g)}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.action{min-height:76px;text-align:left;background:var(--p2);color:var(--t);border:1px solid var(--line);border-radius:13px;padding:12px;font-weight:800}.action strong{display:block;font-size:22px}.primary{background:linear-gradient(135deg,#1677ef,#0ab987);border:0}.matchbtn{background:linear-gradient(135deg,#a65b13,#cf344f);border:0}.action:disabled,.btn:disabled{opacity:.35}.row{display:flex;align-items:center;justify-content:space-between;gap:8px}.section-title{font-size:16px;font-weight:900;margin:0 0 10px}.nav{position:fixed;z-index:5;bottom:0;left:0;right:0;padding:8px 4px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;background:#050c19f5;border-top:1px solid var(--line)}.nav button{background:none;border:0;color:var(--m);font-size:10px;font-weight:800;display:flex;flex-direction:column;gap:4px;align-items:center;min-width:55px}.nav .ico{font-size:20px}.overlay{display:none;position:fixed;inset:0;z-index:10;background:#020711dd;align-items:flex-end;justify-content:center}.modal{width:100%;max-width:520px;max-height:88dvh;overflow:auto;background:var(--bg);border:1px solid var(--line);border-radius:22px 22px 0 0;padding:18px 15px calc(22px + env(safe-area-inset-bottom))}.modalhead{display:flex;justify-content:space-between;align-items:center;font-size:19px;font-weight:900;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:12px}.close{border:0;border-radius:50%;background:var(--p2);color:white;width:34px;height:34px}.item{background:var(--p);border:1px solid var(--line);border-radius:12px;padding:12px;margin:8px 0;display:flex;align-items:center;justify-content:space-between;gap:10px}.btn{background:var(--blue);color:#061225;border:0;border-radius:9px;padding:10px 12px;font-weight:900}.btn.secondary{background:var(--p2);color:var(--t);border:1px solid var(--line)}.btn.green{background:var(--g)}.btn.red{background:var(--red)}.choice{display:block;width:100%;text-align:left;background:var(--p2);border:1px solid var(--line);border-radius:12px;color:var(--t);padding:14px;margin-top:9px;line-height:1.4}.choice b{display:block;margin-bottom:4px}.feed{border-left:3px solid var(--gold);padding:8px 0 8px 12px;margin:10px 0;line-height:1.45}.field{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#081426;color:white;margin:7px 0}.score{font-size:32px;font-weight:1000;text-align:center}.sub{font-size:12px}@media(min-width:520px){.overlay{align-items:center}.modal{border-radius:22px}}
+</style></head><body><main class="app">
+<header class="top"><div><div class="eyebrow" id="dateLabel"></div><div style="font-weight:900;margin-top:4px" id="clubLabel"></div><div class="tiny" id="seasonLabel"></div></div><div style="text-align:right"><div class="money">💰 $<span id="money"></span></div><div class="pill">⚡ <span id="energy"></span>% energía</div></div></header>
+<section class="card"><div class="hero"><div class="avatar" id="avatar">⚽</div><div><div class="eyebrow">TU CARRERA</div><div class="name" id="nameLabel"></div><div class="sub" id="playerMeta"></div><span class="badge" id="ovrBadge"></span><span class="badge" id="moodBadge"></span><div class="sub" id="injuryText"></div></div></div><div class="stats" id="stats"></div></section>
+<section class="card"><div class="row"><h2 class="section-title">Tu semana</h2><span class="pill" id="nextEvent"></span></div><div class="meter"><i id="energyBar"></i></div><div class="sub" id="objective" style="margin-top:9px"></div></section>
+<section class="actions"><button class="action matchbtn" id="matchBtn" onclick="startMatch()"><strong>⚽</strong>JUGAR PARTIDO<small class="sub" id="matchSub"></small></button><button class="action primary" id="trainBtn" onclick="openTraining()"><strong>🏃</strong>ENTRENAR<small class="sub">Mejora habilidades</small></button><button class="action" onclick="openLife()"><strong>📱</strong>VIDA PERSONAL<small class="sub">Familia, redes y descanso</small></button><button class="action" onclick="advanceDay()"><strong>⏳</strong>AVANZAR DÍA<small class="sub">Recupera y sigue la historia</small></button></section>
+<section class="card"><div class="row"><h2 class="section-title">Últimas noticias</h2><span class="pill">Carrera</span></div><div id="news"></div></section></main>
+<nav class="nav"><button onclick="closeModal()"><span class="ico">🏠</span>INICIO</button><button onclick="openCareer()"><span class="ico">🌍</span>CARRERA</button><button onclick="openShop()"><span class="ico">🛒</span>TIENDA</button><button onclick="openStyle()"><span class="ico">🎨</span>JUGADOR</button><button onclick="openHistory()"><span class="ico">📖</span>HISTORIA</button></nav>
+<div class="overlay" id="overlay" role="dialog" aria-modal="true"><div class="modal"><div class="modalhead"><span id="modalTitle"></span><button class="close" onclick="closeModal()">✕</button></div><div id="modalBody"></div></div></div>
 <script>
-// --- DATOS GLOBALES ---
-const DIAS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
-
-const DB_CLUBS = {
-  "Club de Barrio": { col: "#10b981", ovr: 0, lg: "Amateur", sal: 100 },
-  "Envigado FC": { col: "#f97316", ovr: 55, lg: "Liga BetPlay", sal: 800 },
-  "Atlético Nacional": { col: "#22c55e", ovr: 68, lg: "Liga BetPlay", sal: 2000 },
-  "Millonarios": { col: "#3b82f6", ovr: 68, lg: "Liga BetPlay", sal: 2000 },
-  "Boca Juniors": { col: "#eab308", lgCol: "#1e3a8a", ovr: 72, lg: "Liga Profesional", sal: 3500 },
-  "River Plate": { col: "#ffffff", lgCol: "#ef4444", ovr: 73, lg: "Liga Profesional", sal: 3500 },
-  "FC Barcelona": { col: "#1e3a8a", ovr: 86, lg: "LaLiga", sal: 90000 },
-  "Real Madrid": { col: "#ffffff", ovr: 88, lg: "LaLiga", sal: 120000 },
-  "Man. City": { col: "#38bdf8", ovr: 89, lg: "Premier League", sal: 150000 }
-};
-
-const DB_SHOP = [
-  { id: "consola", name: "Consola con EA Sports FC", desc: "+5 Moral/Día", price: 800, type: "morale", val: 5, icon: "🎮" },
-  { id: "moto_ax100", name: "Moto Clásica (AX 100)", desc: "+10 Afición Permanente", price: 3500, type: "hype", val: 10, icon: "🏍️" },
-  { id: "nutri", name: "Nutricionista Personal", desc: "+5 Energía/Día", price: 10000, type: "energy", val: 5, icon: "🥗" },
-  { id: "camioneta", name: "Camioneta Diésel 4x4", desc: "+20 Afición Permanente", price: 45000, type: "hype", val: 20, icon: "🚙" },
-  { id: "mansion", name: "Mansión de Lujo", desc: "+15 Moral y Energía/Día", price: 500000, type: "all", val: 15, icon: "🏰" }
-];
-
-// --- ESTADO DEL JUEGO ---
-const getFreshSave = () => ({
-  name: "Promesa", number: 9, day: 1, week: 1, season: 1, money: 500,
-  energy: 100, fitness: 80, morale: 80, hype: 10,
-  stats: { pac: 50, sho: 50, pas: 50, dri: 50, def: 30, phy: 50 }, 
-  club: "Club de Barrio", salary: 100,
-  injury: 0, assets: [], 
-  goals: 0, assists: 0, matches: 0, // Añadido assists
-  avatar: { skin: "#fcd5ce", hair: "corto" }
-});
-
-let s;
-try { s = JSON.parse(localStorage.getItem("proSoccer_v6")); if(!s.stats) s = getFreshSave(); } 
-catch { s = getFreshSave(); }
-
-const saveGame = () => localStorage.setItem("proSoccer_v6", JSON.stringify(s));
-const $ = id => document.getElementById(id);
-
-// --- CÁLCULOS PRINCIPALES ---
-const getOVR = () => Math.round((s.stats.pac*0.15) + (s.stats.sho*0.25) + (s.stats.pas*0.15) + (s.stats.dri*0.25) + (s.stats.phy*0.20));
-
-function getPlayStyles() {
-  let ps = [];
-  if (s.stats.pac >= 80) ps.push("Veloz");
-  if (s.stats.sho >= 80) ps.push("Francotirador");
-  if (s.stats.dri >= 80) ps.push("Regateador");
-  if (s.stats.pas >= 80) ps.push("Mago");
-  if (s.stats.phy >= 80) ps.push("Tanque");
-  return ps;
-}
-
-// --- RENDERIZADO UI ---
-function render() {
-  s.energy = Math.max(0, Math.min(100, s.energy));
-  s.fitness = Math.max(0, Math.min(100, s.fitness));
-  s.morale = Math.max(0, Math.min(100, s.morale));
-  s.hype = Math.max(0, Math.min(100, s.hype));
-  if(s.assists === undefined) s.assists = 0;
-
-  $("calendarTxt").textContent = `${DIAS[s.day-1]} · Semana ${s.week}`;
-  $("seasonTxt").textContent = `Temporada ${s.season} · Salario: $${s.salary}/sem`;
-  $("moneyTxt").textContent = s.money.toLocaleString();
-  $("energyTxt").textContent = Math.round(s.energy);
-  
-  $("b-fit").style.height = `${s.fitness}%`;
-  $("b-mor").style.height = `${s.morale}%`;
-  $("b-hyp").style.height = `${s.hype}%`;
-  $("b-ovr").style.height = `${getOVR()}%`;
-  
-  $("playerName").textContent = s.name;
-  $("playerClub").textContent = `${s.club} (${DB_CLUBS[s.club].lg})`;
-  
-  let pStyles = getPlayStyles();
-  $("playerPlaystyles").textContent = pStyles.length > 0 ? `PlayStyles: ${pStyles.join(" | ")}` : "";
-
-  let isWeekend = (s.day === 6 || s.day === 7);
-  let isCupDay = (s.day === 3 && getOVR() >= 70);
-  let isMatchDay = isWeekend || isCupDay;
-  let isInjured = s.injury > 0;
-
-  $("btnMatch").disabled = !isMatchDay || isInjured;
-  $("btnTrain").disabled = isMatchDay || isInjured;
-  $("btnSocial").disabled = isInjured;
-  
-  if (isInjured) $("matchTypeTxt").textContent = `LESIONADO (${s.injury} días)`;
-  else if (isMatchDay) $("matchTypeTxt").textContent = isCupDay ? "🏆 Partido de Copa" : "⚽ Partido de Liga";
-  else $("matchTypeTxt").textContent = "Día de descanso/entreno";
-
-  let c = DB_CLUBS[s.club];
-  let shirtCol = c.col;
-  let detailCol = c.lgCol || "rgba(0,0,0,0.2)";
-  
-  let avatarHTML = `
-    <svg viewBox="0 0 200 250" style="width:100%;height:100%">
-      <path d="M30,150 Q100,120 170,150 L180,260 L20,260 Z" fill="${s.avatar.skin}"/>
-      <rect x="80" y="100" width="40" height="40" rx="10" fill="${s.avatar.skin}"/>
-      <ellipse cx="100" cy="65" rx="42" ry="52" fill="${s.avatar.skin}"/>
-      <path d="M72,50 Q80,47 88,52 M112,52 Q120,47 128,50" stroke="#1a1a1a" stroke-width="3" fill="none"/>
-      <circle cx="78" cy="62" r="4.5" fill="#1a1a1a"/><circle cx="122" cy="62" r="4.5" fill="#1a1a1a"/>
-      <path d="M88,95 Q100,100 112,95" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
-      ${s.avatar.hair==='corto'?`<path d="M54,65 C54,10 146,10 146,65 C146,30 54,30 54,65 Z" fill="#111827"/>`:''}
-      ${s.avatar.hair==='rubio'?`<path d="M54,65 C54,5 146,5 146,65 Z" fill="#eab308"/>`:''}
-      <path d="M40,150 Q100,135 160,150 L170,260 L30,260 Z" fill="${shirtCol}"/>
-      <path d="M40,150 L30,260 L45,260 L50,150 Z" fill="${detailCol}" />
-      <path d="M160,150 L170,260 L155,260 L150,150 Z" fill="${detailCol}" />
-      <text x="100" y="235" font-family="sans-serif" font-size="55" font-weight="900" fill="${shirtCol==='#ffffff'?'#000':'#fff'}" text-anchor="middle">${s.number}</text>
-    </svg>
-  `;
-  if (isInjured) avatarHTML += `<div class="injury-overlay">🚑 LESIÓN<br><small>${s.injury} Días</small></div>`;
-  
-  // Badges de Goles y Asistencias
-  let badgesHtml = `<div class="badges">`;
-  if (s.goals > 0) badgesHtml += `<div class="badge">⚽ ${s.goals}</div>`;
-  if (s.assists > 0) badgesHtml += `<div class="badge assist">👟 ${s.assists}</div>`;
-  badgesHtml += `</div>`;
-  avatarHTML += badgesHtml;
-  
-  $("avatarBox").innerHTML = avatarHTML;
-  saveGame();
-}
-
-function showModal(title, contentHTML) {
-  $("mTitle").textContent = title;
-  $("mBody").innerHTML = contentHTML;
-  $("modalOverlay").style.display = "flex";
-}
-function closeModal() { $("modalOverlay").style.display = "none"; }
-
-// --- TIEMPO ---
-function advanceDay() {
-  let eRec = 15; let mRec = 2; let fRec = 5;
-  if(s.assets.includes("nutri")) eRec += 5;
-  if(s.assets.includes("camara")) fRec += 10;
-  if(s.assets.includes("consola")) mRec += 5;
-  if(s.assets.includes("mansion")) { eRec += 15; mRec += 15; }
-
-  s.energy += eRec; s.fitness += fRec; s.morale += mRec;
-  if(s.injury > 0) s.injury--;
-
-  s.day++;
-  if (s.day > 7) {
-    s.day = 1; s.week++; s.money += s.salary;
-    if(s.week > 52) { endSeason(); return; }
-  }
-  render();
-}
-
-// --- ENTRENAMIENTO ---
-function openTraining() {
-  let html = `
-    <p style="color:var(--muted); font-size:12px;">Entrenar consume 25% de Energía.</p>
-    <div class="list-item" onclick="doTrain('pac')"><div>🏃‍♂️ <b>Ritmo</b></div> <button class="btn-sm">Entrenar</button></div>
-    <div class="list-item" onclick="doTrain('sho')"><div>🎯 <b>Tiro</b></div> <button class="btn-sm">Entrenar</button></div>
-    <div class="list-item" onclick="doTrain('pas')"><div>👟 <b>Pases</b></div> <button class="btn-sm">Entrenar</button></div>
-    <div class="list-item" onclick="doTrain('dri')"><div>🪄 <b>Regate</b></div> <button class="btn-sm">Entrenar</button></div>
-    <div class="list-item" onclick="doTrain('phy')"><div>🏋️ <b>Físico</b></div> <button class="btn-sm">Entrenar</button></div>
-  `;
-  showModal("Centro de Entrenamiento", html);
-}
-
-function doTrain(stat) {
-  if (s.energy < 25) { alert("Estás muy cansado. Descansa primero."); return; }
-  s.energy -= 25; s.fitness += 5;
-  if (s.energy < 40 && Math.random() < 0.15) {
-    s.injury = Math.floor(Math.random() * 5) + 3;
-    closeModal(); render(); alert(`¡Sobrecarga muscular! Fuera ${s.injury} días.`); return;
-  }
-  let growthChance = 1 - (s.stats[stat] / 100);
-  if (Math.random() < growthChance + 0.1) { s.stats[stat]++; alert("¡Atributo mejorado!"); } 
-  else { alert("Mantienes la forma."); }
-  closeModal(); advanceDay();
-}
-
-// --- PARTIDOS (Sistema de Decisiones Narrativas y Fans) ---
-function playMatch() {
-  if (s.energy < 30 && !confirm("Baja energía. Riesgo altísimo de lesión. ¿Jugar?")) return;
-
-  let evs = [
-    { 
-      txt: "Frente al portero casi sin ángulo. Tu compañero entra solo por el medio pidiendo el balón.", 
-      o1: "Disparar al arco tú mismo (Tiro)", s1: "sho", type1: "selfish", 
-      o2: "Dar el pase de la muerte (Pase)", s2: "pas", type2: "team" 
-    },
-    { 
-      txt: "Recibes de espaldas con el último defensa respirándote en la nuca.", 
-      o1: "Tirar una ruleta o túnel (Regate)", s1: "dri", type1: "showboat", 
-      o2: "Proteger con el cuerpo y tocar atrás (Físico)", s2: "phy", type2: "safe" 
-    },
-    { 
-      txt: "Contragolpe letal al minuto 90. Te persiguen dos centrales.", 
-      o1: "Acelerar a fondo y definir (Ritmo)", s1: "pac", type1: "sprint", 
-      o2: "Frenar la jugada y armar con calma (Pase)", s2: "pas", type2: "safe" 
-    }
-  ];
-  let ev = evs[Math.floor(Math.random() * evs.length)];
-
-  let html = `
-    <div style="background:var(--grad-match); padding:20px; border-radius:12px; text-align:center; box-shadow:inset 0 0 20px rgba(0,0,0,0.5);">
-      <h3 style="margin-top:0;color:#fff;">En el calor del partido...</h3>
-      <p style="color:#fff;font-size:16px;">${ev.txt}</p>
-      <div style="display:flex; flex-direction:column; gap:10px; margin-top:20px;">
-        <button class="btn-sm" style="padding:15px; background:#000; border:1px solid var(--line)" onclick="resolveMatch('${ev.s1}', '${ev.type1}')">${ev.o1}</button>
-        <button class="btn-sm" style="padding:15px; background:#000; border:1px solid var(--line)" onclick="resolveMatch('${ev.s2}', '${ev.type2}')">${ev.o2}</button>
-      </div>
-    </div>
-  `;
-  showModal("⚽ Día de Partido", html);
-}
-
-function resolveMatch(statUsed, actionType) {
-  s.energy -= 35; s.matches++;
-  
-  if (s.energy < 20 && Math.random() < 0.25) {
-     s.injury = Math.floor(Math.random() * 14) + 7;
-     alert(`¡ROTO! Una dura entrada te lesiona. Fuera por ${s.injury} días.`);
-     closeModal(); advanceDay(); return;
-  }
-
-  let statVal = s.stats[statUsed];
-  let chance = (statVal * 0.6) + (getOVR() * 0.4);
-  let isSuccess = (Math.random() * 100) < chance;
-
-  let msg = "";
-
-  if (isSuccess) {
-    s.morale += 10;
-    // Consecuencias de éxito según decisión
-    if (actionType === "selfish" || actionType === "sprint") {
-      s.goals++; s.hype += 8;
-      msg = "¡GOLAZO! Decidiste hacerlo todo tú mismo y la clavaste en el ángulo. La afición grita tu nombre y eres el héroe del partido.";
-    } else if (actionType === "team") {
-      s.assists++; s.hype += 5; s.morale += 5;
-      msg = "¡Asistencia perfecta! Dejaste a tu compañero solo frente al arco. Él anota, te señala en la celebración y la grada aplaude tu visión de juego.";
-    } else if (actionType === "showboat") {
-      s.hype += 15;
-      msg = "¡JOGO BONITO! Rompiste la cintura del rival con un lujo increíble. El estadio entero se levanta a aplaudirte. Tu popularidad se dispara.";
-    } else if (actionType === "safe") {
-      s.hype += 2;
-      msg = "Jugada inteligente. Mantuviste la posesión y el control del partido. El DT te felicita desde la banda por no arriesgar de más.";
-    }
-  } else {
-    s.fitness -= 10; // Extra fatigue from frustration
-    // Consecuencias de fracaso según decisión
-    if (actionType === "selfish") {
-      s.hype -= 15; s.morale -= 15;
-      msg = "¡Qué comilón! Tenías pase, pero decidiste disparar y la mandaste a la tribuna. Tu compañero te insulta y la grada te silba fuertemente por egoísta.";
-    } else if (actionType === "showboat") {
-      s.hype -= 12; s.morale -= 10;
-      msg = "Intentaste un lujo innecesario en una zona de riesgo y te robaron el balón provocando un contragolpe. Se escuchan fuertes murmullos y críticas de los fans.";
-    } else {
-      s.hype -= 5; s.morale -= 5;
-      msg = "La jugada no salió bien. Fallaste en la ejecución y el equipo rival recuperó el balón. Día gris en la oficina.";
-    }
-  }
-
-  alert(msg);
-  closeModal(); advanceDay();
-}
-
-// --- VIDA FUERA DE LA CANCHA ---
-function openLife() {
-  let html = `
-    <div class="list-item"><div>🎙️ <b>Prender Stream en Twitch</b><br><small>Aumenta Afición (-10 Energía)</small></div> <button class="btn-sm" onclick="doLife('stream')">Hacer</button></div>
-    <div class="list-item"><div>📸 <b>Publicar en Redes</b><br><small>Afición pasiva</small></div> <button class="btn-sm" onclick="doLife('post')">Subir</button></div>
-    <div class="list-item"><div>👨‍👩‍👧 <b>Cena Familiar</b><br><small>Recupera 20 Moral (-$100)</small></div> <button class="btn-sm" onclick="doLife('fam')">Ir</button></div>
-    <div class="list-item"><div>❤️ <b>Cita con Pareja</b><br><small>Recupera Moral y Forma (-$300)</small></div> <button class="btn-sm" onclick="doLife('date')">Salir</button></div>
-  `;
-  showModal("Vida Fuera de la Cancha", html);
-}
-function doLife(action) {
-  if(action === 'stream') {
-    if(s.energy < 15) return alert("Muy cansado para prender stream.");
-    s.energy -= 10; s.hype += Math.floor(Math.random()*5)+2;
-    alert("¡El chat enloqueció! Ganaste mucha popularidad con los fans jóvenes.");
-  } else if (action === 'post') {
-    s.hype += 1; alert("Subiste una historia mostrando tu outfit. Tus fans lo amaron.");
-  } else if (action === 'fam') {
-    if (s.money < 100) return alert("Sin fondos.");
-    s.money -= 100; s.morale += 20; alert("Gran comida en casa con tu familia. Te sientes anímicamente recargado.");
-  } else if (action === 'date') {
-    if (s.money < 300) return alert("Sin fondos.");
-    s.money -= 300; s.morale += 25; s.fitness += 15; alert("Una noche de lujo con tu pareja lejos de las cámaras. Te desconectaste del fútbol.");
-  }
-  render(); closeModal();
-}
-
-// --- RESTO (Mercado, Tienda, Estilo, Fin Temporada) ---
-function openCareer() {
-  let ovr = getOVR();
-  let html = `<p style="color:var(--muted); font-size:12px;">Tu OVR: <b>${ovr}</b>.</p>`;
-  Object.keys(DB_CLUBS).forEach(key => {
-    if(key === "Club de Barrio" || key === s.club) return;
-    let c = DB_CLUBS[key];
-    let canJoin = ovr >= c.ovr;
-    html += `<div class="list-item" style="${canJoin ? '' : 'opacity:0.5; filter:grayscale(1);'}">
-        <div><b>${key}</b> <span style="font-size:10px; color:var(--muted)">${c.lg}</span><br>
-        <small style="color:var(--gold)">Req: ${c.ovr} OVR | Sueldo: $${c.sal}</small></div>
-        <button class="btn-sm" ${canJoin ? '' : 'disabled'} onclick="transfer('${key}')">Fichar</button>
-      </div>`;
-  });
-  showModal("Mercado", html);
-}
-
-function transfer(newClubName) {
-  let c = DB_CLUBS[newClubName];
-  s.club = newClubName; s.morale = 100;
-  let bonus = (getOVR() - c.ovr) * 100;
-  s.salary = c.sal + (bonus > 0 ? bonus : 0);
-  alert(`✍️ ¡Fichaje cerrado! Eres jugador de ${newClubName}. Salario: $${s.salary}/sem.`);
-  closeModal(); render();
-}
-
-function openShop() {
-  let html = `<p style="color:var(--gold); font-weight:bold;">Fondos: $${s.money.toLocaleString()}</p>`;
-  DB_SHOP.forEach(item => {
-    let owned = s.assets.includes(item.id);
-    let afford = s.money >= item.price;
-    html += `<div class="list-item">
-        <div style="font-size:24px;">${item.icon}</div>
-        <div style="flex:1;"><b>${item.name}</b><br><small style="color:var(--muted)">${item.desc}</small></div>
-        ${owned ? `<button class="btn-sm" disabled style="background:var(--green);color:#000">Tuyo</button>` : `<button class="btn-sm" ${afford?'':'disabled'} onclick="buyAsset('${item.id}', ${item.price})">$${item.price}</button>`}
-      </div>`;
-  });
-  showModal("Lifestyle", html);
-}
-function buyAsset(id, price) {
-  if (s.money >= price) {
-    s.money -= price; s.assets.push(id);
-    let item = DB_SHOP.find(x => x.id === id);
-    if(item.type === 'hype') s.hype += item.val;
-    alert(`Compraste: ${item.name}.`); openShop(); render();
-  }
-}
-
-function openStyle() {
-  showModal("Taller de Estilo", `
-    <button class="btn-sm" style="margin-bottom:10px; width:100%" onclick="s.name = prompt('Apodo:', s.name) || s.name; render();">Cambiar Nombre</button>
-    <button class="btn-sm" style="margin-bottom:10px; width:100%" onclick="let d=parseInt(prompt('Dorsal:', s.number)); if(d>0&&d<100) s.number=d; render();">Cambiar Dorsal</button>
-    <p style="font-size:12px; font-weight:bold; color:var(--muted)">TONO DE PIEL</p>
-    <div class="cust-grid">${["#fcd5ce","#f5b08c","#c68642","#8d5524","#3d2210"].map(c=> `<div class="cust-item" style="background:${c}" onclick="s.avatar.skin='${c}'; render()"></div>`).join("")}</div>
-    <p style="font-size:12px; font-weight:bold; color:var(--muted)">CABELLO</p>
-    <div class="cust-grid">${[{id:"corto",n:"Corto"},{id:"rubio",n:"Rubio"},{id:"rapado",n:"Rapado"}].map(h=> `<div class="cust-item" onclick="s.avatar.hair='${h.id}'; render()">${h.n}</div>`).join("")}</div>
-  `);
-}
-
-function endSeason() {
-  alert(`🏁 FIN TEMPORADA ${s.season} 🏁\n\nPartidos: ${s.matches}\nGoles: ${s.goals}\nAsistencias: ${s.assists}\n\nDescansas para la próxima campaña.`);
-  s.season++; s.week = 1; s.day = 1; s.goals = 0; s.assists = 0; s.matches = 0; s.energy = 100; s.fitness = 100; s.morale = 100; render();
-}
-
-render();
-</script>
-</body>
-</html>
-
+"use strict";
+const DAYS=["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
+const CLUBS={"Club de Barrio":{ovr:0,league:"Amateur",salary:100,color:"#23d18b"},"Envigado FC":{ovr:52,league:"Colombia",salary:650,color:"#f97316"},"Deportivo Cali":{ovr:58,league:"Colombia",salary:1000,color:"#22c55e"},"Atlético Nacional":{ovr:64,league:"Colombia",salary:1800,color:"#22c55e"},"Millonarios":{ovr:65,league:"Colombia",salary:1800,color:"#60a5fa"},"Boca Juniors":{ovr:70,league:"Argentina",salary:3000,color:"#eab308"},"River Plate":{ovr:72,league:"Argentina",salary:3500,color:"#f8fafc"},"FC Barcelona":{ovr:84,league:"España",salary:50000,color:"#60a5fa"},"Real Madrid":{ovr:87,league:"España",salary:75000,color:"#f8fafc"},"Manchester City":{ovr:88,league:"Inglaterra",salary:85000,color:"#38bdf8"}};
+const SHOP=[{id:"console",name:"Consola",desc:"+3 moral al descansar",price:800,type:"morale",value:3,icon:"🎮"},{id:"motorbike",name:"Moto clásica",desc:"+5 afición al comprar",price:2500,type:"hype",value:5,icon:"🏍️"},{id:"nutrition",name:"Nutricionista",desc:"+5 energía al descansar",price:6000,type:"energy",value:5,icon:"🥗"},{id:"car",name:"Camioneta",desc:"+10 afición al comprar",price:18000,type:"hype",value:10,icon:"🚙"},{id:"home",name:"Casa mejorada",desc:"+5 energía y moral al descansar",price:30000,type:"home",value:5,icon:"🏡"}];
+const fresh=()=>({version:7,name:"Promesa",number:9,day:1,week:1,season:1,money:500,energy:100,fitness:80,morale:80,hype:10,stats:{pac:50,sho:50,pas:50,dri:50,def:35,phy:50},club:"Club de Barrio",salary:100,injury:0,assets:[],goals:0,assists:0,matches:0,wins:0,losses:0,draws:0,seasonGoals:0,seasonAssists:0,seasonMatches:0,relationship:55,coachTrust:35,scandal:0,playedToday:false,firstTrial:false,offerSeen:false,history:[],avatar:{skin:"#b77950",hair:"corto"},storyFlags:{},training:0});
+let s=fresh(),match=null;const $=id=>document.getElementById(id),clamp=(n,min=0,max=100)=>Math.max(min,Math.min(max,Number(n)||0)),esc=v=>String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function save(){try{localStorage.setItem("proFootballStarV7",JSON.stringify(s))}catch(e){}}
+function load(){try{let p=JSON.parse(localStorage.getItem("proFootballStarV7"));if(!p||p.version!==7)return false;s={...fresh(),...p,stats:{...fresh().stats,...p.stats},avatar:{...fresh().avatar,...p.avatar},assets:Array.isArray(p.assets)?p.assets:[],history:Array.isArray(p.history)?p.history:[]};return true}catch(e){return false}}
+function ovr(){return Math.round(s.stats.pac*.15+s.stats.sho*.22+s.stats.pas*.16+s.stats.dri*.2+s.stats.def*.1+s.stats.phy*.17)}
+function addNews(msg){s.history.unshift({week:s.week,season:s.season,msg});s.history=s.history.slice(0,35);$("news").innerHTML=s.history.slice(0,3).map(n=>`<div class="feed"><span class="tiny">T${n.season} · S${n.week}</span><br>${esc(n.msg)}</div>`).join("");save()}
+function modal(title,html){$("modalTitle").textContent=title;$("modalBody").innerHTML=html;$("overlay").style.display="flex"}
+function closeModal(){$("overlay").style.display="none"}$("overlay").addEventListener("click",e=>{if(e.target===$("overlay"))closeModal()});
+function render(){s.energy=clamp(s.energy);s.fitness=clamp(s.fitness);s.morale=clamp(s.morale);s.hype=clamp(s.hype);$("dateLabel").textContent=`${DAYS[s.day-1]||"Lunes"} · Semana ${s.week}`;$("clubLabel").textContent=s.club;$("seasonLabel").textContent=`Temporada ${s.season} · ${s.club==="Club de Barrio"?"Promesa":"Profesional"}`;$("money").textContent=Math.floor(s.money).toLocaleString("es-CO");$("energy").textContent=Math.round(s.energy);$("nameLabel").textContent=s.name;$("playerMeta").textContent=`Delantero · #${s.number} · ${CLUBS[s.club]?.league||"Profesional"}`;$("ovrBadge").textContent=`OVR ${ovr()}`;$("moodBadge").textContent=`Moral ${Math.round(s.morale)}`;$("injuryText").textContent=s.injury>0?`🩹 Lesionado: ${s.injury} día(s)`:"";$("energyBar").style.width=`${s.energy}%`;const stats=[["RIT",s.stats.pac],["TIR",s.stats.sho],["PAS",s.stats.pas],["REG",s.stats.dri],["DEF",s.stats.def],["FIS",s.stats.phy],["FORMA",s.fitness],["FANS",s.hype]];$("stats").innerHTML=stats.map(([n,v])=>`<div class="stat"><b>${Math.round(v)}</b><span>${n}</span></div>`).join("");$("avatar").style.background=`linear-gradient(145deg,${CLUBS[s.club]?.color||"#334155"},#101d35)`;$("avatar").textContent=s.injury?"🩹":s.avatar.hair==="rubio"?"👱🏽":"🧑🏽‍🦱";const md=s.day===6||s.day===7;$("matchBtn").disabled=!md||s.injury>0||s.playedToday;$("matchSub").textContent=s.injury?`Lesión: ${s.injury} días`:s.playedToday?"Partido jugado":md?"Partido disponible":"Disponible sábado y domingo";$("trainBtn").disabled=md||s.injury>0;$("nextEvent").textContent=md?"Día de partido":s.day===5?"Convocatoria":"Entrenamiento";$("objective").textContent=!s.firstTrial?"Objetivo: supera la primera prueba y gana tu convocatoria.":`Objetivo: mejora OVR (${ovr()}) y reputación (${Math.round(s.hype)}).`;if(!s.history.length)$("news").innerHTML='<div class="feed">El entrenador quiere conocerte. Demuestra que mereces una oportunidad.</div>';save()}
+function advanceDay(){if(s.injury>0){s.injury--;s.energy+=10}else{s.energy+=15+(s.assets.includes("nutrition")?5:0)+(s.assets.includes("home")?5:0);s.fitness+=5}if(s.assets.includes("console"))s.morale+=3;if(s.assets.includes("home"))s.morale+=5;s.morale+=2;s.day++;s.playedToday=false;if(s.day>7){s.day=1;s.week++;s.money+=s.salary;if(s.week%4===0){s.money=Math.max(0,s.money-150);addNews("Pagaste $150 de gastos semanales.");}if(s.week>52){endSeason();return}}s.energy=clamp(s.energy);s.fitness=clamp(s.fitness);s.morale=clamp(s.morale);if(s.day===5&&!s.firstTrial)addNews("El entrenador anunció una prueba para el fin de semana. Llega en buena forma.");if(s.week>=2&&!s.offerSeen&&ovr()>=52&&s.matches>=2){s.offerSeen=true;addNews("Un ojeador de Envigado pregunta por ti. Revisa el mercado de fichajes.")}render()}
+function openTraining(){let items=[["pac","🏃","Ritmo"],["sho","🎯","Tiro"],["pas","👟","Pases"],["dri","🪄","Regate"],["def","🛡️","Defensa"],["phy","🏋️","Físico"]];modal("Centro de entrenamiento",`<p class="sub">Entrenar consume 25 de energía y avanza un día.</p>${items.map(([k,i,n])=>`<div class="item"><div><b>${i} ${n}</b><div class="tiny">Actual: ${s.stats[k]}</div></div><button class="btn" onclick="train('${k}')">Entrenar</button></div>`).join("")}`)}
+function train(k){if(s.energy<25){alert("No tienes energía suficiente. Descansa primero.");return}s.energy-=25;s.fitness-=2;s.training++;if(Math.random()<.92-s.stats[k]/140){s.stats[k]=clamp(s.stats[k]+1,0,99);s.coachTrust=clamp(s.coachTrust+1);addNews(`Buen entrenamiento: mejoraste ${({pac:"ritmo",sho:"tiro",pas:"pases",dri:"regate",def:"defensa",phy:"físico"})[k]}.`)}else addNews("Entrenaste con intensidad, pero esta vez no hubo mejora técnica.");if(s.energy<35&&Math.random()<.08){s.injury=2+Math.floor(Math.random()*4);addNews(`Sobrecarga: necesitarás ${s.injury} días de recuperación.`)}closeModal();advanceDay()}
+const EVENTS=[{text:"Recibes dentro del área. El portero achica y tu compañero aparece libre.",a:["Definir al primer palo","sho","goal"],b:["Asistir al compañero","pas","assist"]},{text:"Un defensor te cierra contra la banda. La grada espera algo especial.",a:["Intentar un regate","dri","show"],b:["Proteger y tocar atrás","phy","safe"]},{text:"Robo en mitad de cancha: hay espacio para la contra.",a:["Picar al espacio","pac","run"],b:["Cambiar el juego con un pase","pas","team"]},{text:"Tiro libre cerca del área. El capitán te ofrece patearlo.",a:["Pedir la responsabilidad","sho","goal"],b:["Dejarlo al especialista","pas","team"]},{text:"El rival presiona alto y estás rodeado.",a:["Salir jugando con técnica","dri","show"],b:["Jugar simple y asegurar","pas","safe"]}];
+function startMatch(){if(!(s.day===6||s.day===7)||s.injury||s.playedToday)return;if(s.energy<20&&!confirm("Tienes poca energía. ¿Jugar de todos modos?"))return;match={step:0,score:0,against:0,rating:6,events:[...EVENTS].sort(()=>Math.random()-.5).slice(0,3),opponent:["Atlético del Sur","Unión Central","Deportivo Montaña","Real del Valle"][Math.floor(Math.random()*4)]};showPlay()}
+function showPlay(){let e=match.events[match.step];modal(`⚽ Partido · Jugada ${match.step+1}/3`,`<div class="pill">${esc(s.club)} vs ${esc(match.opponent)}</div><div class="score">${match.score} - ${match.against}</div><p class="sub" style="text-align:center">Minuto ${18+match.step*29} · Nota ${match.rating.toFixed(1)}</p><p style="font-size:16px;line-height:1.5">${e.text}</p><button class="choice" onclick="resolvePlay(0)"><b>${e.a[0]}</b><span class="tiny">Atributo: ${e.a[1].toUpperCase()}</span></button><button class="choice" onclick="resolvePlay(1)"><b>${e.b[0]}</b><span class="tiny">Atributo: ${e.b[1].toUpperCase()}</span></button>`)}
+function resolvePlay(which){let e=match.events[match.step],o=which?e.b:e.a,stat=s.stats[o[1]]||50,ch=clamp(18+stat*.62+ovr()*.18+s.fitness*.08+s.morale*.05-s.scandal*3,15,92);if(s.energy<30)ch-=12;let ok=Math.random()*100<ch;if(ok){match.rating+=.45;s.coachTrust=clamp(s.coachTrust+2);if(o[2]==="goal"||o[2]==="run"&&Math.random()<.28){match.score++;s.goals++;s.seasonGoals++;s.hype+=4;s.morale+=4;addNews("¡Gol! Tu decisión cambió el partido.")}else if(o[2]==="assist"||o[2]==="team"&&Math.random()<.25){s.assists++;s.seasonAssists++;s.hype+=2;addNews("Creaste una ocasión decisiva para el equipo.")}else{addNews("Buena ejecución. El entrenador toma nota.");if(o[2]==="show")s.hype+=3}}else{match.rating-=.45;s.fitness-=3;s.coachTrust=clamp(s.coachTrust-1);if(Math.random()<.23){match.against++;addNews("Pérdida peligrosa: el rival aprovechó y marcó.")}else addNews("La jugada no salió; tendrás otra oportunidad.");if(o[2]==="goal"){s.morale-=4;s.scandal++;addNews("La prensa cuestiona tu decisión individualista.")}}s.energy-=12;s.energy=clamp(s.energy);match.step++;if(match.step<3)showPlay();else finishMatch()}
+function finishMatch(){let win=match.score>match.against,draw=match.score===match.against;s.matches++;s.seasonMatches++;s.playedToday=true;if(win){s.wins++;s.money+=150;s.hype+=5;s.coachTrust+=3}else if(draw){s.draws++;s.money+=60}else{s.losses++;s.coachTrust-=2}s.morale+=win?8:draw?2:-5;let result=`${match.score}-${match.against}`,summary=`Final: ${s.club} ${result} ${match.opponent}. Nota ${Math.max(1,Math.min(10,match.rating)).toFixed(1)}. ${win?"Victoria":draw?"Empate":"Derrota"}.`;match=null;if(!s.firstTrial){s.firstTrial=true;s.coachTrust+=8;s.newCareer=false;addNews("¡Superaste la primera prueba! El club te registra en la plantilla amateur.")}addNews(summary);render();modal("Final del partido",`<div class="score">${esc(result)}</div><p style="text-align:center">${esc(summary)}</p><button class="btn green" style="width:100%" onclick="closeModal()">Continuar carrera</button>`)}
+function openLife(){modal("Vida personal",`<div class="item"><div><b>👨‍👩‍👧 Cena familiar</b><div class="tiny">+15 moral, mejora relación</div></div><button class="btn" onclick="life('family')">Ir · $60</button></div><div class="item"><div><b>📱 Publicar en redes</b><div class="tiny">Afición o polémica</div></div><button class="btn" onclick="life('social')">Publicar</button></div><div class="item"><div><b>😴 Recuperación</b><div class="tiny">+35 energía, +12 forma</div></div><button class="btn" onclick="life('rest')">Descansar</button></div><div class="item"><div><b>🎙️ Entrevista</b><div class="tiny">Decide cómo responder a la prensa</div></div><button class="btn" onclick="life('press')">Responder</button></div>`)}
+function life(a){if(a==="family"){if(s.money<60)return alert("No tienes suficiente dinero.");s.money-=60;s.morale+=15;s.relationship=clamp(s.relationship+8);addNews("Cenaste con tu familia y recuperaste perspectiva.")}if(a==="social"){if(Math.random()<.72){s.hype+=5;addNews("Tu publicación conectó con los aficionados.")}else{s.hype+=2;s.scandal++;s.coachTrust-=2;addNews("Una publicación fuera de contexto genera polémica.")}}if(a==="rest"){s.energy+=35;s.fitness+=12;s.morale+=4;addNews("Priorizaste la recuperación.")}if(a==="press"){modal("Zona mixta",`<p>Un periodista pregunta por tu suplencia. ¿Qué respondes?</p><button class="choice" onclick="press('humble')"><b>“Seguiré trabajando por el equipo”</b><span class="tiny">Mejora la confianza</span></button><button class="choice" onclick="press('bold')"><b>“Merezco jugar más”</b><span class="tiny">Más fama, pero arriesgas la relación</span></button>`);return}closeModal();clampAll();render()}
+function press(k){if(k==="humble"){s.coachTrust+=5;s.morale+=2;addNews("La prensa valora tu respuesta centrada en el equipo.")}else{s.hype+=5;if(Math.random()<.45){s.scandal++;s.coachTrust-=8;addNews("El técnico no encaja bien tus declaraciones.")}else addNews("Tus declaraciones generan debate.")}closeModal();clampAll();render()}
+function openCareer(){let h=`<p class="sub">OVR ${ovr()}. Los clubes exigen nivel y afición.</p>`;Object.entries(CLUBS).forEach(([n,c])=>{if(n===s.club)return;let ok=ovr()>=c.ovr&&s.hype>=Math.max(0,c.ovr-45);h+=`<div class="item"><div style="flex:1"><b>${esc(n)}</b><div class="tiny">${esc(c.league)} · Req. OVR ${c.ovr}</div><div class="tiny">Sueldo semanal $${c.salary.toLocaleString("es-CO")}</div></div><button class="btn" ${ok?"":"disabled"} onclick="offer('${esc(n)}')">${ok?"Negociar":"Bloqueado"}</button></div>`});modal("Mercado de fichajes",h)}
+function offer(n){let c=CLUBS[n];if(!c||ovr()<c.ovr||s.hype<Math.max(0,c.ovr-45))return;modal("Oferta de contrato",`<p><b>${esc(n)}</b> ofrece contrato por una temporada.</p><div class="item"><span>Sueldo semanal</span><b>$${c.salary.toLocaleString("es-CO")}</b></div><button class="choice" onclick="transfer('${esc(n)}',false)"><b>Aceptar oferta</b></button><button class="choice" onclick="transfer('${esc(n)}',true)"><b>Negociar un 15% más</b><span class="tiny">Hay 65% de posibilidad de que acepten</span></button>`)}
+function transfer(n,neg){let c=CLUBS[n];if(neg&&Math.random()>.65){addNews(`${n} retiró la oferta tras la negociación.`);closeModal();return render()}s.club=n;s.salary=Math.round(c.salary*(neg?1.15:1));s.morale=clamp(s.morale+8);s.coachTrust=35;s.newCareer=false;addNews(`Fichaje confirmado: ${n}. Salario semanal $${s.salary.toLocaleString("es-CO")}.`);closeModal();render()}
+function openShop(){modal("Tienda",`<p class="sub">Dinero disponible: $${s.money.toLocaleString("es-CO")}</p>${SHOP.map(i=>`<div class="item"><span style="font-size:22px">${i.icon}</span><div style="flex:1"><b>${esc(i.name)}</b><div class="tiny">${esc(i.desc)}</div></div><button class="btn" ${s.assets.includes(i.id)||s.money<i.price?"disabled":""} onclick="buy('${i.id}')">${s.assets.includes(i.id)?"Comprado":"$"+i.price.toLocaleString("es-CO")}</button></div>`).join("")}`)}
+function buy(id){let i=SHOP.find(x=>x.id===id);if(!i||s.assets.includes(id)||s.money<i.price)return;s.money-=i.price;s.assets.push(id);if(i.type==="hype")s.hype+=i.value;addNews(`Compraste ${i.name}.`);openShop();render()}
+function openStyle(){modal("Personalizar jugador",`<label class="sub">Nombre</label><input class="field" id="nameInput" maxlength="24" value="${esc(s.name)}"><label class="sub">Dorsal (1–99)</label><input class="field" id="numInput" type="number" min="1" max="99" value="${s.number}"><button class="btn green" style="width:100%" onclick="saveStyle()">Guardar cambios</button><p class="sub">Tono de piel</p><div class="row">${["#f3c7a4","#c68642","#8d5524","#4a2c20"].map(c=>`<button class="btn secondary" style="width:48px;height:42px;background:${c}" onclick="skin('${c}')"></button>`).join("")}</div><p class="sub">Cabello</p><div class="row"><button class="btn secondary" onclick="hair('corto')">Corto</button><button class="btn secondary" onclick="hair('rubio')">Rubio</button><button class="btn secondary" onclick="hair('rapado')">Rapado</button></div>`)}
+function saveStyle(){let n=$("nameInput").value.trim().slice(0,24),d=Number($("numInput").value);if(n)s.name=n;if(Number.isInteger(d)&&d>=1&&d<=99)s.number=d;closeModal();render();addNews("Actualizaste tu identidad de jugador.")}
+function skin(c){s.avatar.skin=c;render();openStyle()}function hair(h){s.avatar.hair=h;render();openStyle()}
+function openHistory(){modal("Historia y estadísticas",`<div class="item"><span>Partidos</span><b>${s.matches}</b></div><div class="item"><span>Victorias / Empates / Derrotas</span><b>${s.wins}/${s.draws}/${s.losses}</b></div><div class="item"><span>Goles / Asistencias</span><b>${s.goals}/${s.assists}</b></div><div class="item"><span>Confianza del técnico</span><b>${Math.round(clamp(s.coachTrust))}/100</b></div><div class="item"><span>Relación familiar</span><b>${Math.round(clamp(s.relationship))}/100</b></div><div class="item"><span>Polémicas</span><b>${s.scandal}</b></div><h3 class="section-title">Crónica</h3>${s.history.map(n=>`<div class="feed"><span class="tiny">Temporada ${n.season} · Semana ${n.week}</span><br>${esc(n.msg)}</div>`).join("")||"<p class='sub'>Tu historia está por escribirse.</p>"}<button class="btn secondary" onclick="exportSave()">Exportar partida</button> <button class="btn red" onclick="resetConfirm()">Nueva carrera</button>`)}
+function exportSave(){let a=document.createElement("a"),u=URL.createObjectURL(new Blob([JSON.stringify(s,null,2)],{type:"application/json"}));a.href=u;a.download="pro-football-save.json";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+function resetConfirm(){modal("Nueva carrera",`<p>Se borrará el progreso guardado de esta versión en este navegador. No se puede deshacer.</p><button class="btn red" style="width:100%" onclick="resetGame()">Borrar progreso y empezar</button><button class="btn secondary" style="width:100%;margin-top:8px" onclick="openHistory()">Cancelar</button>`)}
+function resetGame(){s=fresh();save();render();addNews("Nueva carrera iniciada. El entrenador del Club de Barrio te dará una prueba este fin de semana.");closeModal()}
+function clampAll(){s.energy=clamp(s.energy);s.fitness=clamp(s.fitness);s.morale=clamp(s.morale);s.hype=clamp(s.hype);s.coachTrust=clamp(s.coachTrust);s.relationship=clamp(s.relationship);s.money=Math.max(0,Math.floor(s.money))}
+function endSeason(){let award=s.seasonGoals>=8?"Temporada goleadora: prima de $1.000.":s.wins>=8?"Buen año colectivo: prima de $500.":"Temporada difícil: el técnico espera una reacción.";s.money+=s.seasonGoals>=8?1000:s.wins>=8?500:0;let recap=`Fin de temporada ${s.season}: ${s.seasonMatches} partidos, ${s.seasonGoals} goles, ${s.seasonAssists} asistencias. ${award}`;addNews(recap);s.season++;s.week=1;s.day=1;s.seasonGoals=0;s.seasonAssists=0;s.seasonMatches=0;s.wins=0;s.losses=0;s.draws=0;s.energy=100;s.fitness=85;s.morale=75;s.playedToday=false;if(s.scandal>=3){s.coachTrust-=10;addNews("Las polémicas pesan en la evaluación de pretemporada.")}s.scandal=Math.max(0,s.scandal-1);clampAll();render();modal("Cierre de temporada",`<p>${esc(recap)}</p><p>Comienza la temporada ${s.season}. Tu club, atributos, reputación y relaciones se mantienen.</p><button class="btn green" style="width:100%" onclick="closeModal()">Empezar temporada ${s.season}</button>`)}
+if(!load()){s=fresh();save()}render();if(!s.history.length)addNews("Carrera nueva: demuestra que mereces una oportunidad en el Club de Barrio.");
+</script></body></html>
