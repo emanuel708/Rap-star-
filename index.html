@@ -1,289 +1,76 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b132b"><title>Football Star Career</title>
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b132b">
+<title>Pro Football Star: Evolution</title>
 <style>
-:root{--bg:#070d1a;--p:#111c38;--p2:#1a284f;--line:#2a3d70;--txt:#f4f6fb;--muted:#94a3b8;--green:#10b981;--blue:#3b82f6;--grad:linear-gradient(135deg,#3b82f6,#10b981);--orange:linear-gradient(135deg,#f59e0b,#ef4444)}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#132247,#070d1a 60%);color:var(--txt);font:15px -apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:70px}
-.app{max-width:480px;margin:auto;padding:12px}
-.top-bar{display:flex;justify-content:space-between;align-items:center;background:var(--p);border:1px solid var(--line);border-radius:14px;padding:10px 15px;margin-bottom:12px;font-weight:700}
-.top-bar span{color:#38bdf8}
-.top-btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.top-action{background:var(--grad);border:0;border-radius:12px;color:#fff;padding:12px;font-weight:800;font-size:15px;cursor:pointer;text-align:center;box-shadow:0 4px 12px rgba(16,185,129,0.3)}
-.card{background:var(--p);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
-.dashboard{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative}
-.side-bars{display:flex;flex-direction:column;gap:15px;width:35px}
-.v-bar-container{display:flex;flex-direction:column;align-items:center;font-size:10px;color:var(--muted)}
-.v-bar{width:10px;height:110px;background:#050a14;border-radius:6px;overflow:hidden;display:flex;align-items:flex-end;border:1px solid var(--line);margin-top:4px}
-.v-fill{width:100%;background:var(--blue);height:50%}
-.avatar-box{flex:1;text-align:center}
-.avatar-img{width:140px;height:140px;background:#050a14;border:2px solid var(--line);border-radius:50%;margin:auto;display:flex;align-items:center;justify-content:center;font-size:50px;box-shadow:0 8px 24px rgba(0,0,0,0.5)}
-.right-actions{display:flex;flex-direction:column;gap:8px}
-.icon-btn{width:46px;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--p2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;position:relative}
-.icon-btn.badge::after{content:'!';position:absolute;top:-4px;right:-4px;background:#ef4444;color:#fff;font-size:10px;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.menu-tile{background:var(--grad);border:0;border-radius:14px;padding:15px;color:#fff;text-align:left;font-weight:800;cursor:pointer;font-size:15px;box-shadow:0 4px 15px rgba(59,130,246,0.3)}
-.menu-tile.alt{background:var(--orange)}
-.nav-bar{position:fixed;bottom:0;left:0;right:0;background:#050914;border-top:1px solid var(--line);display:flex;justify-content:around;padding:10px 0;z-index:100}
-.nav-item{flex:1;background:0;border:0;color:var(--muted);font-size:20px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
-.nav-item span{font-size:10px}
-.nav-item.active{color:#38bdf8}
-.overlay{position:fixed;inset:0;background:rgba(3,7,18,0.85);display:none;align-items:flex-end;justify-content:center;padding:10px;z-index:200}
-.modal{width:100%;max-width:480px;background:#111c38;border:1px solid var(--line);border-radius:20px;padding:20px;max-height:85vh;overflow:auto}
-.modal h2{margin-top:0;font-size:20px}
-.btn{width:100%;background:var(--green);color:#03130d;border:0;border-radius:12px;padding:13px;font-weight:800;cursor:pointer;margin-top:10px}
-.btn.alt{background:var(--p2);color:#fff;border:1px solid var(--line)}
-.choice-list{display:grid;gap:8px;margin-top:10px}
-.choice-btn{background:var(--p2);border:1px solid var(--line);color:#fff;padding:12px;border-radius:10px;text-align:left;cursor:pointer;font:inherit}
-.choice-btn b{display:block;color:#38bdf8}
-.feed-item{background:#091022;border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px;font-size:13px}
-</style></head><body>
-<main class="app">
-  <div class="top-bar">
-    <div id="dateDisplay">01.01.2026 · Jueves</div>
-    <div style="display:flex;gap:12px"><span id="moneyDisplay">$500</span> <span id="energyDisplay">⚡ 100</span></div>
-  </div>
-
-  <div class="top-btn-row">
-    <button class="top-action" onclick="openBio()">BIOGRAFÍA & AVATAR</button>
-    <button class="top-action" onclick="openStore()" style="background:var(--orange)">TIENDA GLOBAL</button>
-  </div>
-
-  <div class="card">
-    <div class="dashboard">
-      <div class="side-bars">
-        <div class="v-bar-container"><span>HYPE</span><div class="v-bar"><div class="v-fill" id="hypeBar" style="height:10%"></div></div></div>
-        <div class="v-bar-container"><span>REP</span><div class="v-bar"><div class="v-fill" id="repBar" style="height:20%"></div></div></div>
-      </div>
-      <div class="avatar-box">
-        <div class="avatar-img" id="avatarEmoji">⚽</div>
-        <div style="margin-top:8px;font-weight:900;font-size:17px" id="playerName">Crack Jr</div>
-        <div style="font-size:12px;color:var(--muted)" id="playerClub">Juvenil · Sin Club Pro</div>
-      </div>
-      <div class="right-actions">
-        <button class="icon-btn" onclick="openEnergyModal()" title="Energía">⚡</button>
-        <button class="icon-btn badge" onclick="openSocial()" title="Redes Sociales">🌐</button>
-        <button class="icon-btn" onclick="openSkills()" title="Atributos">📊</button>
-        <button class="icon-btn" onclick="nextDay()" id="sleepBtn" title="Avanzar Día" style="background:#f59e0b;color:#000">🌙</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="menu-grid">
-      <button class="menu-tile" onclick="openTraining()">🏃 ENTRENAMIENTO</button>
-      <button class="menu-tile" onclick="openMatches()">⚽ PARTIDOS & LIGAS</button>
-      <button class="menu-tile alt" onclick="openScouts()">👁️ OJEADORES</button>
-      <button class="menu-tile alt" onclick="openTransferMarket()">🌍MERCADO MUNDIAL</button>
-    </div>
-  </div>
-</main>
-
-<nav class="nav-bar">
-  <button class="nav-item active" onclick="switchTab('home')">🏠<span>Inicio</span></button>
-  <button class="nav-item" onclick="openTraining()">⚡<span>Acciones</span></button>
-  <button class="nav-item" onclick="openMatches()">🏆<span>Ligas</span></button>
-  <button class="nav-item" onclick="openSocial()">🌐<span>Social</span></button>
-  <button class="nav-item" onclick="openStore()">💼<span>Billetera</span></button>
-  <button class="nav-item" onclick="openSettings()">⚙️<span>Ajustes</span></button>
-</nav>
-
-<div class="overlay" id="overlay">
-  <div class="modal" id="modalContent">
-    <h2 id="mTitle">Título</h2>
-    <div id="mBody">Contenido</div>
-    <button class="btn alt" onclick="closeModal()">Cerrar</button>
-  </div>
-</div>
-
-<script>
-const fresh=()=>({
-  name:"Lucas", nickname:"El Rayo", age:16, year:2026, money:750, energy:100,
-  hype:10, rep:20, tech:18, phys:16, mental:15,
-  club:"Juvenil Barrio", league:"Liga Local Colombia", country:"Colombia",
-  followers:120, inventory:[], posts:[], journal:["Inicias tu carrera en las divisiones menores."],
-  currentTeamIndex:0
-});
-let s; try{s=JSON.parse(localStorage.getItem("proSoccerSimGlobal"))||fresh()}catch(e){s=fresh()}
-
-const save=()=>localStorage.setItem("proSoccerSimGlobal",JSON.stringify(s));
-const $=id=>document.getElementById(id);
-function closeModal(){$("overlay").style.display="none"}
-function showModal(title, html){$("mTitle").textContent=title; $("mBody").innerHTML=html; $("overlay").style.display="flex"}
-
-// Listado mundial ampliado de ejemplo para ligas y clubes
-const worldLeagues = [
-  {country: "🇨🇴 Colombia", league: "Categoría Primera A", teams: ["Atlético Nacional", "Millonarios", "Independiente Medellín", "América de Cali", "Junior"]},
-  {country: "🇦🇷 Argentina", league: "Liga Profesional de Fútbol", teams: ["River Plate", "Boca Juniors", "Racing Club", "Independiente", "San Lorenzo"]},
-  {country: "🇪🇸 España", league: "LaLiga EA Sports", teams: ["Real Madrid", "FC Barcelona", "Atlético de Madrid", "Sevilla", "Valencia"]},
-  {country: "🇬🇧 Inglaterra", league: "Premier League", teams: ["Manchester City", "Arsenal", "Liverpool", "Manchester United", "Chelsea"]},
-  {country: "🇮🇹 Italia", league: "Serie A", teams: ["Inter de Milán", "AC Milan", "Juventus", "Napoli", "Roma"]}
-];
-
-function render(){
-  $("dateDisplay").textContent=`Día ${s.age*365 + s.money%365} · ${s.year}`;
-  $("moneyDisplay").textContent="$"+s.money;
-  $("energyDisplay").textContent="⚡ "+s.energy;
-  $("playerName").textContent=`${s.name} "${s.nickname}"`;
-  $("playerClub").textContent=`${s.age} años · ${s.club}`;
-  $("hypeBar").style.height=s.hype+"%";
-  $("repBar").style.height=s.rep+"%";
-  save();
+:root {
+  --bg: #070d1a; --p: #111c38; --p2: #1a284f; --line: #2a3d70; --txt: #f4f6fb; 
+  --muted: #94a3b8; --green: #10b981; --blue: #3b82f6; --pink: #ec4899;
+  --grad: linear-gradient(135deg, #3b82f6, #10b981);
+  --grad-social: linear-gradient(135deg, #ec4899, #f59e0b);
+  --orange: linear-gradient(135deg, #f59e0b, #ef4444);
 }
+* { box-sizing: border-box; }
+body { margin: 0; background: radial-gradient(circle at top, #132247, #070d1a 70%); color: var(--txt); font: 15px -apple-system, BlinkMacSystemFont, sans-serif; padding-bottom: 80px; user-select: none; }
+.app { max-width: 480px; margin: auto; padding: 12px; }
 
-function nextDay(){
-  s.energy = Math.min(100, s.energy + 25);
-  s.money -= 10; // Gastos diarios básicos
-  if(Math.random()<0.3) {
-    s.followers += Math.floor(Math.random()*15);
-    s.posts.unshift(`Un fan comentó en tu perfil sobre tu último entrenamiento.`);
-  }
-  render();
-}
+/* Top Bar */
+.top-bar { display: flex; justify-content: space-between; align-items: center; background: var(--p); border: 1px solid var(--line); border-radius: 14px; padding: 10px 15px; margin-bottom: 12px; font-weight: 700; font-size: 13px; }
+.top-bar .stats { display: flex; gap: 10px; }
 
-function openBio(){
-  showModal("Biografía y Ajustes de Avatar", `
-    <p><b>Nombre:</b> ${s.name} (${s.nickname})</p>
-    <p><b>País Base:</b> ${s.country}</p>
-    <p><b>Club Actual:</b> ${s.club}</p>
-    <hr style="border-color:var(--line)">
-    <button class="btn" onclick="editAvatar()">Modificar Apodo y Estilo</button>
-  `);
-}
+/* Dashboard & Avatar */
+.card { background: var(--p); border: 1px solid var(--line); border-radius: 16px; padding: 15px; margin-bottom: 12px; }
+.dashboard { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.side-bars { display: flex; flex-direction: column; gap: 10px; width: 35px; }
+.v-bar-container { display: flex; flex-direction: column; align-items: center; font-size: 9px; color: var(--muted); font-weight: bold; }
+.v-bar { width: 12px; height: 90px; background: #050a14; border-radius: 6px; overflow: hidden; display: flex; align-items: flex-end; border: 1px solid var(--line); margin-top: 4px; }
+.v-fill { width: 100%; background: var(--blue); height: 50%; transition: height 0.3s; }
+.v-fill.hype { background: #f59e0b; } .v-fill.moral { background: #ec4899; }
 
-function editAvatar(){
-  let nick = prompt("Nuevo apodo en cancha:", s.nickname);
-  if(nick) s.nickname = nick;
-  render(); closeModal();
-}
+/* Detailed Visual Avatar */
+.avatar-box { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.avatar-visual { width: 120px; height: 120px; background: radial-gradient(circle, #1a284f, #050a14); border: 2px solid var(--line); border-radius: 50%; position: relative; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+.av-skin { width: 60px; height: 60px; background: #fcd5ce; border-radius: 40%; position: absolute; top: 25px; left: 50%; transform: translateX(-50%); transition: background 0.3s; }
+.av-hair { font-size: 45px; position: absolute; top: -5px; left: 50%; transform: translateX(-50%); z-index: 3; }
+.av-face { font-size: 30px; position: absolute; top: 15px; left: 50%; transform: translateX(-50%); z-index: 2; }
+.av-shirt { width: 80px; height: 50px; background: #10b981; border-radius: 30px 30px 0 0; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); z-index: 4; display: flex; align-items: center; justify-content: center; font-weight: 900; color: rgba(255,255,255,0.7); font-size: 20px; transition: background 0.3s; }
 
-function openSocial(){
-  let feedHtml = s.posts.length > 0 ? s.posts.map(p=>`<div class="feed-item">${p}</div>`).join("") : "<p>No hay publicaciones recientes.</p>";
-  showModal("Redes Sociales & Hype", `
-    <p>👥 <b>Seguidores:</b> ${s.followers}</p>
-    <p>🔥 <b>Nivel de Hype:</b> ${s.hype}%</p>
-    <hr style="border-color:var(--line)">
-    <h3>Feed de la Comunidad</h3>
-    ${feedHtml}
-    <button class="btn" onclick="postSocial()">Hacer Publicación Viral (-10 Energía)</button>
-  `);
-}
+.right-actions { display: flex; flex-direction: column; gap: 8px; }
+.icon-btn { width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--p2); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+.icon-btn.primary { background: var(--grad); border: 0; }
+.icon-btn.warn { background: var(--orange); border: 0; }
 
-function postSocial(){
-  if(s.energy < 10) return alert("No tienes energía suficiente.");
-  s.energy -= 10;
-  let gain = Math.floor(Math.random()*50) + 20;
-  s.followers += gain;
-  s.hype = Math.min(100, s.hype + 5);
-  s.posts.unshift(`Subiste un video entrenando regates. ¡Ganaste ${gain} seguidores!`);
-  openSocial();
-  render();
-}
+/* Navigation */
+.nav-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(5, 9, 20, 0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--line); display: flex; justify-content: space-around; padding: 12px 0; z-index: 100; }
+.nav-item { background: 0; border: 0; color: var(--muted); font-size: 22px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.nav-item span { font-size: 10px; font-weight: 700; text-transform: uppercase; }
+.nav-item.active { color: #38bdf8; }
 
-function openTraining(){
-  showModal("Centro de Entrenamiento", `
-    <div class="choice-list">
-      <button class="choice-btn" onclick="trainStat('tech')"><b>⚽ Entrenar Técnica</b><small>-15 Energía · Mejora control y definición</small></button>
-      <button class="choice-btn" onclick="trainStat('phys')"><b>🏋️ Preparación Física</b><small>-15 Energía · Mejora resistencia y velocidad</small></button>
-      <button class="choice-btn" onclick="trainStat('mental')"><b>🧠 Análisis Táctico</b><small>-12 Energía · Mejora visión de juego</small></button>
-    </div>
-  `);
-}
+/* Menus & Grids */
+.menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.menu-tile { background: var(--p2); border: 1px solid var(--line); border-radius: 14px; padding: 15px; color: #fff; text-align: left; font-weight: 800; cursor: pointer; font-size: 14px; display: flex; flex-direction: column; gap: 5px; }
+.menu-tile span { font-size: 20px; }
+.menu-tile.highlight { background: var(--grad); border: 0; box-shadow: 0 4px 15px rgba(59,130,246,0.3); }
 
-function trainStat(type){
-  if(s.energy < 15) return alert("Estás fatigado. Duerme para recuperar energía.");
-  s.energy -= 15;
-  if(type==='tech') s.tech += 2;
-  if(type==='phys') s.phys += 2;
-  if(type==='mental') s.mental += 2;
-  s.rep += 1;
-  render(); closeModal();
-  alert("¡Entrenamiento completado con éxito!");
-}
+/* Modals */
+.overlay { position: fixed; inset: 0; background: rgba(3,7,18,0.9); display: none; align-items: flex-end; justify-content: center; padding: 10px; z-index: 200; backdrop-filter: blur(5px); }
+.modal { width: 100%; max-width: 480px; background: #111c38; border: 1px solid var(--line); border-radius: 24px; padding: 20px; max-height: 85vh; overflow-y: auto; box-shadow: 0 -10px 40px rgba(0,0,0,0.5); animation: slideUp 0.3s ease-out; }
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.modal h2 { margin-top: 0; font-size: 22px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+.btn { width: 100%; background: var(--green); color: #03130d; border: 0; border-radius: 12px; padding: 14px; font-weight: 800; cursor: pointer; margin-top: 10px; font-size: 15px; }
+.btn.alt { background: transparent; color: var(--muted); border: 1px solid var(--line); }
 
-function openMatches(){
-  showModal("Partidos y Ligas del Mundo", `
-    <p>Actualmente compites en: <b>${s.league}</b></p>
-    <div class="choice-list">
-      <button class="choice-btn" onclick="playMatchSimulation()"><b>⚽ Jugar Partido de Liga</b><small>Pon a prueba tus habilidades (-20 Energía)</small></button>
-      <button class="choice-btn" onclick="openLeagueTable()"><b>📋 Ver Tabla de Posiciones y Clubes</b></button>
-    </div>
-  `);
-}
+/* Customizer Grid */
+.cust-section { margin-bottom: 15px; }
+.cust-section p { font-size: 12px; color: var(--muted); margin: 0 0 8px 0; font-weight: bold; text-transform: uppercase; }
+.cust-grid { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
+.cust-item { width: 50px; height: 50px; flex-shrink: 0; background: var(--p2); border: 2px solid var(--line); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; }
+.cust-item.color { background-color: var(--c); font-size: 0; }
 
-function playMatchSimulation(){
-  if(s.energy < 20) return alert("Demasiado cansancio para jugar.");
-  s.energy -= 20;
-  let performance = (s.tech + s.phys + s.mental) / 3 + Math.random()*15;
-  if(performance > 25){
-    s.rep += 3; s.money += 150;
-    showModal("¡Resultado del Partido!", `<h3>¡Victoria Destacada! 🏆</h3><p>Fuiste la figura del encuentro. Marcaste diferencia en la cancha y obtienes $150.</p>`);
-  } else {
-    s.rep += 1; s.money += 50;
-    showModal("¡Resultado del Partido!", `<h3>Empate o Partido Duro ⚽</h3><p>El encuentro fue parejo. Sumas experiencia competitiva y $50.</p>`);
-  }
-  render();
-}
-
-function openLeagueTable(){
-  let html = worldLeagues.map(l=>`<div><b>${l.country} - ${l.league}</b><ul>${l.teams.map(t=>`<li>${t}</li>`).join("")}</ul></div>`).join("<hr>");
-  showModal("Estructura de Clubes y Ligas Mundiales", html);
-}
-
-function openTransferMarket(){
-  showModal("Mercado de Fichajes y Ojeadores", `
-    <p>Los clubes de distintas ligas siguen tu evolución. Sube tu reputación y técnica para recibir ofertas oficiales.</p>
-    <div class="choice-list">
-      <button class="choice-btn" onclick="checkOffers()"><b>📥 Ver Ofertas de Clubes</b></button>
-    </div>
-  `);
-}
-
-function checkOffers(){
-  if(s.rep < 30) return alert("Ningún club profesional importante se fija en ti todavía. Sube tu reputación y juega partidos.");
-  showModal("Ofertas de Fichaje", `
-    <p>¡Atención! Tienes una propuesta formal sobre la mesa:</p>
-    <button class="choice-btn" onclick="signContract('Atlético Nacional (Colombia)')"><b>Fichar por Atlético Nacional</b><small>Sueldo alto · Liga Colombiana</small></button>
-    <button class="choice-btn" onclick="signContract('River Plate (Argentina)')"><b>Fichar por River Plate</b><small>Exposición internacional · Liga Argentina</small></button>
-  `);
-}
-
-function signContract(teamName){
-  s.club = teamName;
-  showModal("¡Fichaje Oficial! ✍️", `Has firmado contrato con el <b>${teamName}</b>. ¡Tu carrera da el salto al profesionalismo!`);
-  render();
-}
-
-function openStore(){
-  showModal("Tienda Global", `
-    <p>Dinero disponible: <b>$${s.money}</b></p>
-    <div class="choice-list">
-      <button class="choice-btn" onclick="buyItem('Botines de Oro', 250)"><b>👟 Botines de Oro ($250)</b><small>Aumenta rendimiento técnico</small></button>
-      <button class="choice-btn" onclick="buyItem('Bebidas Energéticas (Pack)', 80)"><b>⚡ Bebidas Energéticas ($80)</b><small>Recupera energía al instante</small></button>
-    </div>
-  `);
-}
-
-function buyItem(name, cost){
-  if(s.money < cost) return alert("No tienes suficiente dinero.");
-  s.money -= cost;
-  s.inventory.push(name);
-  if(name.includes("Energéticas")) s.energy = 100;
-  alert(`¡Compraste ${name} con éxito!`);
-  closeModal(); render();
-}
-
-function openSkills(){
-  showModal("Atributos del Futbolista", `
-    <p>⚽ <b>Técnica:</b> ${s.tech}</p>
-    <p>💪 <b>Físico:</b> ${s.phys}</p>
-    <p>🧠 <b>Mentalidad:</b> ${s.mental}</p>
-    <p>⭐ <b>Reputación:</b> ${s.rep}</p>
-  `);
-}
-
-function openSettings(){
-  showModal("Configuración", `
-    <button class="btn alt" onclick="if(confirm('¿Reiniciar partida?')){localStorage.removeItem('proSoccerSimGlobal');location.reload();}">Reiniciar Carrera</button>
-  `);
-}
-
-render();
-</script></body></html>
+/* Social Feed (Imstagram) */
+.social-header { display: flex; align-items: center; justify-content: space-between; background: var(--grad-social); padding: 15px; border-radius: 12px; margin-bottom: 15px; font-weight: bold; }
+.post-card { background: #091022; border: 1px solid var(--line); border-radius: 12px; padding: 15px; margin-bottom: 10px; }
+.post-user { display: flex; align-items: center; gap: 10px; margin-bottom: 1
