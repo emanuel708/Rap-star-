@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b132b">
-<title>Pro Football Star: Evolution V7</title>
+<title>Pro Football Star: Evolution V6</title>
 <style>
 :root {
   --bg: #070d1a; --p: #111c38; --p2: #1a284f; --line: #2a3d70; --txt: #f4f6fb; 
@@ -17,7 +17,7 @@
 body { margin: 0; background: var(--bg); color: var(--txt); padding-bottom: 80px; user-select: none; font-size: 14px; }
 .app { max-width: 480px; margin: auto; padding: 12px; }
 
-/* Header */
+/* Top Header */
 .header { background: var(--p); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 .header-col { display: flex; flex-direction: column; gap: 4px; }
 .val-pill { background: #050a14; padding: 4px 8px; border-radius: 6px; font-weight: bold; border: 1px solid var(--line); font-size: 12px; display: flex; align-items: center; gap: 5px; }
@@ -30,15 +30,15 @@ body { margin: 0; background: var(--bg); color: var(--txt); padding-bottom: 80px
 .v-bar { width: 12px; height: 90px; background: #050a14; border-radius: 6px; margin: 4px auto 0; border: 1px solid var(--line); display: flex; align-items: flex-end; overflow: hidden; }
 .v-fill { width: 100%; transition: height 0.3s; }
 
-/* Avatar Box */
+/* Avatar */
 .avatar-container { display: flex; flex-direction: column; align-items: center; position: relative; }
 .avatar-box { width: 130px; height: 150px; background: radial-gradient(circle, #2a3d70, #050a14); border: 2px solid var(--line); border-radius: 16px; overflow: hidden; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-.injury-overlay { position: absolute; inset: 0; background: rgba(239, 68, 68, 0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; text-align: center; z-index: 10; backdrop-filter: blur(2px); color: white; }
+.injury-overlay { position: absolute; inset: 0; background: rgba(239, 68, 68, 0.8); display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; text-align: center; z-index: 10; backdrop-filter: blur(2px); }
 .badges { position: absolute; top: 5px; right: 5px; display: flex; flex-direction: column; gap: 4px; }
 .badge { background: rgba(0,0,0,0.8); font-size: 10px; padding: 2px 5px; border-radius: 4px; border: 1px solid var(--gold); color: var(--gold); font-weight: bold; }
 .badge.assist { border-color: var(--blue); color: var(--blue); }
 
-/* Actions */
+/* Action Grid */
 .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
 .btn-action { background: var(--p2); border: 1px solid var(--line); border-radius: 12px; padding: 15px; color: #fff; font-weight: 800; text-align: left; font-size: 13px; display: flex; flex-direction: column; gap: 5px; cursor: pointer; transition: 0.2s; }
 .btn-action span { font-size: 20px; }
@@ -47,7 +47,7 @@ body { margin: 0; background: var(--bg); color: var(--txt); padding-bottom: 80px
 .btn-primary { background: var(--grad); border: none; }
 .btn-match { background: var(--grad-match); border: none; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3); }
 
-/* Nav */
+/* Bottom Nav */
 .nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(5, 9, 20, 0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--line); display: flex; justify-content: space-around; padding: 10px 0 20px 0; z-index: 100; }
 .nav-item { background: none; border: none; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 20px; cursor: pointer; }
 .nav-item span { font-size: 10px; font-weight: bold; text-transform: uppercase; }
@@ -62,7 +62,7 @@ body { margin: 0; background: var(--bg); color: var(--txt); padding-bottom: 80px
 .btn-sm { background: var(--blue); color: white; border: none; padding: 8px 12px; border-radius: 8px; font-weight: bold; font-size: 12px; cursor: pointer; }
 .btn-sm:disabled { background: var(--line); color: var(--muted); }
 
-/* Style Customizer */
+/* Customizer */
 .cust-grid { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
 .cust-item { width: 50px; height: 50px; flex-shrink: 0; border-radius: 10px; border: 2px solid var(--line); background: var(--p2); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; cursor: pointer; }
 </style>
@@ -74,4 +74,412 @@ body { margin: 0; background: var(--bg); color: var(--txt); padding-bottom: 80px
     <div class="header-col">
       <div style="color:var(--gold); font-weight:900; font-size:15px;" id="calendarTxt">Día 1 · Semana 1</div>
       <div style="color:var(--muted); font-size:11px;" id="seasonTxt">Temporada 1</div>
-    
+    </div>
+    <div class="header-col" style="align-items:flex-end;">
+      <div class="val-pill">💰 $<span id="moneyTxt">0</span></div>
+      <div class="val-pill">⚡ <span id="energyTxt">100</span>%</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="dashboard-grid">
+      <div class="bars-col">
+        <div class="v-bar-wrap">FORMA<div class="v-bar"><div class="v-fill" style="background:var(--green)" id="b-fit"></div></div></div>
+        <div class="v-bar-wrap">MORAL<div class="v-bar"><div class="v-fill" style="background:var(--pink)" id="b-mor"></div></div></div>
+      </div>
+      
+      <div class="avatar-container">
+        <div class="avatar-box" id="avatarBox"></div>
+        <div style="margin-top:10px; font-weight:900; font-size:18px; text-align:center;" id="playerName">Jugador</div>
+        <div style="font-size:12px; color:var(--muted); text-align:center;" id="playerClub">Libre</div>
+        <div style="font-size:11px; color:var(--gold); margin-top:3px; text-align:center; font-weight:bold;" id="playerPlaystyles"></div>
+      </div>
+
+      <div class="bars-col">
+        <div class="v-bar-wrap">AFICIÓN<div class="v-bar"><div class="v-fill" style="background:var(--gold)" id="b-hyp"></div></div></div>
+        <div class="v-bar-wrap">OVR<div class="v-bar"><div class="v-fill" style="background:var(--blue)" id="b-ovr"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn-action btn-match" id="btnMatch" onclick="playMatch()"><span>⚽</span> JUGAR PARTIDO<br><small id="matchTypeTxt">Liga (Fin de Sem)</small></button>
+    <button class="btn-action btn-primary" id="btnTrain" onclick="openTraining()"><span>🏃</span> ENTRENAR<br><small>Mejora Atributos</small></button>
+    <button class="btn-action" id="btnSocial" onclick="openLife()"><span>📱</span> VIDA ÍNTIMA<br><small>Redes y Familia</small></button>
+    <button class="btn-action" style="background:var(--p)" onclick="advanceDay()"><span>⏳</span> AVANZAR DÍA<br><small>Descansar</small></button>
+  </div>
+</main>
+
+<nav class="nav">
+  <button class="nav-item" onclick="closeModal()"><span>🏠</span><span>Inicio</span></button>
+  <button class="nav-item" onclick="openCareer()"><span>🌍</span><span>Carrera</span></button>
+  <button class="nav-item" onclick="openShop()"><span>🛒</span><span>Tienda</span></button>
+  <button class="nav-item" onclick="openStyle()"><span>🎨</span><span>Estilo</span></button>
+</nav>
+
+<div class="overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header"><span id="mTitle">Modal</span> <button class="close-btn" onclick="closeModal()">✕</button></div>
+    <div id="mBody" style="display:flex; flex-direction:column; gap:10px;"></div>
+  </div>
+</div>
+
+<script>
+// --- DATOS GLOBALES ---
+const DIAS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+
+const DB_CLUBS = {
+  "Club de Barrio": { col: "#10b981", ovr: 0, lg: "Amateur", sal: 100 },
+  "Envigado FC": { col: "#f97316", ovr: 55, lg: "Liga BetPlay", sal: 800 },
+  "Atlético Nacional": { col: "#22c55e", ovr: 68, lg: "Liga BetPlay", sal: 2000 },
+  "Millonarios": { col: "#3b82f6", ovr: 68, lg: "Liga BetPlay", sal: 2000 },
+  "Boca Juniors": { col: "#eab308", lgCol: "#1e3a8a", ovr: 72, lg: "Liga Profesional", sal: 3500 },
+  "River Plate": { col: "#ffffff", lgCol: "#ef4444", ovr: 73, lg: "Liga Profesional", sal: 3500 },
+  "FC Barcelona": { col: "#1e3a8a", ovr: 86, lg: "LaLiga", sal: 90000 },
+  "Real Madrid": { col: "#ffffff", ovr: 88, lg: "LaLiga", sal: 120000 },
+  "Man. City": { col: "#38bdf8", ovr: 89, lg: "Premier League", sal: 150000 }
+};
+
+const DB_SHOP = [
+  { id: "consola", name: "Consola con EA Sports FC", desc: "+5 Moral/Día", price: 800, type: "morale", val: 5, icon: "🎮" },
+  { id: "moto_ax100", name: "Moto Clásica (AX 100)", desc: "+10 Afición Permanente", price: 3500, type: "hype", val: 10, icon: "🏍️" },
+  { id: "nutri", name: "Nutricionista Personal", desc: "+5 Energía/Día", price: 10000, type: "energy", val: 5, icon: "🥗" },
+  { id: "camioneta", name: "Camioneta Diésel 4x4", desc: "+20 Afición Permanente", price: 45000, type: "hype", val: 20, icon: "🚙" },
+  { id: "mansion", name: "Mansión de Lujo", desc: "+15 Moral y Energía/Día", price: 500000, type: "all", val: 15, icon: "🏰" }
+];
+
+// --- ESTADO DEL JUEGO ---
+const getFreshSave = () => ({
+  name: "Promesa", number: 9, day: 1, week: 1, season: 1, money: 500,
+  energy: 100, fitness: 80, morale: 80, hype: 10,
+  stats: { pac: 50, sho: 50, pas: 50, dri: 50, def: 30, phy: 50 }, 
+  club: "Club de Barrio", salary: 100,
+  injury: 0, assets: [], 
+  goals: 0, assists: 0, matches: 0, // Añadido assists
+  avatar: { skin: "#fcd5ce", hair: "corto" }
+});
+
+let s;
+try { s = JSON.parse(localStorage.getItem("proSoccer_v6")); if(!s.stats) s = getFreshSave(); } 
+catch { s = getFreshSave(); }
+
+const saveGame = () => localStorage.setItem("proSoccer_v6", JSON.stringify(s));
+const $ = id => document.getElementById(id);
+
+// --- CÁLCULOS PRINCIPALES ---
+const getOVR = () => Math.round((s.stats.pac*0.15) + (s.stats.sho*0.25) + (s.stats.pas*0.15) + (s.stats.dri*0.25) + (s.stats.phy*0.20));
+
+function getPlayStyles() {
+  let ps = [];
+  if (s.stats.pac >= 80) ps.push("Veloz");
+  if (s.stats.sho >= 80) ps.push("Francotirador");
+  if (s.stats.dri >= 80) ps.push("Regateador");
+  if (s.stats.pas >= 80) ps.push("Mago");
+  if (s.stats.phy >= 80) ps.push("Tanque");
+  return ps;
+}
+
+// --- RENDERIZADO UI ---
+function render() {
+  s.energy = Math.max(0, Math.min(100, s.energy));
+  s.fitness = Math.max(0, Math.min(100, s.fitness));
+  s.morale = Math.max(0, Math.min(100, s.morale));
+  s.hype = Math.max(0, Math.min(100, s.hype));
+  if(s.assists === undefined) s.assists = 0;
+
+  $("calendarTxt").textContent = `${DIAS[s.day-1]} · Semana ${s.week}`;
+  $("seasonTxt").textContent = `Temporada ${s.season} · Salario: $${s.salary}/sem`;
+  $("moneyTxt").textContent = s.money.toLocaleString();
+  $("energyTxt").textContent = Math.round(s.energy);
+  
+  $("b-fit").style.height = `${s.fitness}%`;
+  $("b-mor").style.height = `${s.morale}%`;
+  $("b-hyp").style.height = `${s.hype}%`;
+  $("b-ovr").style.height = `${getOVR()}%`;
+  
+  $("playerName").textContent = s.name;
+  $("playerClub").textContent = `${s.club} (${DB_CLUBS[s.club].lg})`;
+  
+  let pStyles = getPlayStyles();
+  $("playerPlaystyles").textContent = pStyles.length > 0 ? `PlayStyles: ${pStyles.join(" | ")}` : "";
+
+  let isWeekend = (s.day === 6 || s.day === 7);
+  let isCupDay = (s.day === 3 && getOVR() >= 70);
+  let isMatchDay = isWeekend || isCupDay;
+  let isInjured = s.injury > 0;
+
+  $("btnMatch").disabled = !isMatchDay || isInjured;
+  $("btnTrain").disabled = isMatchDay || isInjured;
+  $("btnSocial").disabled = isInjured;
+  
+  if (isInjured) $("matchTypeTxt").textContent = `LESIONADO (${s.injury} días)`;
+  else if (isMatchDay) $("matchTypeTxt").textContent = isCupDay ? "🏆 Partido de Copa" : "⚽ Partido de Liga";
+  else $("matchTypeTxt").textContent = "Día de descanso/entreno";
+
+  let c = DB_CLUBS[s.club];
+  let shirtCol = c.col;
+  let detailCol = c.lgCol || "rgba(0,0,0,0.2)";
+  
+  let avatarHTML = `
+    <svg viewBox="0 0 200 250" style="width:100%;height:100%">
+      <path d="M30,150 Q100,120 170,150 L180,260 L20,260 Z" fill="${s.avatar.skin}"/>
+      <rect x="80" y="100" width="40" height="40" rx="10" fill="${s.avatar.skin}"/>
+      <ellipse cx="100" cy="65" rx="42" ry="52" fill="${s.avatar.skin}"/>
+      <path d="M72,50 Q80,47 88,52 M112,52 Q120,47 128,50" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+      <circle cx="78" cy="62" r="4.5" fill="#1a1a1a"/><circle cx="122" cy="62" r="4.5" fill="#1a1a1a"/>
+      <path d="M88,95 Q100,100 112,95" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+      ${s.avatar.hair==='corto'?`<path d="M54,65 C54,10 146,10 146,65 C146,30 54,30 54,65 Z" fill="#111827"/>`:''}
+      ${s.avatar.hair==='rubio'?`<path d="M54,65 C54,5 146,5 146,65 Z" fill="#eab308"/>`:''}
+      <path d="M40,150 Q100,135 160,150 L170,260 L30,260 Z" fill="${shirtCol}"/>
+      <path d="M40,150 L30,260 L45,260 L50,150 Z" fill="${detailCol}" />
+      <path d="M160,150 L170,260 L155,260 L150,150 Z" fill="${detailCol}" />
+      <text x="100" y="235" font-family="sans-serif" font-size="55" font-weight="900" fill="${shirtCol==='#ffffff'?'#000':'#fff'}" text-anchor="middle">${s.number}</text>
+    </svg>
+  `;
+  if (isInjured) avatarHTML += `<div class="injury-overlay">🚑 LESIÓN<br><small>${s.injury} Días</small></div>`;
+  
+  // Badges de Goles y Asistencias
+  let badgesHtml = `<div class="badges">`;
+  if (s.goals > 0) badgesHtml += `<div class="badge">⚽ ${s.goals}</div>`;
+  if (s.assists > 0) badgesHtml += `<div class="badge assist">👟 ${s.assists}</div>`;
+  badgesHtml += `</div>`;
+  avatarHTML += badgesHtml;
+  
+  $("avatarBox").innerHTML = avatarHTML;
+  saveGame();
+}
+
+function showModal(title, contentHTML) {
+  $("mTitle").textContent = title;
+  $("mBody").innerHTML = contentHTML;
+  $("modalOverlay").style.display = "flex";
+}
+function closeModal() { $("modalOverlay").style.display = "none"; }
+
+// --- TIEMPO ---
+function advanceDay() {
+  let eRec = 15; let mRec = 2; let fRec = 5;
+  if(s.assets.includes("nutri")) eRec += 5;
+  if(s.assets.includes("camara")) fRec += 10;
+  if(s.assets.includes("consola")) mRec += 5;
+  if(s.assets.includes("mansion")) { eRec += 15; mRec += 15; }
+
+  s.energy += eRec; s.fitness += fRec; s.morale += mRec;
+  if(s.injury > 0) s.injury--;
+
+  s.day++;
+  if (s.day > 7) {
+    s.day = 1; s.week++; s.money += s.salary;
+    if(s.week > 52) { endSeason(); return; }
+  }
+  render();
+}
+
+// --- ENTRENAMIENTO ---
+function openTraining() {
+  let html = `
+    <p style="color:var(--muted); font-size:12px;">Entrenar consume 25% de Energía.</p>
+    <div class="list-item" onclick="doTrain('pac')"><div>🏃‍♂️ <b>Ritmo</b></div> <button class="btn-sm">Entrenar</button></div>
+    <div class="list-item" onclick="doTrain('sho')"><div>🎯 <b>Tiro</b></div> <button class="btn-sm">Entrenar</button></div>
+    <div class="list-item" onclick="doTrain('pas')"><div>👟 <b>Pases</b></div> <button class="btn-sm">Entrenar</button></div>
+    <div class="list-item" onclick="doTrain('dri')"><div>🪄 <b>Regate</b></div> <button class="btn-sm">Entrenar</button></div>
+    <div class="list-item" onclick="doTrain('phy')"><div>🏋️ <b>Físico</b></div> <button class="btn-sm">Entrenar</button></div>
+  `;
+  showModal("Centro de Entrenamiento", html);
+}
+
+function doTrain(stat) {
+  if (s.energy < 25) { alert("Estás muy cansado. Descansa primero."); return; }
+  s.energy -= 25; s.fitness += 5;
+  if (s.energy < 40 && Math.random() < 0.15) {
+    s.injury = Math.floor(Math.random() * 5) + 3;
+    closeModal(); render(); alert(`¡Sobrecarga muscular! Fuera ${s.injury} días.`); return;
+  }
+  let growthChance = 1 - (s.stats[stat] / 100);
+  if (Math.random() < growthChance + 0.1) { s.stats[stat]++; alert("¡Atributo mejorado!"); } 
+  else { alert("Mantienes la forma."); }
+  closeModal(); advanceDay();
+}
+
+// --- PARTIDOS (Sistema de Decisiones Narrativas y Fans) ---
+function playMatch() {
+  if (s.energy < 30 && !confirm("Baja energía. Riesgo altísimo de lesión. ¿Jugar?")) return;
+
+  let evs = [
+    { 
+      txt: "Frente al portero casi sin ángulo. Tu compañero entra solo por el medio pidiendo el balón.", 
+      o1: "Disparar al arco tú mismo (Tiro)", s1: "sho", type1: "selfish", 
+      o2: "Dar el pase de la muerte (Pase)", s2: "pas", type2: "team" 
+    },
+    { 
+      txt: "Recibes de espaldas con el último defensa respirándote en la nuca.", 
+      o1: "Tirar una ruleta o túnel (Regate)", s1: "dri", type1: "showboat", 
+      o2: "Proteger con el cuerpo y tocar atrás (Físico)", s2: "phy", type2: "safe" 
+    },
+    { 
+      txt: "Contragolpe letal al minuto 90. Te persiguen dos centrales.", 
+      o1: "Acelerar a fondo y definir (Ritmo)", s1: "pac", type1: "sprint", 
+      o2: "Frenar la jugada y armar con calma (Pase)", s2: "pas", type2: "safe" 
+    }
+  ];
+  let ev = evs[Math.floor(Math.random() * evs.length)];
+
+  let html = `
+    <div style="background:var(--grad-match); padding:20px; border-radius:12px; text-align:center; box-shadow:inset 0 0 20px rgba(0,0,0,0.5);">
+      <h3 style="margin-top:0;color:#fff;">En el calor del partido...</h3>
+      <p style="color:#fff;font-size:16px;">${ev.txt}</p>
+      <div style="display:flex; flex-direction:column; gap:10px; margin-top:20px;">
+        <button class="btn-sm" style="padding:15px; background:#000; border:1px solid var(--line)" onclick="resolveMatch('${ev.s1}', '${ev.type1}')">${ev.o1}</button>
+        <button class="btn-sm" style="padding:15px; background:#000; border:1px solid var(--line)" onclick="resolveMatch('${ev.s2}', '${ev.type2}')">${ev.o2}</button>
+      </div>
+    </div>
+  `;
+  showModal("⚽ Día de Partido", html);
+}
+
+function resolveMatch(statUsed, actionType) {
+  s.energy -= 35; s.matches++;
+  
+  if (s.energy < 20 && Math.random() < 0.25) {
+     s.injury = Math.floor(Math.random() * 14) + 7;
+     alert(`¡ROTO! Una dura entrada te lesiona. Fuera por ${s.injury} días.`);
+     closeModal(); advanceDay(); return;
+  }
+
+  let statVal = s.stats[statUsed];
+  let chance = (statVal * 0.6) + (getOVR() * 0.4);
+  let isSuccess = (Math.random() * 100) < chance;
+
+  let msg = "";
+
+  if (isSuccess) {
+    s.morale += 10;
+    // Consecuencias de éxito según decisión
+    if (actionType === "selfish" || actionType === "sprint") {
+      s.goals++; s.hype += 8;
+      msg = "¡GOLAZO! Decidiste hacerlo todo tú mismo y la clavaste en el ángulo. La afición grita tu nombre y eres el héroe del partido.";
+    } else if (actionType === "team") {
+      s.assists++; s.hype += 5; s.morale += 5;
+      msg = "¡Asistencia perfecta! Dejaste a tu compañero solo frente al arco. Él anota, te señala en la celebración y la grada aplaude tu visión de juego.";
+    } else if (actionType === "showboat") {
+      s.hype += 15;
+      msg = "¡JOGO BONITO! Rompiste la cintura del rival con un lujo increíble. El estadio entero se levanta a aplaudirte. Tu popularidad se dispara.";
+    } else if (actionType === "safe") {
+      s.hype += 2;
+      msg = "Jugada inteligente. Mantuviste la posesión y el control del partido. El DT te felicita desde la banda por no arriesgar de más.";
+    }
+  } else {
+    s.fitness -= 10; // Extra fatigue from frustration
+    // Consecuencias de fracaso según decisión
+    if (actionType === "selfish") {
+      s.hype -= 15; s.morale -= 15;
+      msg = "¡Qué comilón! Tenías pase, pero decidiste disparar y la mandaste a la tribuna. Tu compañero te insulta y la grada te silba fuertemente por egoísta.";
+    } else if (actionType === "showboat") {
+      s.hype -= 12; s.morale -= 10;
+      msg = "Intentaste un lujo innecesario en una zona de riesgo y te robaron el balón provocando un contragolpe. Se escuchan fuertes murmullos y críticas de los fans.";
+    } else {
+      s.hype -= 5; s.morale -= 5;
+      msg = "La jugada no salió bien. Fallaste en la ejecución y el equipo rival recuperó el balón. Día gris en la oficina.";
+    }
+  }
+
+  alert(msg);
+  closeModal(); advanceDay();
+}
+
+// --- VIDA FUERA DE LA CANCHA ---
+function openLife() {
+  let html = `
+    <div class="list-item"><div>🎙️ <b>Prender Stream en Twitch</b><br><small>Aumenta Afición (-10 Energía)</small></div> <button class="btn-sm" onclick="doLife('stream')">Hacer</button></div>
+    <div class="list-item"><div>📸 <b>Publicar en Redes</b><br><small>Afición pasiva</small></div> <button class="btn-sm" onclick="doLife('post')">Subir</button></div>
+    <div class="list-item"><div>👨‍👩‍👧 <b>Cena Familiar</b><br><small>Recupera 20 Moral (-$100)</small></div> <button class="btn-sm" onclick="doLife('fam')">Ir</button></div>
+    <div class="list-item"><div>❤️ <b>Cita con Pareja</b><br><small>Recupera Moral y Forma (-$300)</small></div> <button class="btn-sm" onclick="doLife('date')">Salir</button></div>
+  `;
+  showModal("Vida Fuera de la Cancha", html);
+}
+function doLife(action) {
+  if(action === 'stream') {
+    if(s.energy < 15) return alert("Muy cansado para prender stream.");
+    s.energy -= 10; s.hype += Math.floor(Math.random()*5)+2;
+    alert("¡El chat enloqueció! Ganaste mucha popularidad con los fans jóvenes.");
+  } else if (action === 'post') {
+    s.hype += 1; alert("Subiste una historia mostrando tu outfit. Tus fans lo amaron.");
+  } else if (action === 'fam') {
+    if (s.money < 100) return alert("Sin fondos.");
+    s.money -= 100; s.morale += 20; alert("Gran comida en casa con tu familia. Te sientes anímicamente recargado.");
+  } else if (action === 'date') {
+    if (s.money < 300) return alert("Sin fondos.");
+    s.money -= 300; s.morale += 25; s.fitness += 15; alert("Una noche de lujo con tu pareja lejos de las cámaras. Te desconectaste del fútbol.");
+  }
+  render(); closeModal();
+}
+
+// --- RESTO (Mercado, Tienda, Estilo, Fin Temporada) ---
+function openCareer() {
+  let ovr = getOVR();
+  let html = `<p style="color:var(--muted); font-size:12px;">Tu OVR: <b>${ovr}</b>.</p>`;
+  Object.keys(DB_CLUBS).forEach(key => {
+    if(key === "Club de Barrio" || key === s.club) return;
+    let c = DB_CLUBS[key];
+    let canJoin = ovr >= c.ovr;
+    html += `<div class="list-item" style="${canJoin ? '' : 'opacity:0.5; filter:grayscale(1);'}">
+        <div><b>${key}</b> <span style="font-size:10px; color:var(--muted)">${c.lg}</span><br>
+        <small style="color:var(--gold)">Req: ${c.ovr} OVR | Sueldo: $${c.sal}</small></div>
+        <button class="btn-sm" ${canJoin ? '' : 'disabled'} onclick="transfer('${key}')">Fichar</button>
+      </div>`;
+  });
+  showModal("Mercado", html);
+}
+
+function transfer(newClubName) {
+  let c = DB_CLUBS[newClubName];
+  s.club = newClubName; s.morale = 100;
+  let bonus = (getOVR() - c.ovr) * 100;
+  s.salary = c.sal + (bonus > 0 ? bonus : 0);
+  alert(`✍️ ¡Fichaje cerrado! Eres jugador de ${newClubName}. Salario: $${s.salary}/sem.`);
+  closeModal(); render();
+}
+
+function openShop() {
+  let html = `<p style="color:var(--gold); font-weight:bold;">Fondos: $${s.money.toLocaleString()}</p>`;
+  DB_SHOP.forEach(item => {
+    let owned = s.assets.includes(item.id);
+    let afford = s.money >= item.price;
+    html += `<div class="list-item">
+        <div style="font-size:24px;">${item.icon}</div>
+        <div style="flex:1;"><b>${item.name}</b><br><small style="color:var(--muted)">${item.desc}</small></div>
+        ${owned ? `<button class="btn-sm" disabled style="background:var(--green);color:#000">Tuyo</button>` : `<button class="btn-sm" ${afford?'':'disabled'} onclick="buyAsset('${item.id}', ${item.price})">$${item.price}</button>`}
+      </div>`;
+  });
+  showModal("Lifestyle", html);
+}
+function buyAsset(id, price) {
+  if (s.money >= price) {
+    s.money -= price; s.assets.push(id);
+    let item = DB_SHOP.find(x => x.id === id);
+    if(item.type === 'hype') s.hype += item.val;
+    alert(`Compraste: ${item.name}.`); openShop(); render();
+  }
+}
+
+function openStyle() {
+  showModal("Taller de Estilo", `
+    <button class="btn-sm" style="margin-bottom:10px; width:100%" onclick="s.name = prompt('Apodo:', s.name) || s.name; render();">Cambiar Nombre</button>
+    <button class="btn-sm" style="margin-bottom:10px; width:100%" onclick="let d=parseInt(prompt('Dorsal:', s.number)); if(d>0&&d<100) s.number=d; render();">Cambiar Dorsal</button>
+    <p style="font-size:12px; font-weight:bold; color:var(--muted)">TONO DE PIEL</p>
+    <div class="cust-grid">${["#fcd5ce","#f5b08c","#c68642","#8d5524","#3d2210"].map(c=> `<div class="cust-item" style="background:${c}" onclick="s.avatar.skin='${c}'; render()"></div>`).join("")}</div>
+    <p style="font-size:12px; font-weight:bold; color:var(--muted)">CABELLO</p>
+    <div class="cust-grid">${[{id:"corto",n:"Corto"},{id:"rubio",n:"Rubio"},{id:"rapado",n:"Rapado"}].map(h=> `<div class="cust-item" onclick="s.avatar.hair='${h.id}'; render()">${h.n}</div>`).join("")}</div>
+  `);
+}
+
+function endSeason() {
+  alert(`🏁 FIN TEMPORADA ${s.season} 🏁\n\nPartidos: ${s.matches}\nGoles: ${s.goals}\nAsistencias: ${s.assists}\n\nDescansas para la próxima campaña.`);
+  s.season++; s.week = 1; s.day = 1; s.goals = 0; s.assists = 0; s.matches = 0; s.energy = 100; s.fitness = 100; s.morale = 100; render();
+}
+
+render();
+</script>
+</body>
+</html>
+
