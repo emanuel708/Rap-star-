@@ -82,4 +82,314 @@ body { margin: 0; background: radial-gradient(circle at top, #132247, #070d1a 70
 <main class="app">
   <div class="top-bar">
     <div id="dateDisplay" style="color:#38bdf8">Semana 1 · Temp 1</div>
-    <div class
+    <div class="stats">
+      <span id="moneyDisplay" style="color:#10b981">$500</span>
+      <span id="energyDisplay">⚡ 100%</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="dashboard">
+      <div class="side-bars">
+        <div class="v-bar-container">FORMA<div class="v-bar"><div class="v-fill" id="barFitness"></div></div></div>
+        <div class="v-bar-container">MORAL<div class="v-bar"><div class="v-fill moral" id="barMorale"></div></div></div>
+      </div>
+      
+      <div class="avatar-box">
+        <div class="avatar-visual" id="avatarPreviewBox" onclick="openCustomizer()"></div>
+        
+        <div style="margin-top:10px;font-weight:900;font-size:18px" id="playerName">Jugador</div>
+        <div style="font-size:12px;color:var(--muted)" id="playerClub">Libre</div>
+        <button class="edit-btn" onclick="editarDatos()">✏️ Editar Datos</button>
+      </div>
+
+      <div class="side-bars">
+        <div class="v-bar-container">HYPE<div class="v-bar"><div class="v-fill hype" id="barHype"></div></div></div>
+        <div class="v-bar-container">OVR<div class="v-bar"><div class="v-fill" id="barOvr"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-grid">
+    <button class="menu-tile highlight" onclick="playMatch()"><span>⚽</span> JUGAR PARTIDO</button>
+    <button class="menu-tile" onclick="openTraining()"><span>🏃</span> ENTRENAR</button>
+    <button class="menu-tile" onclick="openSocial()"><span>📱</span> IMSTAGRAM</button>
+    <button class="menu-tile" onclick="nextWeek()" style="background:var(--p2); border-color:var(--line);"><span>⏳</span> AVANZAR SEMANA</button>
+  </div>
+</main>
+
+<nav class="nav-bar">
+  <button class="nav-item active" onclick="closeModal()"><span>🏠</span><span>Inicio</span></button>
+  <button class="nav-item" onclick="openCompetitions()"><span>🏆</span><span>Torneos</span></button>
+  <button class="nav-item" onclick="openTransfers()"><span>🌍</span><span>Mercado</span></button>
+  <button class="nav-item" onclick="openCustomizer()"><span>🎨</span><span>Estilo</span></button>
+</nav>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modalContent">
+    <h2 id="mTitle">Título</h2>
+    <div id="mBody">Contenido</div>
+    <button class="btn alt" onclick="closeModal()">Cerrar</button>
+  </div>
+</div>
+
+<script>
+function generarAvatarSVG(skin, hair, shirt, number) {
+  const shadowSkin = "rgba(0,0,0,0.15)";
+  
+  const bodySVG = `
+    <path d="M30,150 Q100,120 170,150 L180,260 L20,260 Z" fill="${skin}" />
+    <rect x="80" y="100" width="40" height="40" rx="10" fill="${skin}" />
+    <ellipse cx="100" cy="115" rx="20" ry="10" fill="${shadowSkin}" />
+    <ellipse cx="100" cy="65" rx="42" ry="52" fill="${skin}" />
+    <circle cx="55" cy="70" r="10" fill="${skin}" />
+    <circle cx="145" cy="70" r="10" fill="${skin}" />
+  `;
+
+  const faceSVG = `
+    <path d="M72,50 Q80,47 88,52 M112,52 Q120,47 128,50" stroke="#1a1a1a" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="78" cy="62" r="4.5" fill="#1a1a1a" />
+    <circle cx="122" cy="62" r="4.5" fill="#1a1a1a" />
+    <path d="M100,68 L100,80 L105,82" stroke="${shadowSkin}" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M88,95 Q100,100 112,95" stroke="#1a1a1a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  `;
+
+  let hairSVG = "";
+  if(hair === "corto") hairSVG = `<path d="M54,65 C54,10 146,10 146,65 C146,30 54,30 54,65 Z" fill="#111827"/>`;
+  else if(hair === "rubio") hairSVG = `<path d="M54,65 C54,5 146,5 146,65 Q140,20 100,15 Q60,20 54,65 Z" fill="#eab308"/><path d="M70,15 Q100,-10 130,15 Z" fill="#ca8a04"/>`;
+  else if(hair === "afro") hairSVG = `<circle cx="100" cy="20" r="35" fill="#1f2937"/><circle cx="65" cy="45" r="25" fill="#1f2937"/><circle cx="135" cy="45" r="25" fill="#1f2937"/>`;
+  else if(hair === "gorra") hairSVG = `<path d="M50,45 C50,0 150,0 150,45 Z" fill="#ef4444"/><rect x="40" y="40" width="130" height="10" rx="5" fill="#b91c1c"/>`;
+  else if(hair === "rapado") hairSVG = `<ellipse cx="100" cy="50" rx="40" ry="30" fill="#111827" opacity="0.3"/>`;
+
+  const shirtSVG = `
+    <path d="M40,150 Q100,135 160,150 L170,260 L30,260 Z" fill="${shirt}" />
+    <path d="M75,148 L100,175 L125,148 Z" fill="${shadowSkin}" />
+    <path d="M40,150 L30,260 L45,260 L50,150 Z" fill="rgba(0,0,0,0.2)" />
+    <path d="M160,150 L170,260 L155,260 L150,150 Z" fill="rgba(0,0,0,0.2)" />
+    <text x="100" y="235" font-family="'Impact', sans-serif" font-size="55" font-weight="900" fill="rgba(255,255,255,0.85)" text-anchor="middle" letter-spacing="-2">${number}</text>
+  `;
+
+  return `
+    <svg viewBox="0 0 200 250" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      ${bodySVG}
+      ${faceSVG}
+      ${hairSVG}
+      ${shirtSVG}
+    </svg>
+  `;
+}
+
+const fresh = () => ({
+  name: "Novato", number: 10, week: 1, season: 1, money: 500,
+  energy: 100, fitness: 80, morale: 80, hype: 10, followers: 150,
+  stats: { tech: 50, phys: 50, ment: 50 },
+  club: "Juvenil FC", league: "Divisiones Menores",
+  avatar: { skin: "#fcd5ce", hair: "corto", shirt: "#10b981" },
+  feed: [{user: "Deportes 24/7", handle: "@deportes24", text: "¡Una nueva promesa entra al mundo del fútbol! Atentos a su carrera.", likes: 45}]
+});
+
+// NUEVA LLAVE DE GUARDADO (v3) PARA EVITAR CONFLICTOS CON PARTIDAS ANTERIORES
+let s; 
+try { 
+  s = JSON.parse(localStorage.getItem("proSoccerSim_v3"));
+  if (!s) s = fresh(); 
+} catch(e) { 
+  s = fresh(); 
+}
+
+const save = () => localStorage.setItem("proSoccerSim_v3", JSON.stringify(s));
+const $ = id => document.getElementById(id);
+const getOVR = () => Math.round((s.stats.tech * 0.4) + (s.stats.phys * 0.4) + (s.stats.ment * 0.2));
+
+function closeModal() { $("overlay").style.display = "none"; }
+function showModal(title, html) { $("mTitle").innerHTML = title; $("mBody").innerHTML = html; $("overlay").style.display = "flex"; }
+
+function render() {
+  $("dateDisplay").textContent = `Semana ${s.week} · Temp ${s.season}`;
+  $("moneyDisplay").textContent = `$${s.money}`;
+  $("energyDisplay").textContent = `⚡ ${s.energy}%`;
+  
+  $("barFitness").style.height = `${s.fitness}%`;
+  $("barMorale").style.height = `${s.morale}%`;
+  $("barHype").style.height = `${s.hype}%`;
+  $("barOvr").style.height = `${getOVR()}%`;
+
+  $("playerName").textContent = s.name;
+  $("playerClub").textContent = s.club;
+
+  $("avatarPreviewBox").innerHTML = generarAvatarSVG(s.avatar.skin, s.avatar.hair, s.avatar.shirt, s.number);
+  save();
+}
+
+function editarDatos() {
+  let nuevoNombre = prompt("Ingresa tu apodo en la cancha:", s.name);
+  if(nuevoNombre && nuevoNombre.trim() !== "") s.name = nuevoNombre;
+  
+  let nuevoDorsal = prompt("Elige tu número de dorsal (1-99):", s.number);
+  if(nuevoDorsal && !isNaN(nuevoDorsal)) s.number = Math.min(99, Math.max(1, parseInt(nuevoDorsal)));
+  
+  render();
+}
+
+function nextWeek() {
+  s.week++;
+  if(s.week > 52) { s.week = 1; s.season++; }
+  s.energy = Math.min(100, s.energy + 40);
+  s.fitness = Math.max(10, s.fitness - 5); 
+  s.money -= 50; 
+  
+  if (Math.random() < 0.25) triggerCanonicalEvent();
+  else { render(); alert("La semana ha avanzado. Descansaste e hiciste vida normal."); }
+}
+
+function triggerCanonicalEvent() {
+  const events = [
+    {
+      title: "🔥 Salida Nocturna", desc: "Tus amigos de la infancia te invitan a una fiesta un día antes del entrenamiento.",
+      btn1: "Ir a la fiesta (-20 Forma, +15 Moral)", a1: () => { s.fitness-=20; s.morale+=15; },
+      btn2: "Quedarse en casa (+10 Forma, -5 Moral)", a2: () => { s.fitness+=10; s.morale-=5; }
+    },
+    {
+      title: "📸 Patrocinio Dudoso", desc: "Una marca de dudosa calidad quiere patrocinarte en redes sociales.",
+      btn1: "Aceptar el dinero (+$300, -10 Hype)", a1: () => { s.money+=300; s.hype-=10; },
+      btn2: "Rechazar (+10 Moral)", a2: () => { s.morale+=10; }
+    }
+  ];
+  const ev = events[Math.floor(Math.random() * events.length)];
+  
+  showModal("Evento Canónico", `
+    <div class="event-box">
+      <h3>${ev.title}</h3><p>${ev.desc}</p>
+      <button class="btn" onclick="resolveEvent(${events.indexOf(ev)}, 1)">${ev.btn1}</button>
+      <button class="btn" onclick="resolveEvent(${events.indexOf(ev)}, 2)">${ev.btn2}</button>
+    </div>
+  `);
+}
+
+function resolveEvent(index, choice) {
+  if(index===0){ choice===1 ? (s.fitness-=20, s.morale+=15) : (s.fitness+=10, s.morale-=5); }
+  if(index===1){ choice===1 ? (s.money+=300, s.hype-=10) : (s.morale+=10); }
+  closeModal(); render();
+}
+
+function openCustomizer() {
+  const skins = ["#fcd5ce","#f5b08c","#c68642","#8d5524","#3d2210"];
+  const hairs = [{id:"corto",n:"Corto"}, {id:"rubio",n:"Rubio"}, {id:"afro",n:"Afro"}, {id:"gorra",n:"Gorra"}, {id:"rapado",n:"Rapado"}];
+  const shirts = ["#10b981","#3b82f6","#ef4444","#f59e0b","#ffffff","#111827","#ec4899"];
+
+  showModal("🎨 Taller de Estilo", `
+    <div style="text-align:center; height:120px; margin-bottom:15px;" id="livePreviewSVG"></div>
+    <div class="cust-section">
+      <p>Tono de Piel</p>
+      <div class="cust-grid">
+        ${skins.map(c=> `<div class="cust-item color" style="background:${c}" onclick="setAv('skin','${c}')"></div>`).join("")}
+      </div>
+    </div>
+    <div class="cust-section">
+      <p>Corte de Cabello</p>
+      <div class="cust-grid">
+        ${hairs.map(h=> `<div class="cust-item" onclick="setAv('hair','${h.id}')">${h.n}</div>`).join("")}
+      </div>
+    </div>
+    <div class="cust-section">
+      <p>Color de Camiseta</p>
+      <div class="cust-grid">
+        ${shirts.map(c=> `<div class="cust-item color" style="background:${c}" onclick="setAv('shirt','${c}')"></div>`).join("")}
+      </div>
+    </div>
+  `);
+  updateLivePreview();
+}
+
+function updateLivePreview(){ if($("livePreviewSVG")) $("livePreviewSVG").innerHTML = generarAvatarSVG(s.avatar.skin, s.avatar.hair, s.avatar.shirt, s.number); }
+function setAv(part, val) { s.avatar[part] = val; render(); updateLivePreview(); }
+
+function openSocial() {
+  const feedHtml = s.feed.map(p => `
+    <div class="post-card">
+      <div class="post-user"><div class="avatar">⚽</div> <div>${p.user} <span style="color:var(--muted);font-weight:normal">${p.handle}</span></div></div>
+      <div class="post-content">${p.text}</div>
+      <div class="post-actions"><span>❤️ ${p.likes}</span> <span>💬 ${Math.floor(p.likes/4)}</span></div>
+    </div>
+  `).join("");
+
+  showModal("📱 Imstagram", `
+    <div class="social-header">
+      <div>Followers: ${s.followers.toLocaleString()}</div>
+      <div>Hype: ${s.hype}%</div>
+    </div>
+    <button class="btn" style="margin-bottom:15px; background:var(--p2); color:#fff; border:1px solid var(--line)" onclick="postContent()">Subir foto de entrenamiento (-10 Energía)</button>
+    ${feedHtml}
+  `);
+}
+
+function postContent() {
+  if (s.energy < 10) return alert("Muy cansado para redes.");
+  s.energy -= 10;
+  let gain = Math.floor(Math.random() * (getOVR() * 10)) + 50;
+  s.followers += gain; s.hype = Math.min(100, s.hype + 5);
+  s.feed.unshift({user: s.name, handle: "@"+s.name.replace(/\s/g,'').toLowerCase(), text: "Trabajando duro para ser el mejor. 💪⚽", likes: gain*2});
+  if(s.feed.length > 10) s.feed.pop();
+  openSocial(); render();
+}
+
+function openTraining() {
+  showModal("🏃 Entrenamiento", `
+    <button class="btn" style="background:var(--p2); color:#fff; border:1px solid var(--line)" onclick="doTrain('tech')"><b>Control y Definición</b><br><small>-20 Energía | +Técnica</small></button>
+    <button class="btn" style="background:var(--p2); color:#fff; border:1px solid var(--line)" onclick="doTrain('phys')"><b>Físico</b><br><small>-20 Energía | +Forma</small></button>
+    <button class="btn" style="background:var(--p2); color:#fff; border:1px solid var(--line)" onclick="doTrain('ment')"><b>Táctica</b><br><small>-10 Energía | +Mentalidad, +Moral</small></button>
+  `);
+}
+function doTrain(type) {
+  if (s.energy < 20) return alert("Falta energía.");
+  s.energy -= 20;
+  s.stats[type] += Math.floor(Math.random()*3)+1;
+  if(type === 'phys') s.fitness = Math.min(100, s.fitness + 10);
+  if(type === 'ment') s.morale = Math.min(100, s.morale + 10);
+  render(); closeModal(); alert("Entrenamiento completado.");
+}
+
+function playMatch() {
+  if(s.energy < 30) return alert("No tienes energía suficiente.");
+  s.energy -= 30;
+  
+  let matchPerf = (getOVR() * 0.5) + (s.fitness * 0.3) + (s.morale * 0.2) + (Math.random()*20 - 10);
+  let income = 0;
+
+  if (matchPerf > 85) {
+    s.hype += 5; s.morale += 10; income = 300;
+    alert("¡MVP! Marcaste la diferencia en el partido. +$300");
+  } else if (matchPerf > 60) {
+    s.hype += 2; s.morale += 5; income = 150;
+    alert("Buen partido. Cumpliste con tu equipo. +$150");
+  } else {
+    s.hype -= 5; s.morale -= 10; income = 50;
+    alert("Partido flojo. La prensa criticó tu rendimiento. +$50");
+  }
+  s.fitness = Math.max(0, s.fitness - 20); 
+  s.money += income;
+  render();
+}
+
+function openCompetitions() {
+  showModal("🏆 Ecosistema Mundial", `
+    <div style="background:#091022; padding:12px; border-radius:12px; margin-bottom:10px;"><b>🌍 Torneos Internacionales</b><br>UEFA Champions League, Copa Libertadores, Mundial FIFA</div>
+    <div style="background:#091022; padding:12px; border-radius:12px; margin-bottom:10px;"><b>🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</b><br>Man. City, Arsenal, Liverpool, Chelsea</div>
+    <div style="background:#091022; padding:12px; border-radius:12px; margin-bottom:10px;"><b>🇪🇸 LaLiga</b><br>Real Madrid, FC Barcelona, Atl. Madrid</div>
+    <div style="background:#091022; padding:12px; border-radius:12px;"><b>🇨🇴 Liga Colombiana</b><br>Atl. Nacional, Millonarios, América</div>
+  `);
+}
+
+function openTransfers() {
+  showModal("📥 Mercado", `
+    <p>Para salir de <b>${s.club}</b> requieres un OVR mayor a 65.</p>
+    ${getOVR() >= 65 ? `<button class="btn" onclick="transferTeam('Club de Primera División')">Fichar por Club Pro</button>` : `<p style="color:var(--orange)">No hay ofertas formales aún.</p>`}
+  `);
+}
+
+function transferTeam(team) { s.club = team; alert("¡Traspaso completado!"); render(); closeModal(); }
+
+render();
+</script>
+</body>
+</html>
